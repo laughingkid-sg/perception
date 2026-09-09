@@ -15,7 +15,7 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: 'SG ↔ US Package Planner',
   description:
-    'Compare employer package, taxes, CPF, FICA, benefits, living costs, and disposable income for Singapore and U.S. H-1B tech roles.',
+    'Compare employer package, taxes, CPF, FICA, benefits, living costs, and disposable income for Singapore and U.S. H-1B1 tech roles.',
 };
 
 export default function RootLayout({

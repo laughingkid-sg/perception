@@ -39,6 +39,34 @@ type Period = 'annual' | 'monthly';
 type DisplayCurrency = 'SGD' | 'USD';
 type MobileScenario = 'sg' | 'us';
 
+type SavedPlannerState = {
+  period: Period;
+  displayCurrency: DisplayCurrency;
+  usdToSgd: number;
+  mobileScenario: MobileScenario;
+  sgBase: number;
+  sgBonus: number;
+  sgEquity: number;
+  sgBenefits: Benefit[];
+  sgExpenses: Expense[];
+  cpfStatus: CpfStatus;
+  ageBand: AgeBand;
+  sgTaxResident: boolean;
+  sgOtherReliefs: number;
+  usBase: number;
+  usBonus: number;
+  usEquity: number;
+  usBenefits: Benefit[];
+  usExpenses: Expense[];
+  retirement401k: number;
+  otherPretax: number;
+  federalMode: 'automatic' | 'manual';
+  manualFederalTax: number;
+  stateMode: 'rate' | 'annual';
+  stateValue: number;
+  usLocation: string;
+};
+
 type WebMcpTool = {
   name: string;
   title: string;
@@ -66,25 +94,31 @@ const sgBenefitsInitial: Benefit[] = [
 ];
 
 const usBenefitsInitial: Benefit[] = [
-  { id: 'us-health', name: 'Employer health plan', amount: 14_000, mode: 'package-nontaxable' },
-  { id: 'us-match', name: '401(k) employer match', amount: 9_000, mode: 'package-nontaxable' },
-  { id: 'us-food', name: 'Meal / wellness stipend', amount: 3_000, mode: 'cash-taxable' },
+  { id: 'us-health', name: 'Employer health plan', amount: 7_900, mode: 'package-nontaxable' },
+  { id: 'us-dental', name: 'Dental, vision & disability', amount: 1_200, mode: 'package-nontaxable' },
+  { id: 'us-match', name: '401(k) employer match', amount: 0, mode: 'package-nontaxable' },
+  { id: 'us-food', name: 'Meals & wellness', amount: 3_600, mode: 'package-nontaxable' },
+  { id: 'us-visa', name: 'Visa / legal support', amount: 3_000, mode: 'package-nontaxable' },
+  { id: 'us-options', name: 'Private options · risk-adjusted', amount: 10_000, mode: 'package-nontaxable' },
 ];
 
 const sgExpensesInitial: Expense[] = [
-  { id: 'sg-rent', name: 'Housing rent', monthly: 4_000 },
-  { id: 'sg-food-expense', name: 'Food & groceries', monthly: 900 },
-  { id: 'sg-transport', name: 'Transport', monthly: 250 },
-  { id: 'sg-other', name: 'Utilities & other', monthly: 600 },
+  { id: 'sg-rent', name: 'Housing rent', monthly: 1_500 },
+  { id: 'sg-food-expense', name: 'Food & groceries', monthly: 700 },
+  { id: 'sg-transport', name: 'Transport', monthly: 180 },
+  { id: 'sg-other', name: 'Utilities & other', monthly: 500 },
 ];
 
 const usExpensesInitial: Expense[] = [
-  { id: 'us-rent', name: 'Housing rent', monthly: 3_500 },
-  { id: 'us-food-expense', name: 'Food & groceries', monthly: 900 },
-  { id: 'us-transport', name: 'Transport', monthly: 700 },
+  { id: 'us-rent', name: 'Shared housing rent', monthly: 1_700 },
+  { id: 'us-food-expense', name: 'Food & groceries', monthly: 800 },
+  { id: 'us-transport', name: 'Transport', monthly: 300 },
   { id: 'us-health-expense', name: 'Healthcare out-of-pocket', monthly: 300 },
   { id: 'us-other', name: 'Utilities & other', monthly: 800 },
+  { id: 'us-travel', name: 'Trips to Singapore', monthly: 200 },
 ];
+
+const STORAGE_KEY = 'sg-us-package-planner:v2';
 
 const ageLabels: Record<AgeBand, string> = {
   '55-and-below': '55 and below',
@@ -110,6 +144,55 @@ const uid = () =>
   typeof crypto !== 'undefined' && 'randomUUID' in crypto
     ? crypto.randomUUID()
     : `${Date.now()}-${Math.random()}`;
+
+const isRecordValue = (value: unknown): value is Record<string, unknown> =>
+  typeof value === 'object' && value !== null && !Array.isArray(value);
+
+const savedNumber = (value: unknown, fallback: number) =>
+  typeof value === 'number' && Number.isFinite(value) && value >= 0
+    ? value
+    : fallback;
+
+const isBenefitMode = (value: unknown): value is BenefitMode =>
+  value === 'cash-taxable' ||
+  value === 'cash-nontaxable' ||
+  value === 'package-taxable' ||
+  value === 'package-nontaxable';
+
+const savedBenefits = (value: unknown, fallback: Benefit[]) => {
+  if (!Array.isArray(value)) return fallback;
+  const benefits: Benefit[] = [];
+  for (const item of value) {
+    if (
+      !isRecordValue(item) ||
+      typeof item.id !== 'string' ||
+      typeof item.name !== 'string' ||
+      !isBenefitMode(item.mode) ||
+      typeof item.amount !== 'number' ||
+      !Number.isFinite(item.amount) ||
+      item.amount < 0
+    ) return fallback;
+    benefits.push({ id: item.id, name: item.name, amount: item.amount, mode: item.mode });
+  }
+  return benefits;
+};
+
+const savedExpenses = (value: unknown, fallback: Expense[]) => {
+  if (!Array.isArray(value)) return fallback;
+  const expenses: Expense[] = [];
+  for (const item of value) {
+    if (
+      !isRecordValue(item) ||
+      typeof item.id !== 'string' ||
+      typeof item.name !== 'string' ||
+      typeof item.monthly !== 'number' ||
+      !Number.isFinite(item.monthly) ||
+      item.monthly < 0
+    ) return fallback;
+    expenses.push({ id: item.id, name: item.name, monthly: item.monthly });
+  }
+  return expenses;
+};
 
 function formatMoney(value: number, currency: DisplayCurrency) {
   return new Intl.NumberFormat('en-SG', {
@@ -241,14 +324,15 @@ function ResultFlow({ result, region, format }: {
 }
 
 export default function App() {
+  const [storageReady, setStorageReady] = useState(false);
   const [period, setPeriod] = useState<Period>('annual');
   const [displayCurrency, setDisplayCurrency] = useState<DisplayCurrency>('SGD');
-  const [usdToSgd, setUsdToSgd] = useState(1.3);
+  const [usdToSgd, setUsdToSgd] = useState(1.26);
   const [mobileScenario, setMobileScenario] = useState<MobileScenario>('sg');
 
-  const [sgBase, setSgBase] = useState(180_000);
-  const [sgBonus, setSgBonus] = useState(30_000);
-  const [sgEquity, setSgEquity] = useState(25_000);
+  const [sgBase, setSgBase] = useState(54_000);
+  const [sgBonus, setSgBonus] = useState(4_500);
+  const [sgEquity, setSgEquity] = useState(0);
   const [sgBenefits, setSgBenefits] = useState<Benefit[]>(sgBenefitsInitial);
   const [sgExpenses, setSgExpenses] = useState<Expense[]>(sgExpensesInitial);
   const [cpfStatus, setCpfStatus] = useState<CpfStatus>('full');
@@ -256,18 +340,76 @@ export default function App() {
   const [sgTaxResident, setSgTaxResident] = useState(true);
   const [sgOtherReliefs, setSgOtherReliefs] = useState(0);
 
-  const [usBase, setUsBase] = useState(210_000);
-  const [usBonus, setUsBonus] = useState(35_000);
-  const [usEquity, setUsEquity] = useState(70_000);
+  const [usBase, setUsBase] = useState(145_000);
+  const [usBonus, setUsBonus] = useState(0);
+  const [usEquity, setUsEquity] = useState(0);
   const [usBenefits, setUsBenefits] = useState<Benefit[]>(usBenefitsInitial);
   const [usExpenses, setUsExpenses] = useState<Expense[]>(usExpensesInitial);
-  const [retirement401k, setRetirement401k] = useState(23_500);
-  const [otherPretax, setOtherPretax] = useState(4_000);
+  const [retirement401k, setRetirement401k] = useState(14_500);
+  const [otherPretax, setOtherPretax] = useState(1_500);
   const [federalMode, setFederalMode] = useState<'automatic' | 'manual'>('automatic');
   const [manualFederalTax, setManualFederalTax] = useState(0);
   const [stateMode, setStateMode] = useState<'rate' | 'annual'>('rate');
-  const [stateValue, setStateValue] = useState(7);
-  const [usLocation, setUsLocation] = useState('California');
+  const [stateValue, setStateValue] = useState(7.5);
+  const [usLocation, setUsLocation] = useState('San Francisco, California');
+
+  useEffect(() => {
+    try {
+      const raw = window.localStorage.getItem(STORAGE_KEY);
+      if (!raw) return;
+      const saved = JSON.parse(raw) as unknown;
+      if (!isRecordValue(saved)) return;
+
+      if (saved.period === 'annual' || saved.period === 'monthly') setPeriod(saved.period);
+      if (saved.displayCurrency === 'SGD' || saved.displayCurrency === 'USD') setDisplayCurrency(saved.displayCurrency);
+      setUsdToSgd(savedNumber(saved.usdToSgd, 1.26));
+      if (saved.mobileScenario === 'sg' || saved.mobileScenario === 'us') setMobileScenario(saved.mobileScenario);
+
+      setSgBase(savedNumber(saved.sgBase, 54_000));
+      setSgBonus(savedNumber(saved.sgBonus, 4_500));
+      setSgEquity(savedNumber(saved.sgEquity, 0));
+      setSgBenefits(savedBenefits(saved.sgBenefits, sgBenefitsInitial));
+      setSgExpenses(savedExpenses(saved.sgExpenses, sgExpensesInitial));
+      if (saved.cpfStatus === 'full' || saved.cpfStatus === 'pr-year-1' || saved.cpfStatus === 'pr-year-2' || saved.cpfStatus === 'none') setCpfStatus(saved.cpfStatus);
+      if (saved.ageBand === '55-and-below' || saved.ageBand === '55-60' || saved.ageBand === '60-65' || saved.ageBand === '65-70' || saved.ageBand === 'above-70') setAgeBand(saved.ageBand);
+      if (typeof saved.sgTaxResident === 'boolean') setSgTaxResident(saved.sgTaxResident);
+      setSgOtherReliefs(savedNumber(saved.sgOtherReliefs, 0));
+
+      setUsBase(savedNumber(saved.usBase, 145_000));
+      setUsBonus(savedNumber(saved.usBonus, 0));
+      setUsEquity(savedNumber(saved.usEquity, 0));
+      setUsBenefits(savedBenefits(saved.usBenefits, usBenefitsInitial));
+      setUsExpenses(savedExpenses(saved.usExpenses, usExpensesInitial));
+      setRetirement401k(savedNumber(saved.retirement401k, 14_500));
+      setOtherPretax(savedNumber(saved.otherPretax, 1_500));
+      if (saved.federalMode === 'automatic' || saved.federalMode === 'manual') setFederalMode(saved.federalMode);
+      setManualFederalTax(savedNumber(saved.manualFederalTax, 0));
+      if (saved.stateMode === 'rate' || saved.stateMode === 'annual') setStateMode(saved.stateMode);
+      setStateValue(savedNumber(saved.stateValue, 7.5));
+      if (typeof saved.usLocation === 'string') setUsLocation(saved.usLocation);
+    } catch {
+      // Ignore unavailable or malformed browser storage and keep safe defaults.
+    } finally {
+      setStorageReady(true);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (!storageReady) return;
+    const saved: SavedPlannerState = {
+      period, displayCurrency, usdToSgd, mobileScenario,
+      sgBase, sgBonus, sgEquity, sgBenefits, sgExpenses, cpfStatus, ageBand,
+      sgTaxResident, sgOtherReliefs,
+      usBase, usBonus, usEquity, usBenefits, usExpenses, retirement401k,
+      otherPretax, federalMode, manualFederalTax, stateMode, stateValue,
+      usLocation,
+    };
+    try {
+      window.localStorage.setItem(STORAGE_KEY, JSON.stringify(saved));
+    } catch {
+      // The calculator still works when a browser blocks local storage.
+    }
+  }, [storageReady, period, displayCurrency, usdToSgd, mobileScenario, sgBase, sgBonus, sgEquity, sgBenefits, sgExpenses, cpfStatus, ageBand, sgTaxResident, sgOtherReliefs, usBase, usBonus, usEquity, usBenefits, usExpenses, retirement401k, otherPretax, federalMode, manualFederalTax, stateMode, stateValue, usLocation]);
 
   const sg = useMemo(() => calculateSingapore({ base: sgBase, bonus: sgBonus, equity: sgEquity, benefits: sgBenefits, expenses: sgExpenses, cpfStatus, ageBand, taxResident: sgTaxResident, otherReliefs: sgOtherReliefs }), [sgBase, sgBonus, sgEquity, sgBenefits, sgExpenses, cpfStatus, ageBand, sgTaxResident, sgOtherReliefs]);
   const us = useMemo(() => calculateUnitedStates({ base: usBase, bonus: usBonus, equity: usEquity, benefits: usBenefits, expenses: usExpenses, retirement401k, otherPretax, federalMode, manualFederalTax, stateMode, stateValue }), [usBase, usBonus, usEquity, usBenefits, usExpenses, retirement401k, otherPretax, federalMode, manualFederalTax, stateMode, stateValue]);
@@ -445,7 +587,7 @@ export default function App() {
 
       <div className="app-shell" id="top">
         <section className="intro-grid">
-          <div className="intro-copy"><p className="eyebrow">SG ↔ US H-1B COMPARISON</p><h1>Package, not just paycheck.</h1><p>Compare employer cost, what reaches you, and what remains after tax and life.</p></div>
+          <div className="intro-copy"><p className="eyebrow">SG ↔ US H-1B1 COMPARISON</p><h1>Package, not just paycheck.</h1><p>Compare employer cost, what reaches you, and what remains after tax and life.</p></div>
           <div className="global-controls" aria-label="Comparison settings">
             <label><span>Results</span><span className="segmented-control"><button className={period === 'annual' ? 'active' : ''} type="button" onClick={() => setPeriod('annual')}>Annual</button><button className={period === 'monthly' ? 'active' : ''} type="button" onClick={() => setPeriod('monthly')}>Monthly</button></span></label>
             <label><span>Display in</span><span className="segmented-control"><button className={displayCurrency === 'SGD' ? 'active' : ''} type="button" onClick={() => setDisplayCurrency('SGD')}>SGD</button><button className={displayCurrency === 'USD' ? 'active' : ''} type="button" onClick={() => setDisplayCurrency('USD')}>USD</button></span></label>
@@ -455,7 +597,7 @@ export default function App() {
 
         <section className="outcome-card" aria-live="polite">
           <div className="outcome-copy"><p className="eyebrow light">DISPOSABLE INCOME</p><h2><span>{winner}</span> leaves {formatMoney(delta / (period === 'monthly' ? 12 : 1), displayCurrency)} more {periodLabel}</h2><p>After estimated tax, payroll deductions, and the living costs below.</p></div>
-          <div className="score-grid"><article className="score sg"><span>Singapore</span><strong>{display(sg.disposableIncome, 'sg')}</strong><small>{formatPercent(sg.effectiveAllInRate)} tax + statutory</small></article><div className="versus">VS</div><article className="score us"><span>U.S. H-1B</span><strong>{display(us.disposableIncome, 'us')}</strong><small>{formatPercent(us.effectiveAllInRate)} tax + FICA</small></article></div>
+          <div className="score-grid"><article className="score sg"><span>Singapore</span><strong>{display(sg.disposableIncome, 'sg')}</strong><small>{formatPercent(sg.effectiveAllInRate)} tax + statutory</small></article><div className="versus">VS</div><article className="score us"><span>U.S. H-1B1</span><strong>{display(us.disposableIncome, 'us')}</strong><small>{formatPercent(us.effectiveAllInRate)} tax + FICA</small></article></div>
         </section>
 
         <section className="metric-strip">
@@ -470,11 +612,11 @@ export default function App() {
         </section>
 
         <section className="workspace-section" id="inputs">
-          <div className="block-title"><div><p className="eyebrow">YOUR SCENARIOS</p><h2>Build each offer</h2></div><p>All compensation and benefit inputs are annual. Living costs are monthly.</p></div>
-          <div className="mobile-scenario-toggle" aria-label="Choose scenario to edit"><button className={mobileScenario === 'sg' ? 'active' : ''} type="button" onClick={() => setMobileScenario('sg')}>Singapore</button><button className={mobileScenario === 'us' ? 'active' : ''} type="button" onClick={() => setMobileScenario('us')}>U.S. H-1B</button></div>
+          <div className="block-title"><div><p className="eyebrow">YOUR SCENARIOS</p><h2>Build each offer</h2></div><p>All compensation and benefit inputs are annual. Living costs are monthly. Changes save automatically on this browser.</p></div>
+          <div className="mobile-scenario-toggle" aria-label="Choose scenario to edit"><button className={mobileScenario === 'sg' ? 'active' : ''} type="button" onClick={() => setMobileScenario('sg')}>Singapore</button><button className={mobileScenario === 'us' ? 'active' : ''} type="button" onClick={() => setMobileScenario('us')}>U.S. H-1B1</button></div>
           <div className="scenario-grid">
             <article className={`scenario-card sg ${mobileScenario !== 'sg' ? 'mobile-hidden' : ''}`}>
-              <div className="scenario-head"><div><span className="flag-mark">SG</span><div><p>SINGAPORE</p><h2>Normal tech role</h2></div></div><span>SGD</span></div>
+              <div className="scenario-head"><div><span className="flag-mark">SG</span><div><p>SINGAPORE</p><h2>2 YOE QA role</h2></div></div><span>SGD</span></div>
               <div className="editor-section"><SectionHeading icon={<BadgeDollarSign />} title="Compensation" copy="Annual employee compensation before tax." /><div className="field-grid three"><NumberField label="Base salary" prefix="S$" value={sgBase} onChange={setSgBase} /><NumberField label="Expected bonus" prefix="S$" value={sgBonus} onChange={setSgBonus} /><NumberField label="Annualized equity" prefix="S$" value={sgEquity} onChange={setSgEquity} /></div></div>
               <BenefitEditor currency="SGD" benefits={sgBenefits} setBenefits={setSgBenefits} />
               <div className="editor-section">
@@ -496,8 +638,8 @@ export default function App() {
             </article>
 
             <article className={`scenario-card us ${mobileScenario !== 'us' ? 'mobile-hidden' : ''}`}>
-              <div className="scenario-head"><div><span className="flag-mark">US</span><div><p>UNITED STATES</p><h2>H-1B tech role</h2></div></div><span>USD</span></div>
-              <div className="editor-section"><SectionHeading icon={<BadgeDollarSign />} title="Compensation" copy="Annual employee compensation before tax." /><div className="field-grid three"><NumberField label="Base salary" prefix="$" value={usBase} onChange={setUsBase} /><NumberField label="Expected bonus" prefix="$" value={usBonus} onChange={setUsBonus} /><NumberField label="Annualized equity" prefix="$" value={usEquity} onChange={setUsEquity} /></div></div>
+              <div className="scenario-head"><div><span className="flag-mark">US</span><div><p>UNITED STATES</p><h2>SWE / FDE transition</h2></div></div><span>USD</span></div>
+              <div className="editor-section"><SectionHeading icon={<BadgeDollarSign />} title="Compensation" copy="Annual employee compensation before tax." /><div className="field-grid three"><NumberField label="Base salary" prefix="$" value={usBase} onChange={setUsBase} /><NumberField label="Expected bonus" prefix="$" value={usBonus} onChange={setUsBonus} /><NumberField label="Annualized equity" prefix="$" value={usEquity} onChange={setUsEquity} hint="Keep private options at $0; model them below as package-only." /></div></div>
               <BenefitEditor currency="USD" benefits={usBenefits} setBenefits={setUsBenefits} />
               <div className="editor-section">
                 <SectionHeading icon={<Landmark />} title="Tax & payroll profile" copy="2026 federal single-filer rates; state and local tax stays editable." />
@@ -515,7 +657,7 @@ export default function App() {
                   <span><small>State/local scenario</small><strong>{formatMoney(us.stateLocalTax, 'USD')}</strong></span>
                   <span><small>Employee FICA</small><strong>{formatMoney(us.employeeFica, 'USD')}</strong></span>
                 </div>
-                {federalMode === 'manual' ? <div className="warning-note"><CircleHelp /><p>H-1B status alone does not determine income-tax residency. Enter a manual federal estimate for non-resident or dual-status years.</p></div> : null}
+                {federalMode === 'manual' ? <div className="warning-note"><CircleHelp /><p>H-1B1 status alone does not determine income-tax residency. Enter a manual federal estimate for non-resident or dual-status years.</p></div> : null}
                 <div className="calculation-note"><CircleHelp /><p><strong>{formatMoney(us.employerFica, 'USD')} employer FICA</strong> is included as employer package cost, not employee wealth. Employee FICA is {formatMoney(us.employeeFica, 'USD')}.</p></div>
               </div>
               <ExpenseEditor currency="USD" expenses={usExpenses} setExpenses={setUsExpenses} />
@@ -525,7 +667,7 @@ export default function App() {
 
         <section className="comparison-section">
           <div className="block-title"><div><p className="eyebrow">SIDE BY SIDE</p><h2>One definition for every number</h2></div><p>Values below use {displayCurrency} at US$1 = S${usdToSgd.toFixed(2)}.</p></div>
-          <div className="comparison-table-wrap"><table className="comparison-table"><thead><tr><th>Measure</th><th><span className="table-dot sg" />Singapore</th><th><span className="table-dot us" />U.S. H-1B</th><th>Difference</th></tr></thead><tbody>
+          <div className="comparison-table-wrap"><table className="comparison-table"><thead><tr><th>Measure</th><th><span className="table-dot sg" />Singapore</th><th><span className="table-dot us" />U.S. H-1B1</th><th>Difference</th></tr></thead><tbody>
             {comparisonRows.map(([label, sgValue, usValue]) => {
               const sgConverted = convert(sgValue, 'sg') / (period === 'monthly' ? 12 : 1);
               const usConverted = convert(usValue, 'us') / (period === 'monthly' ? 12 : 1);
@@ -545,7 +687,7 @@ export default function App() {
             <summary><span><CircleHelp /> Calculation notes & official sources</span><ChevronDown /></summary>
             <div className="assumption-content">
               <div><h3>Singapore</h3><p>Projected 2026 compensation uses the resident rates published for YA 2024 onward. CPF uses the 2026 S$8,000 monthly Ordinary Wage ceiling and S$102,000 annual salary ceiling. The estimate annualizes CPF and can differ from payroll by a few dollars because CPF is rounded monthly. Equity is taxable but excluded from CPF wages in this simplified model.</p><p><a href="https://www.cpf.gov.sg/employer/employer-obligations/how-much-cpf-contributions-to-pay" target="_blank" rel="noreferrer">CPF contribution rates</a><a href="https://www.cpf.gov.sg/employer/employer-obligations/what-payments-attract-cpf-contributions" target="_blank" rel="noreferrer">CPF wage ceilings</a><a href="https://www.iras.gov.sg/taxes/individual-income-tax/basics-of-individual-income-tax/tax-residency-and-tax-rates/individual-income-tax-rates" target="_blank" rel="noreferrer">IRAS tax rates</a></p></div>
-              <div><h3>United States</h3><p>Automatic mode assumes a full-year U.S. resident alien, single filer, one W-2 job, the 2026 standard deduction, and no credits, itemizing, AMT, other income, or treaty effects. FICA normally applies to H-1B employment. State/local tax is intentionally a manual scenario because jurisdiction rules vary.</p><p><a href="https://www.irs.gov/irb/2025-45_IRB" target="_blank" rel="noreferrer">IRS 2026 brackets</a><a href="https://www.irs.gov/publications/p15" target="_blank" rel="noreferrer">IRS payroll tax guide</a><a href="https://www.ssa.gov/OACT/COLA/cbb.html" target="_blank" rel="noreferrer">SSA wage base</a><a href="https://www.irs.gov/individuals/taxation-of-alien-individuals-by-immigration-status-h-1b" target="_blank" rel="noreferrer">H-1B tax residency</a></p></div>
+              <div><h3>United States</h3><p>Automatic mode assumes a full-year U.S. resident alien, single filer, one W-2 job, the 2026 standard deduction, and no credits, itemizing, AMT, other income, or treaty effects. FICA normally applies to H-1B1 employment. State/local tax is intentionally a manual scenario because jurisdiction rules vary.</p><p><a href="https://www.irs.gov/irb/2025-45_IRB" target="_blank" rel="noreferrer">IRS 2026 brackets</a><a href="https://www.irs.gov/publications/p15" target="_blank" rel="noreferrer">IRS payroll tax guide</a><a href="https://www.ssa.gov/OACT/COLA/cbb.html" target="_blank" rel="noreferrer">SSA wage base</a><a href="https://www.irs.gov/individuals/taxation-of-alien-individuals-by-immigration-status-h-1b" target="_blank" rel="noreferrer">H-1B1 tax residency</a></p></div>
             </div>
           </details>
           <p className="disclaimer">Planning estimate only—not tax, legal, or immigration advice. Actual liability depends on your full facts, benefit treatment, and filing position.</p>
