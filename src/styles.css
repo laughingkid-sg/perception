@@ -62,10 +62,10 @@ h1 { margin:10px 0 8px; font-size:clamp(32px,4vw,56px); letter-spacing:-.045em; 
 .legend { display:flex; gap:12px; color:#77776f; font-size:12px; white-space:nowrap; }
 .dot { display:inline-block; width:7px; height:7px; border-radius:50%; margin-right:5px; }
 .dot.good { background:#45855b; }.dot.warn { background:#d39530; }.dot.bad { background:#b95a4f; }
-.table-wrap { position:relative; overflow:auto; }
+.table-wrap { position:relative; max-height:72vh; overflow:auto; scrollbar-gutter:stable; }
 table { width:100%; border-collapse:separate; border-spacing:0; min-width:1550px; font-size:13px; }
 thead { position:relative; z-index:30; }
-th { position:sticky; top:0; z-index:40; overflow:visible; background:#f3f0e8; padding:11px 12px; text-align:left; color:#6e7066; font-size:11px; text-transform:uppercase; letter-spacing:.04em; border-bottom:1px solid #dedbd0; }
+th { position:sticky; top:0; z-index:40; overflow:visible; background:#f3f0e8; padding:11px 12px; text-align:left; color:#6e7066; font-size:11px; text-transform:uppercase; letter-spacing:.04em; border-bottom:1px solid #cfcbbf; box-shadow:0 1px 0 rgba(22,23,19,.05); }
 th:hover, th:focus-within { z-index:60; }
 .th-label .tooltip { top:calc(100% + 8px); bottom:auto; }
 .th-label .tooltip::after { top:auto; bottom:100%; border-top-color:transparent; border-bottom-color:#20241d; }
