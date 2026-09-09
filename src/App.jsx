@@ -46,6 +46,7 @@ const DEFAULTS = {
   income: 18000,
   debt: 0,
   monthlySavings: 6000,
+  annualIncomeGrowth: 5,
   bankRate: 1.65,
   hdbRate: 2.6,
   bankStressRate: 4,
@@ -189,6 +190,42 @@ function estimateMonthlyCpfOA(income, earners, ageBand, citizenship) {
   return Math.round(cpfPerContributor * profile.oaRatio * contributorCount);
 }
 
+function valueAtMonth(baseValue, annualGrowth, month) {
+  const completedYears = Math.floor(month / 12);
+  return baseValue * Math.pow(1 + annualGrowth / 100, completedYears);
+}
+
+function projectBalances(settings, months) {
+  let cash = settings.cash;
+  let cpf = settings.cpf;
+
+  for (let month = 0; month < months; month += 1) {
+    const income = valueAtMonth(settings.income, settings.annualIncomeGrowth, month);
+    const cashSavings = valueAtMonth(settings.monthlySavings, settings.annualIncomeGrowth, month);
+    cash += cashSavings;
+    cpf += estimateMonthlyCpfOA(income, settings.cpfEarners, settings.cpfAgeBand, settings.citizenship);
+  }
+
+  const income = valueAtMonth(settings.income, settings.annualIncomeGrowth, months);
+  const cashSavings = valueAtMonth(settings.monthlySavings, settings.annualIncomeGrowth, months);
+  const cpfOAContribution = estimateMonthlyCpfOA(
+    income,
+    settings.cpfEarners,
+    settings.cpfAgeBand,
+    settings.citizenship,
+  );
+
+  return { cash, cpf, income, cashSavings, cpfOAContribution };
+}
+
+function findTargetMonth(totalUpfront, minCash, settings) {
+  for (let month = 0; month <= 360; month += 1) {
+    const projection = projectBalances(settings, month);
+    if (projection.cash >= minCash && projection.cash + projection.cpf >= totalUpfront) return month;
+  }
+  return null;
+}
+
 function FormattedNumberInput({ value, onChange, allowDecimal = false, ...props }) {
   const [draft, setDraft] = useState(() => formatInputValue(value, allowDecimal));
   const focused = useRef(false);
@@ -282,14 +319,15 @@ function App() {
   const [showAdvanced, setShowAdvanced] = useState(false);
   const [hideIneligible, setHideIneligible] = useState(false);
 
-  const monthlyCpfOA = estimateMonthlyCpfOA(
-    settings.income,
-    settings.cpfEarners,
-    settings.cpfAgeBand,
-    settings.citizenship,
+  const projection = useMemo(
+    () => projectBalances(settings, settings.timelineMonths),
+    [settings],
   );
-  const projectedCash = settings.cash + settings.monthlySavings * settings.timelineMonths;
-  const projectedCpf = settings.cpf + monthlyCpfOA * settings.timelineMonths;
+  const projectedCash = projection.cash;
+  const projectedCpf = projection.cpf;
+  const projectedIncome = projection.income;
+  const projectedCashSavings = projection.cashSavings;
+  const monthlyCpfOA = projection.cpfOAContribution;
   const assets = projectedCash + projectedCpf;
 
   useEffect(() => {
@@ -309,11 +347,11 @@ function App() {
     let eligible = true;
     let eligibilityReason = '';
 
-    if (isBto && settings.income > 16000) {
+    if (isBto && projectedIncome > 16000) {
       eligible = false;
       eligibilityReason = 'Household income exceeds $16k new-HDB ceiling';
     }
-    if (isEc && settings.income > 18000) {
+    if (isEc && projectedIncome > 18000) {
       eligible = false;
       eligibilityReason = 'Household income exceeds $18k new-EC ceiling';
     }
@@ -323,7 +361,7 @@ function App() {
     }
 
     let financing = row.financing;
-    if (isResaleHdb) financing = settings.income <= 16000 ? 'hdb' : 'hdb-bank';
+    if (isResaleHdb) financing = projectedIncome <= 16000 ? 'hdb' : 'hdb-bank';
 
     let maxLoan = 0;
     let binding = 'LTV';
@@ -335,20 +373,20 @@ function App() {
     if (financing === 'hdb') {
       actualRate = settings.hdbRate;
       tenure = settings.hdbYears;
-      maxPayment = settings.income * 0.30;
+      maxPayment = projectedIncome * 0.30;
       const incomeLoan = loanFromPayment(maxPayment, settings.hdbStressRate, tenure);
       const ltvLoan = price * 0.75;
       maxLoan = Math.min(ltvLoan, incomeLoan);
       binding = incomeLoan < ltvLoan ? 'MSR' : 'LTV';
       minCash = isBto ? 2000 : 5000;
     } else if (financing === 'ec' || financing === 'hdb-bank') {
-      maxPayment = Math.max(0, Math.min(settings.income * 0.30, settings.income * 0.55 - settings.debt));
+      maxPayment = Math.max(0, Math.min(projectedIncome * 0.30, projectedIncome * 0.55 - settings.debt));
       const incomeLoan = loanFromPayment(maxPayment, settings.bankStressRate, tenure);
       const ltvLoan = price * 0.75;
       maxLoan = Math.min(ltvLoan, incomeLoan);
-      binding = incomeLoan < ltvLoan ? (settings.income * 0.30 <= settings.income * 0.55 - settings.debt ? 'MSR' : 'TDSR') : 'LTV';
+      binding = incomeLoan < ltvLoan ? (projectedIncome * 0.30 <= projectedIncome * 0.55 - settings.debt ? 'MSR' : 'TDSR') : 'LTV';
     } else {
-      maxPayment = Math.max(0, settings.income * 0.55 - settings.debt);
+      maxPayment = Math.max(0, projectedIncome * 0.55 - settings.debt);
       const incomeLoan = loanFromPayment(maxPayment, settings.bankStressRate, tenure);
       const ltvLoan = price * 0.75;
       maxLoan = Math.min(ltvLoan, incomeLoan);
@@ -366,20 +404,7 @@ function App() {
     const cashGap = Math.max(0, minCash - projectedCash);
     const fundingGap = Math.max(totalGap, cashGap);
     const monthly = monthlyPayment(maxLoan, actualRate, tenure);
-    const monthlyCapitalGrowth = settings.monthlySavings + monthlyCpfOA;
-    const capitalMonths = totalUpfront <= settings.cash + settings.cpf
-      ? 0
-      : monthlyCapitalGrowth > 0
-        ? Math.ceil((totalUpfront - settings.cash - settings.cpf) / monthlyCapitalGrowth)
-        : null;
-    const cashMonths = minCash <= settings.cash
-      ? 0
-      : settings.monthlySavings > 0
-        ? Math.ceil((minCash - settings.cash) / settings.monthlySavings)
-        : null;
-    const monthsToTarget = capitalMonths == null || cashMonths == null
-      ? null
-      : Math.max(capitalMonths, cashMonths);
+    const monthsToTarget = findTargetMonth(totalUpfront, minCash, settings);
 
     let status = settings.timelineMonths === 0 ? 'Affordable now' : `Affordable at ${settings.timelineMonths} mo`;
     if (!eligible) status = 'Not eligible';
@@ -407,7 +432,7 @@ function App() {
       monthsToTarget,
       status,
     };
-  }), [prices, settings, assets, projectedCash, monthlyCpfOA]);
+  }), [prices, settings, assets, projectedCash, projectedIncome]);
 
   const visibleRows = hideIneligible ? rows.filter((r) => r.eligible) : rows;
   const affordableCount = rows.filter((r) => r.eligible && r.fundingGap === 0).length;
@@ -437,8 +462,8 @@ function App() {
         </div>
         <div className="summary-card">
           <span><CircleDollarSign size={17} /> Household income</span>
-          <strong>{fmt.format(settings.income)}<i>/mo</i></strong>
-          <small>{fmt.format(settings.debt)} existing monthly debt</small>
+          <strong>{fmt.format(projectedIncome)}<i>/mo</i></strong>
+          <small>{settings.timelineMonths === 0 ? `${fmt.format(settings.debt)} existing monthly debt` : `${fmt.format(settings.income)}/mo today`}</small>
         </div>
         <div className="summary-card">
           <span><ShieldCheck size={17} /> {settings.timelineMonths === 0 ? 'Affordable now' : `Affordable at month ${settings.timelineMonths}`}</span>
@@ -458,6 +483,7 @@ function App() {
           <NumberInput label="CPF OA available" help="Current CPF Ordinary Account balance available for housing, before future CPF contributions." value={settings.cpf} onChange={(v) => setSettings({ ...settings, cpf: v })} />
           <NumberInput label="Household income" help="Combined gross monthly income used for income ceilings, loan servicing limits and estimated CPF OA contributions." value={settings.income} onChange={(v) => setSettings({ ...settings, income: v })} suffix="/mo" />
           <NumberInput label="Monthly cash savings" help="Cash you expect to save each month. CPF contributions are estimated separately and added automatically." value={settings.monthlySavings} onChange={(v) => setSettings({ ...settings, monthlySavings: v })} suffix="/mo" />
+          <NumberInput label="Annual income growth" help="Applied as a step-up every 12 months. Monthly cash savings grows by the same percentage, while CPF OA is recalculated against the wage ceiling." value={settings.annualIncomeGrowth} onChange={(v) => setSettings({ ...settings, annualIncomeGrowth: v })} prefix="" suffix="% / yr" step={0.5} />
           <NumberInput label="Existing monthly debt" help="Monthly repayments for existing loans and credit obligations counted under TDSR." value={settings.debt} onChange={(v) => setSettings({ ...settings, debt: v })} suffix="/mo" />
           <label className="field">
             <FieldLabel label="CPF contributor age" help="Age band used for the 2026 CPF contribution and OA allocation rates. One band is applied to all contributors in this simplified model." />
@@ -510,12 +536,12 @@ function App() {
         <div className="timeline-heading">
           <div>
             <h2>Timeline preview</h2>
-            <p>Drag forward to see your projected cash, CPF OA and funding gaps.</p>
+            <p>Drag forward to see salary growth flow through cash savings, CPF OA, loan capacity and funding gaps.</p>
           </div>
           <strong>{settings.timelineMonths === 0 ? 'Today' : `${settings.timelineMonths} months ahead`}</strong>
         </div>
         <label className="timeline-control">
-          <FieldLabel label="Months ahead" help="Projects balances using monthly cash savings and estimated CPF OA contributions. It excludes interest, bonuses, grants and investment returns." />
+          <FieldLabel label="Months ahead" help="Income and cash savings step up every 12 months using the annual growth rate. CPF OA is recalculated monthly. Interest, bonuses, grants and investment returns are excluded." />
           <input
             type="range"
             min="0"
@@ -527,8 +553,9 @@ function App() {
           <span className="timeline-scale"><i>Now</i><i>2 years</i><i>5 years</i><i>10 years</i></span>
         </label>
         <div className="timeline-values">
-          <div><span>Cash</span><strong>{fmt.format(projectedCash)}</strong><small>+{fmt.format(settings.monthlySavings)}/mo</small></div>
+          <div><span>Cash</span><strong>{fmt.format(projectedCash)}</strong><small>+{fmt.format(projectedCashSavings)}/mo at selected month</small></div>
           <div><span>CPF OA</span><strong>{fmt.format(projectedCpf)}</strong><small>+{fmt.format(monthlyCpfOA)}/mo estimated</small></div>
+          <div><span>Income</span><strong>{fmt.format(projectedIncome)}<i>/mo</i></strong><small>{settings.annualIncomeGrowth}% annual growth</small></div>
           <div><span>Total capital</span><strong>{fmt.format(assets)}</strong><small>at selected month</small></div>
         </div>
       </section>
@@ -615,7 +642,7 @@ function App() {
         <AlertTriangle size={18} />
         <div>
           <strong>Planning model, not an approval calculator.</strong>
-          <p>Assumes purchase price = valuation, no cash-over-valuation, no grants/resale levy/legal/renovation costs, and no special ABSD remission. Timeline balances exclude interest, bonuses, salary changes and investment returns. CPF OA growth uses 2026 full CPF rates, the S$8,000 Ordinary Wage ceiling per contributor and equal income per contributor; PR graduated rates and age changes during the timeline are not modelled. For members above 55, actual OA allocation can depend on whether the Full Retirement Sum has been set aside. Eligibility badges model headline income ceilings only. *Resale MOP can vary with classification. †10-year new-EC MOP applies to the new regime discussed for 2026 sites. ‡Resale EC treatment depends on whether its EC MOP has already expired.</p>
+          <p>Assumes purchase price = valuation, no cash-over-valuation, no grants/resale levy/legal/renovation costs, and no special ABSD remission. Income and cash savings grow by the selected annual percentage in 12-month steps; debt stays fixed. Timeline balances exclude interest, bonuses, grants and investment returns. CPF OA growth uses 2026 full CPF rates, the S$8,000 Ordinary Wage ceiling per contributor and equal income per contributor; PR graduated rates, future CPF rule changes and age-band changes during the timeline are not modelled. For members above 55, actual OA allocation can depend on whether the Full Retirement Sum has been set aside. Eligibility badges model headline income ceilings only. *Resale MOP can vary with classification. †10-year new-EC MOP applies to the new regime discussed for 2026 sites. ‡Resale EC treatment depends on whether its EC MOP has already expired.</p>
         </div>
       </section>
 

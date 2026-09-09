@@ -22,6 +22,7 @@ npm run build
 - Gross household income
 - Existing monthly debt
 - Monthly savings
+- Annual income and cash-savings growth rate
 - CPF contributor age band and number of CPF-earning household members
 - Draggable 0–120 month projection timeline
 - Every property row's unit price
