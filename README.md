@@ -22,6 +22,8 @@ npm run build
 - Gross household income
 - Existing monthly debt
 - Monthly savings
+- CPF contributor age band and number of CPF-earning household members
+- Draggable 0–120 month projection timeline
 - Every property row's unit price
 - Bank/HDB interest rates and stress rates
 - Loan tenures
@@ -38,5 +40,6 @@ npm run build
 - 3% HDB-loan stress rate (editable)
 - Current residential BSD marginal bands
 - Current headline ABSD rates for SC/PR/foreigner buyer profiles
+- 2026 CPF contribution and OA allocation rates, with the S$8,000 monthly Ordinary Wage ceiling per contributor
 
 The app is a planning model only and deliberately does not attempt to encode every HDB eligibility, CPF valuation/lease limit, grant, resale levy, COV, age/tenure or remission rule.
