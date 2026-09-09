@@ -13,22 +13,22 @@ import {
 } from 'lucide-react';
 
 const PROPERTY_ROWS = [
-  { id: 'bto-standard', group: 'BTO', label: 'Standard HDB 4R', price: 400000, financing: 'hdb', eligibility: 'bto', mop: '5 years', rental: 'Whole-flat after MOP' },
-  { id: 'bto-plus', group: 'BTO', label: 'Plus HDB 4R', price: 600000, financing: 'hdb', eligibility: 'bto', mop: '10 years', rental: 'No whole-flat rental' },
-  { id: 'bto-prime', group: 'BTO', label: 'Prime HDB 4R', price: 650000, financing: 'hdb', eligibility: 'bto', mop: '10 years', rental: 'No whole-flat rental' },
-  { id: 'resale-3r', group: 'Resale HDB · Standard', label: 'Standard resale 3R', price: 450000, financing: 'resale-hdb', eligibility: 'resale-standard', mop: '5 years', rental: 'Whole-flat after MOP' },
-  { id: 'resale-4r', group: 'Resale HDB · Standard', label: 'Standard resale 4R', price: 650000, financing: 'resale-hdb', eligibility: 'resale-standard', mop: '5 years', rental: 'Whole-flat after MOP' },
-  { id: 'resale-5r', group: 'Resale HDB · Standard', label: 'Standard resale 5R', price: 800000, financing: 'resale-hdb', eligibility: 'resale-standard', mop: '5 years', rental: 'Whole-flat after MOP' },
-  { id: 'resale-plus-4r', group: 'Resale HDB · Plus', label: 'Plus resale 4R', price: 750000, financing: 'resale-hdb', eligibility: 'resale-restricted', mop: '10 years', rental: 'No whole-flat rental' },
-  { id: 'resale-prime-4r', group: 'Resale HDB · Prime', label: 'Prime resale 4R', price: 900000, financing: 'resale-hdb', eligibility: 'resale-restricted', mop: '10 years', rental: 'No whole-flat rental' },
-  { id: 'ec-3br', group: 'New EC', label: 'New EC 3BR', price: 1400000, financing: 'ec', eligibility: 'ec', mop: '10 years†', rental: 'Restricted during MOP' },
-  { id: 'ec-4br', group: 'New EC', label: 'New EC 4BR', price: 1700000, financing: 'ec', eligibility: 'ec', mop: '10 years†', rental: 'Restricted during MOP' },
-  { id: 'ec-5br', group: 'New EC', label: 'New EC 5BR', price: 2200000, financing: 'ec', eligibility: 'ec', mop: '10 years†', rental: 'Restricted during MOP' },
-  { id: 'resale-ec', group: 'Resale EC', label: 'Resale EC', price: 1500000, financing: 'private', eligibility: 'private', mop: 'None‡', rental: 'Private-property rules' },
-  { id: 'condo-1br', group: 'Condo', label: 'Condo 1BR', price: 1300000, financing: 'private', eligibility: 'private', mop: 'None', rental: 'Generally rentable' },
-  { id: 'condo-2br', group: 'Condo', label: 'Condo 2BR', price: 1600000, financing: 'private', eligibility: 'private', mop: 'None', rental: 'Generally rentable' },
-  { id: 'condo-3br', group: 'Condo', label: 'Condo 3BR', price: 2000000, financing: 'private', eligibility: 'private', mop: 'None', rental: 'Generally rentable' },
-  { id: 'condo-4br', group: 'Condo', label: 'Condo 4BR', price: 3000000, financing: 'private', eligibility: 'private', mop: 'None', rental: 'Generally rentable' },
+  { id: 'bto-standard', group: 'BTO', label: 'Standard HDB 4R', price: 400000, sqftMin: 969, sqftMax: 1001, financing: 'hdb', eligibility: 'bto', mop: '5 years', rental: 'Whole-flat after MOP' },
+  { id: 'bto-plus', group: 'BTO', label: 'Plus HDB 4R', price: 600000, sqftMin: 969, sqftMax: 1001, financing: 'hdb', eligibility: 'bto', mop: '10 years', rental: 'No whole-flat rental' },
+  { id: 'bto-prime', group: 'BTO', label: 'Prime HDB 4R', price: 650000, sqftMin: 969, sqftMax: 1001, financing: 'hdb', eligibility: 'bto', mop: '10 years', rental: 'No whole-flat rental' },
+  { id: 'resale-3r', group: 'Resale HDB · Standard', label: 'Standard resale 3R', price: 450000, sqftMin: 646, sqftMax: 743, financing: 'resale-hdb', eligibility: 'resale-standard', mop: '5 years', rental: 'Whole-flat after MOP' },
+  { id: 'resale-4r', group: 'Resale HDB · Standard', label: 'Standard resale 4R', price: 650000, sqftMin: 904, sqftMax: 1130, financing: 'resale-hdb', eligibility: 'resale-standard', mop: '5 years', rental: 'Whole-flat after MOP' },
+  { id: 'resale-5r', group: 'Resale HDB · Standard', label: 'Standard resale 5R', price: 800000, sqftMin: 1184, sqftMax: 1324, financing: 'resale-hdb', eligibility: 'resale-standard', mop: '5 years', rental: 'Whole-flat after MOP' },
+  { id: 'resale-plus-4r', group: 'Resale HDB · Plus', label: 'Plus resale 4R', price: 750000, sqftMin: 969, sqftMax: 1001, financing: 'resale-hdb', eligibility: 'resale-restricted', mop: '10 years', rental: 'No whole-flat rental' },
+  { id: 'resale-prime-4r', group: 'Resale HDB · Prime', label: 'Prime resale 4R', price: 900000, sqftMin: 969, sqftMax: 1001, financing: 'resale-hdb', eligibility: 'resale-restricted', mop: '10 years', rental: 'No whole-flat rental' },
+  { id: 'ec-3br', group: 'New EC', label: 'New EC 3BR', price: 1400000, sqftMin: 850, sqftMax: 1100, financing: 'ec', eligibility: 'ec', mop: '10 years†', rental: 'Restricted during MOP' },
+  { id: 'ec-4br', group: 'New EC', label: 'New EC 4BR', price: 1700000, sqftMin: 1100, sqftMax: 1400, financing: 'ec', eligibility: 'ec', mop: '10 years†', rental: 'Restricted during MOP' },
+  { id: 'ec-5br', group: 'New EC', label: 'New EC 5BR', price: 2200000, sqftMin: 1450, sqftMax: 1650, financing: 'ec', eligibility: 'ec', mop: '10 years†', rental: 'Restricted during MOP' },
+  { id: 'resale-ec', group: 'Resale EC', label: 'Resale EC', price: 1500000, sqftMin: 900, sqftMax: 1500, financing: 'private', eligibility: 'private', mop: 'None‡', rental: 'Private-property rules' },
+  { id: 'condo-1br', group: 'Condo', label: 'Condo 1BR', price: 1300000, sqftMin: 450, sqftMax: 600, financing: 'private', eligibility: 'private', mop: 'None', rental: 'Generally rentable' },
+  { id: 'condo-2br', group: 'Condo', label: 'Condo 2BR', price: 1600000, sqftMin: 650, sqftMax: 900, financing: 'private', eligibility: 'private', mop: 'None', rental: 'Generally rentable' },
+  { id: 'condo-3br', group: 'Condo', label: 'Condo 3BR', price: 2000000, sqftMin: 900, sqftMax: 1300, financing: 'private', eligibility: 'private', mop: 'None', rental: 'Generally rentable' },
+  { id: 'condo-4br', group: 'Condo', label: 'Condo 4BR', price: 3000000, sqftMin: 1200, sqftMax: 1700, financing: 'private', eligibility: 'private', mop: 'None', rental: 'Generally rentable' },
 ];
 
 const CPF_AGE_BANDS = {
@@ -344,6 +344,8 @@ function App() {
 
   const rows = useMemo(() => PROPERTY_ROWS.map((row) => {
     const price = prices[row.id];
+    const averageSqft = (row.sqftMin + row.sqftMax) / 2;
+    const pricePsf = price / averageSqft;
     const isBto = row.eligibility === 'bto';
     const isEc = row.eligibility === 'ec';
     const isResaleHdb = row.financing === 'resale-hdb';
@@ -428,6 +430,8 @@ function App() {
     return {
       ...row,
       price,
+      averageSqft,
+      pricePsf,
       eligible,
       eligibilityReason,
       financing,
@@ -592,6 +596,8 @@ function App() {
             <thead>
               <tr>
                 <TableHeading label="Option" help="Housing type and representative unit size used for this comparison row." />
+                <TableHeading label="Typical size" help="Indicative floor-area range in square feet. Actual area varies by project, layout and flat vintage." />
+                <TableHeading label="Price / sqft" help="Editable unit price divided by the midpoint of the indicative size range." />
                 <TableHeading label="Unit price ✎" help="Editable purchase price for this option. Change it to match a listing or target project." />
                 <TableHeading label="Max loan" help="Estimated maximum loan after applying the LTV cap and the relevant income-servicing rule." />
                 <TableHeading label="Binding rule" help="The tightest rule currently limiting the maximum loan: LTV, MSR or TDSR." />
@@ -610,7 +616,7 @@ function App() {
                 const showGroup = idx === 0 || visibleRows[idx - 1]?.group !== row.group;
                 return (
                   <React.Fragment key={row.id}>
-                    {showGroup && <tr className="group-row"><td colSpan="12">{row.group}</td></tr>}
+                    {showGroup && <tr className="group-row"><td colSpan="14">{row.group}</td></tr>}
                     <tr className={!row.eligible ? 'disabled-row' : ''}>
                       <td className="option-cell">
                         <strong>{row.label}</strong>
@@ -620,6 +626,8 @@ function App() {
                         {row.eligibility === 'resale-restricted' && <small>BTO-style buyer eligibility · subsidy recovery may apply on resale</small>}
                         {row.financing === 'hdb-bank' && <small>Bank loan used: income above HDB-loan ceiling</small>}
                       </td>
+                      <td className="size-cell"><b>{row.sqftMin.toLocaleString('en-SG')}–{row.sqftMax.toLocaleString('en-SG')}</b><small>avg. {Math.round(row.averageSqft).toLocaleString('en-SG')} sqft</small></td>
+                      <td><b>{fmt.format(row.pricePsf)}</b><small>per sqft</small></td>
                       <td>
                         <div className="price-input">
                           <span>$</span>
@@ -658,7 +666,7 @@ function App() {
         <AlertTriangle size={18} />
         <div>
           <strong>Planning model, not an approval calculator.</strong>
-          <p>Assumes purchase price = valuation, no cash-over-valuation, no grants/resale levy/legal/renovation costs, and no special ABSD remission. Purchase eligibility, financing eligibility and grants are separate: the badge checks only the headline purchase-income and citizenship assumptions shown here; HDB-versus-bank financing is assessed separately, while grants are excluded from all totals. Salary income and cash savings grow by the selected annual percentage in 12-month steps; other income and debt stay fixed. Other income is included in headline income and loan-servicing calculations but excluded from estimated CPF contributions. Timeline balances exclude interest, bonuses, grants and investment returns. CPF OA growth uses 2026 full CPF rates, the S$8,000 Ordinary Wage ceiling per contributor and equal salary income per contributor; PR graduated rates, future CPF rule changes and age-band changes during the timeline are not modelled. For members above 55, actual OA allocation can depend on whether the Full Retirement Sum has been set aside. Plus and Prime resale rows use a S$16,000 household-income ceiling, 10-year MOP and no whole-flat rental; other BTO-style buyer conditions, private-property wait-out rules and the precise subsidy-recovery percentage are not fully modelled. New EC rows use the requested simplified S$18,000 ceiling. ‡Resale EC treatment depends on whether its EC MOP has already expired.</p>
+          <p>Assumes purchase price = valuation, no cash-over-valuation, no grants/resale levy/legal/renovation costs, and no special ABSD remission. Size ranges are indicative planning estimates; actual floor area varies by project, layout, flat vintage and whether balconies or air-con ledges are included. Price per square foot uses the midpoint of each displayed range. Purchase eligibility, financing eligibility and grants are separate: the badge checks only the headline purchase-income and citizenship assumptions shown here; HDB-versus-bank financing is assessed separately, while grants are excluded from all totals. Salary income and cash savings grow by the selected annual percentage in 12-month steps; other income and debt stay fixed. Other income is included in headline income and loan-servicing calculations but excluded from estimated CPF contributions. Timeline balances exclude interest, bonuses, grants and investment returns. CPF OA growth uses 2026 full CPF rates, the S$8,000 Ordinary Wage ceiling per contributor and equal salary income per contributor; PR graduated rates, future CPF rule changes and age-band changes during the timeline are not modelled. For members above 55, actual OA allocation can depend on whether the Full Retirement Sum has been set aside. Plus and Prime resale rows use a S$16,000 household-income ceiling, 10-year MOP and no whole-flat rental; other BTO-style buyer conditions, private-property wait-out rules and the precise subsidy-recovery percentage are not fully modelled. New EC rows use the requested simplified S$18,000 ceiling. ‡Resale EC treatment depends on whether its EC MOP has already expired.</p>
         </div>
       </section>
 
