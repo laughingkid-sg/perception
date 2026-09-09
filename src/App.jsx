@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import {
   AlertTriangle,
   Building2,
@@ -6,6 +6,7 @@ import {
   ChevronUp,
   CircleDollarSign,
   Home,
+  Info,
   RotateCcw,
   ShieldCheck,
   WalletCards,
@@ -44,8 +45,76 @@ const DEFAULTS = {
   propertyCount: 0,
 };
 
+const STORAGE_KEY = 'sg-housing-feasibility-v1';
+const DEFAULT_PRICES = Object.fromEntries(PROPERTY_ROWS.map((row) => [row.id, row.price]));
+
 const fmt = new Intl.NumberFormat('en-SG', { style: 'currency', currency: 'SGD', maximumFractionDigits: 0 });
 const compact = (v) => v >= 1000000 ? `$${(v / 1000000).toFixed(v >= 10000000 ? 0 : 2)}m` : `$${Math.round(v / 1000)}k`;
+
+function formatInputValue(value, allowDecimal = false) {
+  if (value === '' || value == null || !Number.isFinite(Number(value))) return '';
+  return Number(value).toLocaleString('en-SG', {
+    useGrouping: true,
+    maximumFractionDigits: allowDecimal ? 4 : 0,
+  });
+}
+
+function parseInputValue(rawValue, allowDecimal = false) {
+  const cleaned = rawValue
+    .replaceAll(',', '')
+    .replace(allowDecimal ? /[^\d.]/g : /\D/g, '');
+
+  if (cleaned === '') return { display: '', number: null };
+
+  if (!allowDecimal) {
+    const normalized = cleaned.replace(/^0+(?=\d)/, '');
+    const number = Number(normalized);
+    return { display: formatInputValue(number), number };
+  }
+
+  const dotIndex = cleaned.indexOf('.');
+  const hasDecimal = dotIndex !== -1;
+  const wholeRaw = hasDecimal ? cleaned.slice(0, dotIndex) : cleaned;
+  const decimalRaw = hasDecimal ? cleaned.slice(dotIndex + 1).replaceAll('.', '') : '';
+  const whole = (wholeRaw || '0').replace(/^0+(?=\d)/, '');
+  const numericText = `${whole}${hasDecimal ? `.${decimalRaw}` : ''}`;
+  const number = Number(numericText);
+
+  return {
+    display: `${formatInputValue(Number(whole))}${hasDecimal ? `.${decimalRaw}` : ''}`,
+    number,
+  };
+}
+
+function readSavedState() {
+  const fallback = { settings: DEFAULTS, prices: DEFAULT_PRICES };
+  if (typeof window === 'undefined') return fallback;
+
+  try {
+    const saved = JSON.parse(window.localStorage.getItem(STORAGE_KEY));
+    if (!saved || typeof saved !== 'object') return fallback;
+
+    const settings = { ...DEFAULTS };
+    for (const key of Object.keys(DEFAULTS)) {
+      const value = saved.settings?.[key];
+      if (key === 'citizenship') {
+        if (['SC', 'PR', 'FR'].includes(value)) settings[key] = value;
+      } else if (typeof value === 'number' && Number.isFinite(value)) {
+        settings[key] = value;
+      }
+    }
+
+    const prices = { ...DEFAULT_PRICES };
+    for (const key of Object.keys(DEFAULT_PRICES)) {
+      const value = saved.prices?.[key];
+      if (typeof value === 'number' && Number.isFinite(value)) prices[key] = value;
+    }
+
+    return { settings, prices };
+  } catch {
+    return fallback;
+  }
+}
 
 function monthlyPayment(principal, annualRate, years) {
   if (principal <= 0) return 0;
@@ -89,18 +158,65 @@ function absdRate(citizenship, propertyCount) {
   return 0.60;
 }
 
-function NumberInput({ label, value, onChange, prefix = '$', suffix = '', step = 1000, min = 0 }) {
+function FormattedNumberInput({ value, onChange, allowDecimal = false, ...props }) {
+  const [draft, setDraft] = useState(() => formatInputValue(value, allowDecimal));
+  const focused = useRef(false);
+
+  useEffect(() => {
+    if (!focused.current) setDraft(formatInputValue(value, allowDecimal));
+  }, [value, allowDecimal]);
+
+  function handleChange(event) {
+    const parsed = parseInputValue(event.target.value, allowDecimal);
+    setDraft(parsed.display);
+    if (parsed.number != null) onChange(parsed.number);
+  }
+
+  return (
+    <input
+      {...props}
+      type="text"
+      inputMode={allowDecimal ? 'decimal' : 'numeric'}
+      value={draft}
+      onFocus={() => { focused.current = true; }}
+      onBlur={() => {
+        focused.current = false;
+        setDraft(formatInputValue(value, allowDecimal));
+      }}
+      onChange={handleChange}
+    />
+  );
+}
+
+function InfoTip({ label, children }) {
+  return (
+    <span className="info-tip" tabIndex="0" aria-label={`${label}: ${children}`}>
+      <Info size={14} aria-hidden="true" />
+      <span className="tooltip" role="tooltip">{children}</span>
+    </span>
+  );
+}
+
+const BINDING_HELP = {
+  LTV: 'Loan-to-value cap: the loan cannot exceed the permitted share of the property price or valuation.',
+  MSR: 'Mortgage Servicing Ratio: the assessed monthly instalment is capped at 30% of gross monthly household income for HDB flats and new ECs.',
+  TDSR: 'Total Debt Servicing Ratio: all assessed monthly debt obligations are capped at 55% of gross monthly income.',
+};
+
+function NumberInput({ label, help, value, onChange, prefix = '$', suffix = '', step = 1000 }) {
+  const allowDecimal = step < 1;
   return (
     <label className="field">
-      <span>{label}</span>
+      <span className="label-copy">
+        {label}
+        {help && <InfoTip label={label}>{help}</InfoTip>}
+      </span>
       <div className="input-shell">
         {prefix && <b>{prefix}</b>}
-        <input
-          type="number"
-          min={min}
-          step={step}
+        <FormattedNumberInput
           value={value}
-          onChange={(e) => onChange(Number(e.target.value || 0))}
+          onChange={onChange}
+          allowDecimal={allowDecimal}
         />
         {suffix && <em>{suffix}</em>}
       </div>
@@ -109,12 +225,21 @@ function NumberInput({ label, value, onChange, prefix = '$', suffix = '', step =
 }
 
 function App() {
-  const [settings, setSettings] = useState(DEFAULTS);
-  const [prices, setPrices] = useState(() => Object.fromEntries(PROPERTY_ROWS.map((r) => [r.id, r.price])));
+  const [savedState] = useState(readSavedState);
+  const [settings, setSettings] = useState(savedState.settings);
+  const [prices, setPrices] = useState(savedState.prices);
   const [showAdvanced, setShowAdvanced] = useState(false);
   const [hideIneligible, setHideIneligible] = useState(false);
 
   const assets = settings.cash + settings.cpf;
+
+  useEffect(() => {
+    try {
+      window.localStorage.setItem(STORAGE_KEY, JSON.stringify({ settings, prices }));
+    } catch {
+      // Keep the calculator usable when browser storage is unavailable.
+    }
+  }, [settings, prices]);
 
   const rows = useMemo(() => PROPERTY_ROWS.map((row) => {
     const price = prices[row.id];
@@ -218,7 +343,7 @@ function App() {
 
   function reset() {
     setSettings(DEFAULTS);
-    setPrices(Object.fromEntries(PROPERTY_ROWS.map((r) => [r.id, r.price])));
+    setPrices(DEFAULT_PRICES);
   }
 
   return (
@@ -276,10 +401,10 @@ function App() {
 
         {showAdvanced && (
           <div className="advanced-grid">
-            <NumberInput label="Bank mortgage rate" value={settings.bankRate} onChange={(v) => setSettings({ ...settings, bankRate: v })} prefix="" suffix="%" step={0.05} />
-            <NumberInput label="Bank stress rate" value={settings.bankStressRate} onChange={(v) => setSettings({ ...settings, bankStressRate: v })} prefix="" suffix="%" step={0.1} />
-            <NumberInput label="HDB loan rate" value={settings.hdbRate} onChange={(v) => setSettings({ ...settings, hdbRate: v })} prefix="" suffix="%" step={0.05} />
-            <NumberInput label="HDB stress rate" value={settings.hdbStressRate} onChange={(v) => setSettings({ ...settings, hdbStressRate: v })} prefix="" suffix="%" step={0.1} />
+            <NumberInput label="Bank mortgage rate" help="The interest rate used to estimate your actual monthly bank-loan repayment." value={settings.bankRate} onChange={(v) => setSettings({ ...settings, bankRate: v })} prefix="" suffix="%" step={0.05} />
+            <NumberInput label="Bank stress rate" help="The higher assessment rate used to calculate borrowing capacity. It is not necessarily the rate charged on your loan." value={settings.bankStressRate} onChange={(v) => setSettings({ ...settings, bankStressRate: v })} prefix="" suffix="%" step={0.1} />
+            <NumberInput label="HDB loan rate" help="The interest rate used to estimate your actual monthly HDB-loan repayment." value={settings.hdbRate} onChange={(v) => setSettings({ ...settings, hdbRate: v })} prefix="" suffix="%" step={0.05} />
+            <NumberInput label="HDB stress rate" help="The assessment rate used to test HDB-loan affordability under MSR. It is separate from the repayment rate." value={settings.hdbStressRate} onChange={(v) => setSettings({ ...settings, hdbStressRate: v })} prefix="" suffix="%" step={0.1} />
             <NumberInput label="Bank loan tenure" value={settings.bankYears} onChange={(v) => setSettings({ ...settings, bankYears: v })} prefix="" suffix="years" step={1} />
             <NumberInput label="HDB loan tenure" value={settings.hdbYears} onChange={(v) => setSettings({ ...settings, hdbYears: v })} prefix="" suffix="years" step={1} />
             <label className="field">
@@ -322,7 +447,12 @@ function App() {
                 <th>Option</th>
                 <th>Unit price ✎</th>
                 <th>Max loan</th>
-                <th>Binding rule</th>
+                <th>
+                  <span className="th-label">
+                    Binding rule
+                    <InfoTip label="Binding rule">The tightest rule currently limiting the maximum loan: LTV, MSR or TDSR.</InfoTip>
+                  </span>
+                </th>
                 <th>Min cash</th>
                 <th>CPF needed</th>
                 <th>Total upfront</th>
@@ -349,11 +479,20 @@ function App() {
                       <td>
                         <div className="price-input">
                           <span>$</span>
-                          <input type="number" step="10000" value={row.price} onChange={(e) => setPrices({ ...prices, [row.id]: Number(e.target.value || 0) })} />
+                          <FormattedNumberInput
+                            aria-label={`${row.label} unit price`}
+                            value={row.price}
+                            onChange={(value) => setPrices({ ...prices, [row.id]: value })}
+                          />
                         </div>
                       </td>
                       <td><b>{compact(row.maxLoan)}</b></td>
-                      <td><span className={`rule-pill ${row.binding.toLowerCase()}`}>{row.binding}</span></td>
+                      <td>
+                        <span className="rule-with-help">
+                          <span className={`rule-pill ${row.binding.toLowerCase()}`}>{row.binding}</span>
+                          <InfoTip label={row.binding}>{BINDING_HELP[row.binding]}</InfoTip>
+                        </span>
+                      </td>
                       <td>{compact(row.minCash)}{row.cashGap > 0 && <small className="inline-alert"> +{compact(row.cashGap)} cash gap</small>}</td>
                       <td>{compact(row.cpfNeeded)}</td>
                       <td><b>{compact(row.totalUpfront)}</b><small>incl. {compact(row.stamp)} BSD{row.absd > 0 ? ` + ${compact(row.absd)} ABSD` : ''}</small></td>
