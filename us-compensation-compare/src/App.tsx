@@ -117,6 +117,19 @@ const clampNumber = (value: string) => {
   return Number.isFinite(parsed) ? Math.max(0, parsed) : 0;
 };
 
+const selectZeroValue = (event: React.FocusEvent<HTMLInputElement>) => {
+  if (clampNumber(event.currentTarget.value) === 0) {
+    event.currentTarget.select();
+  }
+};
+
+const normalizeNumberValue = (
+  event: React.FocusEvent<HTMLInputElement>,
+  value: number,
+) => {
+  event.currentTarget.value = String(value);
+};
+
 const uid = () =>
   typeof crypto !== 'undefined' && 'randomUUID' in crypto
     ? crypto.randomUUID()
@@ -201,7 +214,17 @@ function NumberField({ label, value, onChange, prefix, suffix, hint, step = 100 
       <span className="field-label">{label}</span>
       <span className="number-control">
         {prefix ? <span className="number-prefix">{prefix}</span> : null}
-        <Input aria-label={label} inputMode="decimal" min="0" step={step} type="number" value={value} onChange={(event) => onChange(clampNumber(event.target.value))} />
+        <Input
+          aria-label={label}
+          inputMode="decimal"
+          min="0"
+          step={step}
+          type="number"
+          value={value}
+          onBlur={(event) => normalizeNumberValue(event, value)}
+          onChange={(event) => onChange(clampNumber(event.target.value))}
+          onFocus={selectZeroValue}
+        />
         {suffix ? <span className="number-suffix">{suffix}</span> : null}
       </span>
       {hint ? <small>{hint}</small> : null}
@@ -235,7 +258,17 @@ function BenefitEditor({ currency, benefits, setBenefits }: {
             <Input aria-label="Benefit name" className="name-input" value={benefit.name} onChange={(event) => update(benefit.id, { name: event.target.value })} />
             <span className="compact-money">
               <span>{currency === 'SGD' ? 'S$' : 'US$'}</span>
-              <Input aria-label={`${benefit.name || 'Benefit'} annual value`} inputMode="decimal" min="0" step="100" type="number" value={benefit.amount} onChange={(event) => update(benefit.id, { amount: clampNumber(event.target.value) })} />
+              <Input
+                aria-label={`${benefit.name || 'Benefit'} annual value`}
+                inputMode="decimal"
+                min="0"
+                step="100"
+                type="number"
+                value={benefit.amount}
+                onBlur={(event) => normalizeNumberValue(event, benefit.amount)}
+                onChange={(event) => update(benefit.id, { amount: clampNumber(event.target.value) })}
+                onFocus={selectZeroValue}
+              />
             </span>
             <NativeSelect aria-label={`${benefit.name || 'Benefit'} treatment`} className="mode-select" value={benefit.mode} onChange={(event) => update(benefit.id, { mode: event.target.value as BenefitMode })}>
               {Object.entries(benefitModeLabels).map(([value, label]) => <NativeSelectOption key={value} value={value}>{label}</NativeSelectOption>)}
@@ -264,7 +297,20 @@ function ExpenseEditor({ currency, expenses, setExpenses }: {
         {expenses.map((expense) => (
           <div className="expense-row" key={expense.id}>
             <Input aria-label="Expense name" className="name-input" value={expense.name} onChange={(event) => update(expense.id, { name: event.target.value })} />
-            <span className="compact-money"><span>{currency === 'SGD' ? 'S$' : 'US$'}</span><Input aria-label={`${expense.name || 'Expense'} monthly amount`} inputMode="decimal" min="0" step="50" type="number" value={expense.monthly} onChange={(event) => update(expense.id, { monthly: clampNumber(event.target.value) })} /></span>
+            <span className="compact-money">
+              <span>{currency === 'SGD' ? 'S$' : 'US$'}</span>
+              <Input
+                aria-label={`${expense.name || 'Expense'} monthly amount`}
+                inputMode="decimal"
+                min="0"
+                step="50"
+                type="number"
+                value={expense.monthly}
+                onBlur={(event) => normalizeNumberValue(event, expense.monthly)}
+                onChange={(event) => update(expense.id, { monthly: clampNumber(event.target.value) })}
+                onFocus={selectZeroValue}
+              />
+            </span>
             <Button aria-label={`Remove ${expense.name || 'expense'}`} className="remove-button" size="icon" type="button" variant="ghost" onClick={() => setExpenses((current) => current.filter((item) => item.id !== expense.id))}><Trash2 /></Button>
           </div>
         ))}
@@ -433,7 +479,7 @@ export default function App() {
           <div className="mobile-scenario-toggle" aria-label="Choose scenario to edit"><button className={mobileScenario === 'sg' ? 'active' : ''} type="button" onClick={() => setMobileScenario('sg')}>Singapore</button><button className={mobileScenario === 'us' ? 'active' : ''} type="button" onClick={() => setMobileScenario('us')}>U.S. H-1B1</button></div>
           <div className="scenario-grid">
             <article className={`scenario-card sg ${mobileScenario !== 'sg' ? 'mobile-hidden' : ''}`}>
-              <div className="scenario-head"><div><span className="flag-mark">SG</span><div><p>SINGAPORE</p><h2>2 YOE QA role</h2></div></div><span>SGD</span></div>
+              <div className="scenario-head"><div><span className="flag-mark">SG</span><div><p>SINGAPORE</p><h2>Singapore offer</h2></div></div><span>SGD</span></div>
               <div className="editor-section"><SectionHeading icon={<BadgeDollarSign />} title="Compensation" copy="Annual employee compensation before tax." /><div className="field-grid three"><NumberField label="Base salary" prefix="S$" value={sgBase} onChange={setSgBase} /><NumberField label="Expected bonus" prefix="S$" value={sgBonus} onChange={setSgBonus} /><NumberField label="Annualized equity" prefix="S$" value={sgEquity} onChange={setSgEquity} /></div></div>
               <BenefitEditor currency="SGD" benefits={sgBenefits} setBenefits={setSgBenefits} />
               <div className="editor-section">
@@ -455,7 +501,7 @@ export default function App() {
             </article>
 
             <article className={`scenario-card us ${mobileScenario !== 'us' ? 'mobile-hidden' : ''}`}>
-              <div className="scenario-head"><div><span className="flag-mark">US</span><div><p>UNITED STATES</p><h2>SWE / FDE transition</h2></div></div><span>USD</span></div>
+              <div className="scenario-head"><div><span className="flag-mark">US</span><div><p>UNITED STATES</p><h2>United States offer</h2></div></div><span>USD</span></div>
               <div className="editor-section"><SectionHeading icon={<BadgeDollarSign />} title="Compensation" copy="Annual employee compensation before tax." /><div className="field-grid three"><NumberField label="Base salary" prefix="US$" value={usBase} onChange={setUsBase} /><NumberField label="Expected bonus" prefix="US$" value={usBonus} onChange={setUsBonus} /><NumberField label="Annualized equity" prefix="US$" value={usEquity} onChange={setUsEquity} hint="Keep private options at US$0; model them below as package-only." /></div></div>
               <BenefitEditor currency="USD" benefits={usBenefits} setBenefits={setUsBenefits} />
               <div className="editor-section">
