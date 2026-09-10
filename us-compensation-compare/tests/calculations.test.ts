@@ -6,15 +6,15 @@ import {
   calculateUnitedStates,
   singaporeResidentTax,
   usFederalTax2026Single,
-} from '../lib/calculations.ts';
+} from '../src/lib/calculations.ts';
 
-test('2026 U.S. single-filer progressive tax matches IRS examples', () => {
+void test('2026 U.S. single-filer progressive tax matches IRS examples', () => {
   assert.equal(usFederalTax2026Single(83_900), 13_170);
   assert.equal(usFederalTax2026Single(183_900), 36_734);
   assert.equal(usFederalTax2026Single(233_900), 51_304);
 });
 
-test('2026 U.S. FICA applies the Social Security cap and Additional Medicare', () => {
+void test('2026 U.S. FICA applies the Social Security cap and Additional Medicare', () => {
   const result = calculateUnitedStates({
     base: 250_000,
     bonus: 0,
@@ -34,13 +34,13 @@ test('2026 U.S. FICA applies the Social Security cap and Additional Medicare', (
   assert.equal(result.employerFica, 15_064);
 });
 
-test('Singapore resident schedule reaches published cumulative tax values', () => {
+void test('Singapore resident schedule reaches published cumulative tax values', () => {
   assert.equal(singaporeResidentTax(320_000), 44_550);
   assert.equal(singaporeResidentTax(500_000), 84_150);
   assert.equal(singaporeResidentTax(1_000_000), 199_150);
 });
 
-test('2026 Singapore CPF ceiling caps full-rate annual contributions', () => {
+void test('2026 Singapore CPF ceiling caps full-rate annual contributions', () => {
   const result = calculateSingapore({
     base: 180_000,
     bonus: 30_000,
@@ -58,7 +58,7 @@ test('2026 Singapore CPF ceiling caps full-rate annual contributions', () => {
   assert.equal(result.employerCpf, 17_340);
 });
 
-test('package-only benefits do not inflate spendable cash', () => {
+void test('package-only benefits do not inflate spendable cash', () => {
   const result = calculateSingapore({
     base: 100_000,
     bonus: 0,

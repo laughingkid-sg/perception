@@ -1,7 +1,4 @@
-'use client';
-
 import { useEffect, useMemo, useState } from 'react';
-import { flushSync } from 'react-dom';
 import {
   ArrowRight,
   ArrowRightLeft,
@@ -66,26 +63,6 @@ type SavedPlannerState = {
   stateValue: number;
   usLocation: string;
 };
-
-type WebMcpTool = {
-  name: string;
-  title: string;
-  description: string;
-  inputSchema: Record<string, unknown>;
-  annotations: { readOnlyHint: boolean; untrustedContentHint: boolean };
-  execute: (input: unknown) => unknown | Promise<unknown>;
-};
-
-declare global {
-  interface Document {
-    modelContext?: {
-      registerTool: (
-        tool: WebMcpTool,
-        options?: { signal?: AbortSignal },
-      ) => void | Promise<void>;
-    };
-  }
-}
 
 const sgBenefitsInitial: Benefit[] = [
   { id: 'sg-flexi', name: 'Flexi wallet', amount: 1_800, mode: 'package-nontaxable' },
@@ -195,11 +172,12 @@ const savedExpenses = (value: unknown, fallback: Expense[]) => {
 };
 
 function formatMoney(value: number, currency: DisplayCurrency) {
-  return new Intl.NumberFormat('en-SG', {
-    style: 'currency',
-    currency,
+  const prefix = currency === 'SGD' ? 'S$' : 'US$';
+  const amount = new Intl.NumberFormat('en-SG', {
     maximumFractionDigits: 0,
-  }).format(value);
+  }).format(Math.abs(value));
+
+  return `${value < 0 ? '−' : ''}${prefix}${amount}`;
 }
 
 function formatPercent(value: number) {
@@ -256,7 +234,7 @@ function BenefitEditor({ currency, benefits, setBenefits }: {
           <div className="benefit-row" key={benefit.id}>
             <Input aria-label="Benefit name" className="name-input" value={benefit.name} onChange={(event) => update(benefit.id, { name: event.target.value })} />
             <span className="compact-money">
-              <span>{currency === 'SGD' ? 'S$' : '$'}</span>
+              <span>{currency === 'SGD' ? 'S$' : 'US$'}</span>
               <Input aria-label={`${benefit.name || 'Benefit'} annual value`} inputMode="decimal" min="0" step="100" type="number" value={benefit.amount} onChange={(event) => update(benefit.id, { amount: clampNumber(event.target.value) })} />
             </span>
             <NativeSelect aria-label={`${benefit.name || 'Benefit'} treatment`} className="mode-select" value={benefit.mode} onChange={(event) => update(benefit.id, { mode: event.target.value as BenefitMode })}>
@@ -286,7 +264,7 @@ function ExpenseEditor({ currency, expenses, setExpenses }: {
         {expenses.map((expense) => (
           <div className="expense-row" key={expense.id}>
             <Input aria-label="Expense name" className="name-input" value={expense.name} onChange={(event) => update(expense.id, { name: event.target.value })} />
-            <span className="compact-money"><span>{currency === 'SGD' ? 'S$' : '$'}</span><Input aria-label={`${expense.name || 'Expense'} monthly amount`} inputMode="decimal" min="0" step="50" type="number" value={expense.monthly} onChange={(event) => update(expense.id, { monthly: clampNumber(event.target.value) })} /></span>
+            <span className="compact-money"><span>{currency === 'SGD' ? 'S$' : 'US$'}</span><Input aria-label={`${expense.name || 'Expense'} monthly amount`} inputMode="decimal" min="0" step="50" type="number" value={expense.monthly} onChange={(event) => update(expense.id, { monthly: clampNumber(event.target.value) })} /></span>
             <Button aria-label={`Remove ${expense.name || 'expense'}`} className="remove-button" size="icon" type="button" variant="ghost" onClick={() => setExpenses((current) => current.filter((item) => item.id !== expense.id))}><Trash2 /></Button>
           </div>
         ))}
@@ -302,7 +280,7 @@ function ResultFlow({ result, region, format }: {
   format: (value: number, region: 'sg' | 'us') => string;
 }) {
   const values = [Math.max(0, result.incomeTax), Math.max(0, result.employeeStatutory + result.employeeVoluntary), Math.max(0, result.livingExpenses), Math.max(0, result.disposableIncome)];
-  const total = Math.max(1, values.reduce((a, b) => a + b, 0));
+  const total = Math.max(1, values[0] + values[1] + values[2] + values[3]);
   return (
     <div className={`flow-card ${region}`}>
       <div className="flow-heading"><div><span className="region-dot" /><strong>{region === 'sg' ? 'Singapore' : 'United States'}</strong></div><span>{format(result.grossCash, region)} gross cash</span></div>
@@ -353,6 +331,7 @@ export default function App() {
   const [stateValue, setStateValue] = useState(7.5);
   const [usLocation, setUsLocation] = useState('San Francisco, California');
 
+  /* oxlint-disable react/react-compiler -- Hydrate controlled inputs from browser storage once after mount. */
   useEffect(() => {
     try {
       const raw = window.localStorage.getItem(STORAGE_KEY);
@@ -393,6 +372,7 @@ export default function App() {
       setStorageReady(true);
     }
   }, []);
+  /* oxlint-enable react/react-compiler */
 
   useEffect(() => {
     if (!storageReady) return;
@@ -432,153 +412,6 @@ export default function App() {
     ['Disposable after costs', sg.disposableIncome, us.disposableIncome],
   ] as const;
 
-  useEffect(() => {
-    const context = document.modelContext;
-    if (!context?.registerTool) return;
-
-    const lifecycle = new AbortController();
-    const isRecord = (value: unknown): value is Record<string, unknown> =>
-      typeof value === 'object' && value !== null && !Array.isArray(value);
-    const optionalAmount = (record: Record<string, unknown>, key: string) => {
-      if (!(key in record)) return undefined;
-      const value = record[key];
-      if (typeof value !== 'number' || !Number.isFinite(value) || value < 0) {
-        throw new Error(`${key} must be a non-negative number`);
-      }
-      return value;
-    };
-
-    const registrations = [
-      context.registerTool(
-        {
-          name: 'configure_compensation_comparison',
-          title: 'Configure compensation comparison',
-          description:
-            'Update the visible core Singapore and U.S. offer amounts, exchange rate, display currency, or result period in one batch.',
-          inputSchema: {
-            type: 'object',
-            properties: {
-              singapore: {
-                type: 'object',
-                properties: {
-                  base: { type: 'number', minimum: 0 },
-                  bonus: { type: 'number', minimum: 0 },
-                  equity: { type: 'number', minimum: 0 },
-                },
-                additionalProperties: false,
-              },
-              unitedStates: {
-                type: 'object',
-                properties: {
-                  base: { type: 'number', minimum: 0 },
-                  bonus: { type: 'number', minimum: 0 },
-                  equity: { type: 'number', minimum: 0 },
-                },
-                additionalProperties: false,
-              },
-              exchangeRateUsdToSgd: { type: 'number', exclusiveMinimum: 0 },
-              displayCurrency: { enum: ['SGD', 'USD'] },
-              period: { enum: ['annual', 'monthly'] },
-            },
-            additionalProperties: false,
-          },
-          annotations: { readOnlyHint: false, untrustedContentHint: false },
-          execute(input) {
-            if (!isRecord(input)) throw new Error('Input must be an object');
-            const singapore = input.singapore;
-            const unitedStates = input.unitedStates;
-            if (singapore !== undefined && !isRecord(singapore)) {
-              throw new Error('singapore must be an object');
-            }
-            if (unitedStates !== undefined && !isRecord(unitedStates)) {
-              throw new Error('unitedStates must be an object');
-            }
-            const fx = optionalAmount(input, 'exchangeRateUsdToSgd');
-            if (fx === 0) throw new Error('exchangeRateUsdToSgd must be greater than zero');
-            if (input.displayCurrency !== undefined && input.displayCurrency !== 'SGD' && input.displayCurrency !== 'USD') {
-              throw new Error('displayCurrency must be SGD or USD');
-            }
-            if (input.period !== undefined && input.period !== 'annual' && input.period !== 'monthly') {
-              throw new Error('period must be annual or monthly');
-            }
-
-            flushSync(() => {
-              if (singapore) {
-                const base = optionalAmount(singapore, 'base');
-                const bonus = optionalAmount(singapore, 'bonus');
-                const equity = optionalAmount(singapore, 'equity');
-                if (base !== undefined) setSgBase(base);
-                if (bonus !== undefined) setSgBonus(bonus);
-                if (equity !== undefined) setSgEquity(equity);
-              }
-              if (unitedStates) {
-                const base = optionalAmount(unitedStates, 'base');
-                const bonus = optionalAmount(unitedStates, 'bonus');
-                const equity = optionalAmount(unitedStates, 'equity');
-                if (base !== undefined) setUsBase(base);
-                if (bonus !== undefined) setUsBonus(bonus);
-                if (equity !== undefined) setUsEquity(equity);
-              }
-              if (fx !== undefined) setUsdToSgd(fx);
-              if (input.displayCurrency === 'SGD' || input.displayCurrency === 'USD') {
-                setDisplayCurrency(input.displayCurrency);
-              }
-              if (input.period === 'annual' || input.period === 'monthly') {
-                setPeriod(input.period);
-              }
-            });
-
-            return {
-              status: 'updated',
-              displayCurrency: input.displayCurrency ?? displayCurrency,
-              period: input.period ?? period,
-              exchangeRateUsdToSgd: fx ?? usdToSgd,
-            };
-          },
-        },
-        { signal: lifecycle.signal },
-      ),
-      context.registerTool(
-        {
-          name: 'read_compensation_comparison',
-          title: 'Read compensation comparison',
-          description:
-            'Read the current annual employer package, gross cash, estimated taxes, and disposable income for both visible scenarios.',
-          inputSchema: { type: 'object', properties: {}, additionalProperties: false },
-          annotations: { readOnlyHint: true, untrustedContentHint: false },
-          execute(input) {
-            if (!isRecord(input) || Object.keys(input).length > 0) {
-              throw new Error('This tool takes an empty object');
-            }
-            return {
-              singapore: {
-                currency: 'SGD',
-                employerPackage: sg.employerPackage,
-                grossCash: sg.grossCash,
-                estimatedIncomeTax: sg.incomeTax,
-                disposableIncome: sg.disposableIncome,
-              },
-              unitedStates: {
-                currency: 'USD',
-                employerPackage: us.employerPackage,
-                grossCash: us.grossCash,
-                estimatedIncomeTax: us.incomeTax,
-                disposableIncome: us.disposableIncome,
-              },
-              exchangeRateUsdToSgd: usdToSgd,
-            };
-          },
-        },
-        { signal: lifecycle.signal },
-      ),
-    ];
-
-    for (const registration of registrations) {
-      void Promise.resolve(registration).catch(() => undefined);
-    }
-    return () => lifecycle.abort();
-  }, [displayCurrency, period, sg, us, usdToSgd]);
-
   return (
     <main>
       <header className="site-header">
@@ -589,26 +422,10 @@ export default function App() {
         <section className="intro-grid">
           <div className="intro-copy"><p className="eyebrow">SG ↔ US H-1B1 COMPARISON</p><h1>Package, not just paycheck.</h1><p>Compare employer cost, what reaches you, and what remains after tax and life.</p></div>
           <div className="global-controls" aria-label="Comparison settings">
-            <label><span>Results</span><span className="segmented-control"><button className={period === 'annual' ? 'active' : ''} type="button" onClick={() => setPeriod('annual')}>Annual</button><button className={period === 'monthly' ? 'active' : ''} type="button" onClick={() => setPeriod('monthly')}>Monthly</button></span></label>
-            <label><span>Display in</span><span className="segmented-control"><button className={displayCurrency === 'SGD' ? 'active' : ''} type="button" onClick={() => setDisplayCurrency('SGD')}>SGD</button><button className={displayCurrency === 'USD' ? 'active' : ''} type="button" onClick={() => setDisplayCurrency('USD')}>USD</button></span></label>
+            <div className="control-group"><span>Results</span><span className="segmented-control"><button className={period === 'annual' ? 'active' : ''} type="button" onClick={() => setPeriod('annual')}>Annual</button><button className={period === 'monthly' ? 'active' : ''} type="button" onClick={() => setPeriod('monthly')}>Monthly</button></span></div>
+            <div className="control-group"><span>Display in</span><span className="segmented-control"><button className={displayCurrency === 'SGD' ? 'active' : ''} type="button" onClick={() => setDisplayCurrency('SGD')}>SGD</button><button className={displayCurrency === 'USD' ? 'active' : ''} type="button" onClick={() => setDisplayCurrency('USD')}>USD</button></span></div>
             <NumberField label="Exchange rate" value={usdToSgd} onChange={(value) => setUsdToSgd(Math.max(0.01, value))} prefix="US$1 = S$" hint="Manual scenario rate" step={0.01} />
           </div>
-        </section>
-
-        <section className="outcome-card" aria-live="polite">
-          <div className="outcome-copy"><p className="eyebrow light">DISPOSABLE INCOME</p><h2><span>{winner}</span> leaves {formatMoney(delta / (period === 'monthly' ? 12 : 1), displayCurrency)} more {periodLabel}</h2><p>After estimated tax, payroll deductions, and the living costs below.</p></div>
-          <div className="score-grid"><article className="score sg"><span>Singapore</span><strong>{display(sg.disposableIncome, 'sg')}</strong><small>{formatPercent(sg.effectiveAllInRate)} tax + statutory</small></article><div className="versus">VS</div><article className="score us"><span>U.S. H-1B1</span><strong>{display(us.disposableIncome, 'us')}</strong><small>{formatPercent(us.effectiveAllInRate)} tax + FICA</small></article></div>
-        </section>
-
-        <section className="metric-strip">
-          <article><span className="metric-icon"><Building2 /></span><div><span>Employer package</span><strong>{display(sg.employerPackage, 'sg')} <i>SG</i></strong><strong>{display(us.employerPackage, 'us')} <i>US</i></strong></div></article>
-          <article><span className="metric-icon"><WalletCards /></span><div><span>Net pay</span><strong>{display(sg.netPay, 'sg')} <i>SG</i></strong><strong>{display(us.netPay, 'us')} <i>US</i></strong></div></article>
-          <article><span className="metric-icon"><Landmark /></span><div><span>Employer statutory cost</span><strong>{display(sg.employerStatutory, 'sg')} <i>SG CPF</i></strong><strong>{display(us.employerStatutory, 'us')} <i>US FICA</i></strong></div></article>
-        </section>
-
-        <section className="money-flow-section">
-          <div className="block-title"><div><p className="eyebrow">CASH JOURNEY</p><h2>Where the gross cash goes</h2></div><p>Employer-paid benefits and contributions stay in package value, not this spendable-cash view.</p></div>
-          <div className="flow-grid"><ResultFlow result={sg} region="sg" format={display} /><ResultFlow result={us} region="us" format={display} /></div>
         </section>
 
         <section className="workspace-section" id="inputs">
@@ -622,9 +439,9 @@ export default function App() {
               <div className="editor-section">
                 <SectionHeading icon={<Landmark />} title="CPF & tax profile" copy="2026 CPF rules and resident tax rates from YA 2024 onward." />
                 <div className="select-grid">
-                  <label><span className="field-label">CPF status</span><NativeSelect value={cpfStatus} onChange={(event) => setCpfStatus(event.target.value as CpfStatus)}><NativeSelectOption value="full">Citizen / PR year 3+</NativeSelectOption><NativeSelectOption value="pr-year-1">PR year 1</NativeSelectOption><NativeSelectOption value="pr-year-2">PR year 2</NativeSelectOption><NativeSelectOption value="none">Not CPF-eligible</NativeSelectOption></NativeSelect></label>
-                  <label><span className="field-label">Age band</span><NativeSelect value={ageBand} onChange={(event) => setAgeBand(event.target.value as AgeBand)}>{Object.entries(ageLabels).map(([value, label]) => <NativeSelectOption key={value} value={value}>{label}</NativeSelectOption>)}</NativeSelect></label>
-                  <label><span className="field-label">Tax residency</span><NativeSelect value={sgTaxResident ? 'resident' : 'nonresident'} onChange={(event) => setSgTaxResident(event.target.value === 'resident')}><NativeSelectOption value="resident">Singapore tax resident</NativeSelectOption><NativeSelectOption value="nonresident">Non-resident (61–182 days)</NativeSelectOption></NativeSelect></label>
+                  <label htmlFor="cpf-status"><span className="field-label">CPF status</span><NativeSelect id="cpf-status" value={cpfStatus} onChange={(event) => setCpfStatus(event.target.value as CpfStatus)}><NativeSelectOption value="full">Citizen / PR year 3+</NativeSelectOption><NativeSelectOption value="pr-year-1">PR year 1</NativeSelectOption><NativeSelectOption value="pr-year-2">PR year 2</NativeSelectOption><NativeSelectOption value="none">Not CPF-eligible</NativeSelectOption></NativeSelect></label>
+                  <label htmlFor="age-band"><span className="field-label">Age band</span><NativeSelect id="age-band" value={ageBand} onChange={(event) => setAgeBand(event.target.value as AgeBand)}>{Object.entries(ageLabels).map(([value, label]) => <NativeSelectOption key={value} value={value}>{label}</NativeSelectOption>)}</NativeSelect></label>
+                  <label htmlFor="sg-tax-residency"><span className="field-label">Tax residency</span><NativeSelect id="sg-tax-residency" value={sgTaxResident ? 'resident' : 'nonresident'} onChange={(event) => setSgTaxResident(event.target.value === 'resident')}><NativeSelectOption value="resident">Singapore tax resident</NativeSelectOption><NativeSelectOption value="nonresident">Non-resident (61–182 days)</NativeSelectOption></NativeSelect></label>
                   <NumberField label="Other personal reliefs" prefix="S$" value={sgOtherReliefs} onChange={setSgOtherReliefs} />
                 </div>
                 <div className="tax-result-strip">
@@ -639,18 +456,18 @@ export default function App() {
 
             <article className={`scenario-card us ${mobileScenario !== 'us' ? 'mobile-hidden' : ''}`}>
               <div className="scenario-head"><div><span className="flag-mark">US</span><div><p>UNITED STATES</p><h2>SWE / FDE transition</h2></div></div><span>USD</span></div>
-              <div className="editor-section"><SectionHeading icon={<BadgeDollarSign />} title="Compensation" copy="Annual employee compensation before tax." /><div className="field-grid three"><NumberField label="Base salary" prefix="$" value={usBase} onChange={setUsBase} /><NumberField label="Expected bonus" prefix="$" value={usBonus} onChange={setUsBonus} /><NumberField label="Annualized equity" prefix="$" value={usEquity} onChange={setUsEquity} hint="Keep private options at $0; model them below as package-only." /></div></div>
+              <div className="editor-section"><SectionHeading icon={<BadgeDollarSign />} title="Compensation" copy="Annual employee compensation before tax." /><div className="field-grid three"><NumberField label="Base salary" prefix="US$" value={usBase} onChange={setUsBase} /><NumberField label="Expected bonus" prefix="US$" value={usBonus} onChange={setUsBonus} /><NumberField label="Annualized equity" prefix="US$" value={usEquity} onChange={setUsEquity} hint="Keep private options at US$0; model them below as package-only." /></div></div>
               <BenefitEditor currency="USD" benefits={usBenefits} setBenefits={setUsBenefits} />
               <div className="editor-section">
                 <SectionHeading icon={<Landmark />} title="Tax & payroll profile" copy="2026 federal single-filer rates; state and local tax stays editable." />
                 <div className="select-grid">
-                  <label><span className="field-label">Federal treatment</span><NativeSelect value={federalMode} onChange={(event) => setFederalMode(event.target.value as 'automatic' | 'manual')}><NativeSelectOption value="automatic">Full-year resident · auto</NativeSelectOption><NativeSelectOption value="manual">NRA / dual-status · manual</NativeSelectOption></NativeSelect></label>
-                  {federalMode === 'manual' ? <NumberField label="Federal tax estimate" prefix="$" value={manualFederalTax} onChange={setManualFederalTax} /> : <div className="read-only-field"><span>Standard deduction</span><strong>$16,100</strong></div>}
-                  <label><span className="field-label">Work state / city</span><Input aria-label="Work state or city" value={usLocation} onChange={(event) => setUsLocation(event.target.value)} /></label>
-                  <label><span className="field-label">State/local method</span><NativeSelect value={stateMode} onChange={(event) => setStateMode(event.target.value as 'rate' | 'annual')}><NativeSelectOption value="rate">Effective-rate scenario</NativeSelectOption><NativeSelectOption value="annual">Annual manual estimate</NativeSelectOption></NativeSelect></label>
-                  <NumberField label={stateMode === 'rate' ? 'State/local effective rate' : 'State/local annual tax'} prefix={stateMode === 'annual' ? '$' : undefined} suffix={stateMode === 'rate' ? '%' : undefined} value={stateValue} onChange={setStateValue} step={stateMode === 'rate' ? 0.1 : 100} />
-                  <NumberField label="Employee 401(k)" prefix="$" value={retirement401k} onChange={setRetirement401k} hint="Reduces federal taxable income" />
-                  <NumberField label="Pre-tax health / HSA" prefix="$" value={otherPretax} onChange={setOtherPretax} hint="Modeled as reducing FIT and FICA wages" />
+                  <label htmlFor="federal-treatment"><span className="field-label">Federal treatment</span><NativeSelect id="federal-treatment" value={federalMode} onChange={(event) => setFederalMode(event.target.value as 'automatic' | 'manual')}><NativeSelectOption value="automatic">Full-year resident · auto</NativeSelectOption><NativeSelectOption value="manual">NRA / dual-status · manual</NativeSelectOption></NativeSelect></label>
+                  {federalMode === 'manual' ? <NumberField label="Federal tax estimate" prefix="US$" value={manualFederalTax} onChange={setManualFederalTax} /> : <div className="read-only-field"><span>Standard deduction</span><strong>US$16,100</strong></div>}
+                  <label htmlFor="us-location"><span className="field-label">Work state / city</span><Input id="us-location" value={usLocation} onChange={(event) => setUsLocation(event.target.value)} /></label>
+                  <label htmlFor="state-local-method"><span className="field-label">State/local method</span><NativeSelect id="state-local-method" value={stateMode} onChange={(event) => setStateMode(event.target.value as 'rate' | 'annual')}><NativeSelectOption value="rate">Effective-rate scenario</NativeSelectOption><NativeSelectOption value="annual">Annual manual estimate</NativeSelectOption></NativeSelect></label>
+                  <NumberField label={stateMode === 'rate' ? 'State/local effective rate' : 'State/local annual tax'} prefix={stateMode === 'annual' ? 'US$' : undefined} suffix={stateMode === 'rate' ? '%' : undefined} value={stateValue} onChange={setStateValue} step={stateMode === 'rate' ? 0.1 : 100} />
+                  <NumberField label="Employee 401(k)" prefix="US$" value={retirement401k} onChange={setRetirement401k} hint="Reduces federal taxable income" />
+                  <NumberField label="Pre-tax health / HSA" prefix="US$" value={otherPretax} onChange={setOtherPretax} hint="Modeled as reducing FIT and FICA wages" />
                 </div>
                 <div className="tax-result-strip">
                   <span><small>Federal tax</small><strong>{formatMoney(us.federalIncomeTax, 'USD')}</strong></span>
@@ -663,6 +480,22 @@ export default function App() {
               <ExpenseEditor currency="USD" expenses={usExpenses} setExpenses={setUsExpenses} />
             </article>
           </div>
+        </section>
+
+        <section className="outcome-card" aria-live="polite">
+          <div className="outcome-copy"><p className="eyebrow light">DISPOSABLE INCOME</p><h2><span>{winner}</span> leaves {formatMoney(delta / (period === 'monthly' ? 12 : 1), displayCurrency)} more {periodLabel}</h2><p>After estimated tax, payroll deductions, and the living costs above.</p></div>
+          <div className="score-grid"><article className="score sg"><span>Singapore</span><strong>{display(sg.disposableIncome, 'sg')}</strong><small>{formatPercent(sg.effectiveAllInRate)} tax + statutory</small></article><div className="versus">VS</div><article className="score us"><span>U.S. H-1B1</span><strong>{display(us.disposableIncome, 'us')}</strong><small>{formatPercent(us.effectiveAllInRate)} tax + FICA</small></article></div>
+        </section>
+
+        <section className="metric-strip">
+          <article><span className="metric-icon"><Building2 /></span><div><span>Employer package</span><strong>{display(sg.employerPackage, 'sg')} <i>SG</i></strong><strong>{display(us.employerPackage, 'us')} <i>US</i></strong></div></article>
+          <article><span className="metric-icon"><WalletCards /></span><div><span>Net pay</span><strong>{display(sg.netPay, 'sg')} <i>SG</i></strong><strong>{display(us.netPay, 'us')} <i>US</i></strong></div></article>
+          <article><span className="metric-icon"><Landmark /></span><div><span>Employer statutory cost</span><strong>{display(sg.employerStatutory, 'sg')} <i>SG CPF</i></strong><strong>{display(us.employerStatutory, 'us')} <i>US FICA</i></strong></div></article>
+        </section>
+
+        <section className="money-flow-section">
+          <div className="block-title"><div><p className="eyebrow">CASH JOURNEY</p><h2>Where the gross cash goes</h2></div><p>Employer-paid benefits and contributions stay in package value, not this spendable-cash view.</p></div>
+          <div className="flow-grid"><ResultFlow result={sg} region="sg" format={display} /><ResultFlow result={us} region="us" format={display} /></div>
         </section>
 
         <section className="comparison-section">

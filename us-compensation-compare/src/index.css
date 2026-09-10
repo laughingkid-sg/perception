@@ -1,6 +1,4 @@
 @import 'tailwindcss';
-@import 'tw-animate-css';
-@import 'shadcn/tailwind.css';
 
 @custom-variant dark (&:is(.dark *));
 
@@ -36,6 +34,8 @@
 }
 
 :root {
+  --font-geist-sans: 'Avenir Next', 'Segoe UI', Helvetica, Arial, sans-serif;
+  --font-geist-mono: 'SFMono-Regular', Consolas, 'Liberation Mono', monospace;
   --background: #f2f4f0;
   --foreground: #17201d;
   --card: #ffffff;
@@ -129,8 +129,8 @@
 .intro-copy > p:last-child { max-width: 650px; margin: 18px 0 0; color: #5d6863; font-size: 1.06rem; line-height: 1.6; }
 
 .global-controls { display: grid; grid-template-columns: 1fr 1fr 1.25fr; gap: 12px; padding: 13px; background: white; border: 1px solid var(--border); border-radius: 18px; box-shadow: 0 18px 48px rgb(33 51 44 / 6%); }
-.global-controls > label, .number-field { min-width: 0; display: flex; flex-direction: column; gap: 7px; }
-.global-controls > label > span:first-child, .field-label { font-size: .74rem; line-height: 1.2; font-weight: 690; color: #68736e; }
+.global-controls > label, .global-controls > .control-group, .number-field { min-width: 0; display: flex; flex-direction: column; gap: 7px; }
+.global-controls > label > span:first-child, .global-controls > .control-group > span:first-child, .field-label { font-size: .74rem; line-height: 1.2; font-weight: 690; color: #68736e; }
 .global-controls .number-field small { padding-left: 2px; }
 .segmented-control { min-height: 39px; padding: 3px; display: grid; grid-template-columns: 1fr 1fr; gap: 2px; border: 1px solid var(--border); border-radius: 10px; background: #f4f6f3; }
 .segmented-control button { border: 0; border-radius: 7px; background: transparent; color: #6a746f; font-size: .8rem; font-weight: 650; cursor: pointer; }
@@ -166,7 +166,7 @@
 .metric-strip strong { display: flex; justify-content: space-between; gap: 10px; font-family: var(--font-geist-mono); font-size: .94rem; line-height: 1.65; }
 .metric-strip strong i { color: #89938e; font-family: var(--font-geist-sans); font-size: .65rem; font-style: normal; font-weight: 720; }
 
-.money-flow-section, .workspace-section, .comparison-section { margin-top: 76px; }
+.money-flow-section, .workspace-section, .workspace-section + .outcome-card, .comparison-section { margin-top: 76px; }
 .block-title { margin-bottom: 23px; display: flex; align-items: end; justify-content: space-between; gap: 32px; }
 .block-title h2, .questions-copy h2 { margin: 0; font-size: clamp(1.65rem, 3vw, 2.5rem); line-height: 1.05; letter-spacing: -.045em; font-weight: 640; }
 .block-title > p { max-width: 470px; margin: 0; color: #69736f; font-size: .87rem; line-height: 1.5; text-align: right; }
@@ -318,7 +318,7 @@
   .score strong { font-size: 1.8rem; }
   .versus { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); margin: 0; }
   .metric-strip article { padding: 18px; }
-  .money-flow-section, .workspace-section, .comparison-section { margin-top: 54px; }
+  .money-flow-section, .workspace-section, .workspace-section + .outcome-card, .comparison-section { margin-top: 54px; }
   .block-title { align-items: flex-start; flex-direction: column; gap: 10px; }
   .block-title > p { text-align: left; }
   .flow-card { padding: 18px; }
