@@ -3,3 +3,7 @@ node_modules/
 
 # Build output
 dist/
+
+# Python caches
+__pycache__/
+*.py[cod]

@@ -1,8 +1,9 @@
 # Perception apps
 
-This repository contains two React applications managed through one npm workspace:
+This repository contains three applications managed through one npm workspace:
 
 - `housing-affordability-calculator`
+- `trading-course`
 - `us-compensation-compare`
 
 ## Requirements
@@ -22,6 +23,7 @@ npm install
 
 ```bash
 npm run dev:housing
+npm run dev:trading
 npm run dev:compensation
 ```
 

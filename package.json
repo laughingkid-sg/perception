@@ -4,6 +4,7 @@
   "private": true,
   "workspaces": [
     "housing-affordability-calculator",
+    "trading-course",
     "us-compensation-compare"
   ],
   "engines": {
@@ -11,9 +12,11 @@
   },
   "scripts": {
     "dev:housing": "npm run dev --workspace=sg-property-options",
+    "dev:trading": "npm run dev --workspace=trading-course",
     "dev:compensation": "npm run dev --workspace=us-compensation-compare",
     "build": "npm run build --workspaces --if-present",
     "build:housing": "npm run build --workspace=sg-property-options",
+    "build:trading": "npm run build --workspace=trading-course",
     "build:compensation": "npm run build --workspace=us-compensation-compare",
     "test": "npm run test --workspaces --if-present",
     "typecheck": "npm run typecheck --workspaces --if-present",

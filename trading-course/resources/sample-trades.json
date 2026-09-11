@@ -1,0 +1,38 @@
+[
+  {
+    "trade_id": "SYN-001",
+    "initial_price_risk_usd": 40,
+    "net_pnl_usd": 80,
+    "evidence": "synthetic-test-data"
+  },
+  {
+    "trade_id": "SYN-002",
+    "initial_price_risk_usd": 40,
+    "net_pnl_usd": -40,
+    "evidence": "synthetic-test-data"
+  },
+  {
+    "trade_id": "SYN-003",
+    "initial_price_risk_usd": 40,
+    "net_pnl_usd": 80,
+    "evidence": "synthetic-test-data"
+  },
+  {
+    "trade_id": "SYN-004",
+    "initial_price_risk_usd": 40,
+    "net_pnl_usd": -40,
+    "evidence": "synthetic-test-data"
+  },
+  {
+    "trade_id": "SYN-005",
+    "initial_price_risk_usd": 40,
+    "net_pnl_usd": -40,
+    "evidence": "synthetic-test-data"
+  },
+  {
+    "trade_id": "SYN-006",
+    "initial_price_risk_usd": 40,
+    "net_pnl_usd": 80,
+    "evidence": "synthetic-test-data"
+  }
+]
