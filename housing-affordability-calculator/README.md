@@ -4,15 +4,17 @@ A React/Vite affordability comparison table for Singapore housing options.
 
 ## Run locally
 
+From the repository root, install dependencies once and start this app:
+
 ```bash
 npm install
-npm run dev
+npm run dev:housing
 ```
 
 ## Build
 
 ```bash
-npm run build
+npm run build:housing
 ```
 
 ## What is editable
