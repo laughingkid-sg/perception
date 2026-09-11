@@ -7,7 +7,7 @@ This repository contains two React applications managed through one npm workspac
 
 ## Requirements
 
-- Node.js 22.13.0 or newer
+- Node.js 26.0.0 or newer
 - npm 10 or newer
 
 ## Install
