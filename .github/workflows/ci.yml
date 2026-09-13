@@ -1,48 +1,130 @@
-name: CI
+name: Build deployable site
 
 on:
   push:
     paths:
       - "housing-affordability-calculator/**"
+      - "trading-course/**"
       - "us-compensation-compare/**"
+      - "navigation/**"
+      - "scripts/**"
       - "package.json"
       - "package-lock.json"
       - ".github/workflows/ci.yml"
   pull_request:
     paths:
       - "housing-affordability-calculator/**"
+      - "trading-course/**"
       - "us-compensation-compare/**"
+      - "navigation/**"
+      - "scripts/**"
       - "package.json"
       - "package-lock.json"
       - ".github/workflows/ci.yml"
+  workflow_dispatch:
 
 permissions:
   contents: read
 
 jobs:
-  build:
+  build-applications:
+    name: Build ${{ matrix.directory }}
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - directory: housing-affordability-calculator
+            workspace: sg-property-options
+          - directory: trading-course
+            workspace: trading-course
+          - directory: us-compensation-compare
+            workspace: us-compensation-compare
     steps:
       - name: Check out repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
+
+      - name: Restore unchanged application build
+        id: application-cache
+        uses: actions/cache@v4
+        with:
+          path: ${{ matrix.directory }}/dist
+          key: application-${{ runner.os }}-${{ matrix.directory }}-${{ hashFiles(format('{0}/**', matrix.directory), 'package.json', 'package-lock.json') }}
 
       - name: Set up Node.js
-        uses: actions/setup-node@v4
+        if: steps.application-cache.outputs.cache-hit != 'true'
+        uses: actions/setup-node@v6
         with:
           node-version: 26
           cache: npm
 
       - name: Install dependencies
+        if: steps.application-cache.outputs.cache-hit != 'true'
         run: npm ci
 
-      - name: Build applications
-        run: npm run build
-
       - name: Run tests
-        run: npm run test
+        if: steps.application-cache.outputs.cache-hit != 'true'
+        run: npm run test --workspace=${{ matrix.workspace }} --if-present
 
       - name: Check types
-        run: npm run typecheck
+        if: steps.application-cache.outputs.cache-hit != 'true'
+        run: npm run typecheck --workspace=${{ matrix.workspace }} --if-present
 
       - name: Lint
-        run: npm run lint
+        if: steps.application-cache.outputs.cache-hit != 'true'
+        run: npm run lint --workspace=${{ matrix.workspace }} --if-present
+
+      - name: Build application
+        if: steps.application-cache.outputs.cache-hit != 'true'
+        run: npm run build --workspace=${{ matrix.workspace }}
+
+      - name: Verify application output
+        run: test -f "${{ matrix.directory }}/dist/index.html"
+
+      - name: Upload application output
+        uses: actions/upload-artifact@v4
+        with:
+          name: application-${{ matrix.directory }}
+          path: ${{ matrix.directory }}/dist/
+          if-no-files-found: error
+          retention-days: 7
+
+  assemble:
+    name: Assemble deployable site
+    needs: build-applications
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v6
+
+      - name: Download housing application
+        uses: actions/download-artifact@v4
+        with:
+          name: application-housing-affordability-calculator
+          path: housing-affordability-calculator/dist
+
+      - name: Download trading application
+        uses: actions/download-artifact@v4
+        with:
+          name: application-trading-course
+          path: trading-course/dist
+
+      - name: Download compensation application
+        uses: actions/download-artifact@v4
+        with:
+          name: application-us-compensation-compare
+          path: us-compensation-compare/dist
+
+      - name: Assemble site
+        run: node scripts/assemble-site.mjs
+
+      - name: Verify navigation and assets
+        run: npm run verify:site
+
+      - name: Upload deployable site
+        uses: actions/upload-artifact@v4
+        with:
+          name: deployable-site
+          path: dist/
+          if-no-files-found: error
+          retention-days: 30
