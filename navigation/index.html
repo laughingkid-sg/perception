@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Open one of the three tools in the Perception application collection."
+    />
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23080b14'/%3E%3Ccircle cx='32' cy='32' r='19' fill='none' stroke='%2385f2d0' stroke-width='6'/%3E%3Ccircle cx='32' cy='32' r='6' fill='%2385f2d0'/%3E%3C/svg%3E"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+    <title>Perception Apps</title>
+  </head>
+  <body>
+    <main class="shell">
+      <header class="masthead">
+        <a class="brand" href="./" aria-label="Perception apps home">
+          <span class="brand-mark" aria-hidden="true"><span></span></span>
+          <span>Perception</span>
+        </a>
+        <p class="collection-label">Application collection · 03</p>
+      </header>
+
+      <section class="intro" aria-labelledby="page-title">
+        <p class="eyebrow">Choose a workspace</p>
+        <h1 id="page-title">Just Kudos Things</h1>
+      </section>
+
+      <nav class="app-grid" aria-label="Applications">
+        <a
+          class="app-card card-housing"
+          href="./housing-affordability-calculator/"
+          data-application="housing-affordability-calculator"
+        >
+          <span class="card-number">01</span>
+          <span class="card-content">
+            <span class="card-kicker">Singapore property</span>
+            <span class="card-title">Housing affordability calculator</span>
+            <span class="card-description">
+              Compare housing options, financing limits, and purchase costs.
+            </span>
+          </span>
+          <span class="card-arrow" aria-hidden="true">↗</span>
+        </a>
+
+        <a
+          class="app-card card-trading"
+          href="./trading-course/"
+          data-application="trading-course"
+        >
+          <span class="card-number">02</span>
+          <span class="card-content">
+            <span class="card-kicker">Learning workspace</span>
+            <span class="card-title">US markets trading course</span>
+            <span class="card-description">
+              Work through lessons, exercises, and a paper-first trading curriculum.
+            </span>
+          </span>
+          <span class="card-arrow" aria-hidden="true">↗</span>
+        </a>
+
+        <a
+          class="app-card card-compensation"
+          href="./us-compensation-compare/"
+          data-application="us-compensation-compare"
+        >
+          <span class="card-number">03</span>
+          <span class="card-content">
+            <span class="card-kicker">Career planning</span>
+            <span class="card-title">US compensation comparison</span>
+            <span class="card-description">
+              Compare packages across Singapore and US locations with tax estimates.
+            </span>
+          </span>
+          <span class="card-arrow" aria-hidden="true">↗</span>
+        </a>
+      </nav>
+
+      <footer>
+        <p>Select an application to open it.</p>
+        <p>Perception · 2026</p>
+      </footer>
+    </main>
+    <script>
+      if (window.location.protocol === 'file:' && window.location.pathname.includes('/navigation/')) {
+        document.querySelectorAll('[data-application]').forEach((link) => {
+          link.href = `http://127.0.0.1:4173/${link.dataset.application}/`;
+        });
+      }
+    </script>
+  </body>
+</html>
