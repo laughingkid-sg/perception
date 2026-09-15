@@ -57,3 +57,5 @@ The output uses relative asset paths, so the entire `dist/` folder can be deploy
 GitHub Actions builds each application independently and publishes one `deployable-site` artifact. Each application's compiled output is cached by its source and dependency hash. If an application is unchanged, its existing output is restored and its install, validation, and build steps are skipped. Changes to the root package files invalidate every application cache because shared dependency changes can affect all three builds.
 
 Download the `deployable-site` artifact from a completed workflow run and upload its contents to the static host of your choice.
+
+Pushes to `main` and manual runs on `main` also deploy that verified artifact to the Cloudflare Pages project named by the `CLOUDFLARE_PAGES_PROJECT` repository variable. Pull requests never deploy. GitHub stores the Cloudflare account ID and API token as repository secrets.

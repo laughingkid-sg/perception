@@ -128,3 +128,31 @@ jobs:
           path: dist/
           if-no-files-found: error
           retention-days: 30
+
+  deploy:
+    name: Deploy to Cloudflare Pages
+    needs: assemble
+    # Pull requests build and verify the artifact, but only main may deploy it.
+    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download deployable site
+        uses: actions/download-artifact@v4
+        with:
+          name: deployable-site
+          path: dist
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: 26
+
+      - name: Deploy prebuilt files
+        run: >
+          npx --yes wrangler@4 pages deploy dist
+          --project-name="$CLOUDFLARE_PAGES_PROJECT"
+          --branch=main
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          CLOUDFLARE_PAGES_PROJECT: ${{ vars.CLOUDFLARE_PAGES_PROJECT }}
