@@ -121,7 +121,7 @@ h1 {
 
 .app-grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 14px;
 }
 
@@ -181,6 +181,10 @@ h1 {
 
 .card-compensation {
   --accent: #80a7ff;
+}
+
+.card-escapes {
+  --accent: #d7ff64;
 }
 
 .card-number {
