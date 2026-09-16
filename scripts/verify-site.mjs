@@ -6,6 +6,7 @@ const repositoryRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url))
 const outputDirectory = path.join(repositoryRoot, 'dist');
 const applications = [
   'housing-affordability-calculator',
+  'krisflyer-spontaneous-escapes',
   'trading-course',
   'us-compensation-compare',
 ];

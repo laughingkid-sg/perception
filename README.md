@@ -1,8 +1,9 @@
 # Perception apps
 
-This repository contains three applications, a shared navigation page, and a platform-neutral static deployment bundle managed through one npm workspace:
+This repository contains four applications, a shared navigation page, and a platform-neutral static deployment bundle managed through one npm workspace:
 
 - `housing-affordability-calculator`
+- `krisflyer-spontaneous-escapes`
 - `trading-course`
 - `us-compensation-compare`
 
@@ -23,6 +24,7 @@ npm install
 
 ```bash
 npm run dev:housing
+npm run dev:escapes
 npm run dev:trading
 npm run dev:compensation
 ```
@@ -47,6 +49,7 @@ The combined static site is written to `dist/` with this URL structure:
 
 - `/` — application navigation
 - `/housing-affordability-calculator/`
+- `/krisflyer-spontaneous-escapes/`
 - `/trading-course/`
 - `/us-compensation-compare/`
 

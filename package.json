@@ -4,6 +4,7 @@
   "private": true,
   "workspaces": [
     "housing-affordability-calculator",
+    "krisflyer-spontaneous-escapes",
     "trading-course",
     "us-compensation-compare"
   ],
@@ -12,11 +13,13 @@
   },
   "scripts": {
     "dev:housing": "npm run dev --workspace=sg-property-options",
+    "dev:escapes": "npm run dev --workspace=krisflyer-spontaneous-escapes",
     "dev:trading": "npm run dev --workspace=trading-course",
     "dev:compensation": "npm run dev --workspace=us-compensation-compare",
     "build": "npm run build:apps && npm run assemble",
     "build:apps": "npm run build --workspaces --if-present",
     "build:housing": "npm run build --workspace=sg-property-options",
+    "build:escapes": "npm run build --workspace=krisflyer-spontaneous-escapes",
     "build:trading": "npm run build --workspace=trading-course",
     "build:compensation": "npm run build --workspace=us-compensation-compare",
     "assemble": "node scripts/assemble-site.mjs",

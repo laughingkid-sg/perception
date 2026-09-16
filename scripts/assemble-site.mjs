@@ -7,6 +7,7 @@ const outputDirectory = path.join(repositoryRoot, 'dist');
 const navigationDirectory = path.join(repositoryRoot, 'navigation');
 const applications = [
   'housing-affordability-calculator',
+  'krisflyer-spontaneous-escapes',
   'trading-course',
   'us-compensation-compare',
 ];
