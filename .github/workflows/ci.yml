@@ -4,6 +4,7 @@ on:
   push:
     paths:
       - "housing-affordability-calculator/**"
+      - "krisflyer-spontaneous-escapes/**"
       - "trading-course/**"
       - "us-compensation-compare/**"
       - "navigation/**"
@@ -14,6 +15,7 @@ on:
   pull_request:
     paths:
       - "housing-affordability-calculator/**"
+      - "krisflyer-spontaneous-escapes/**"
       - "trading-course/**"
       - "us-compensation-compare/**"
       - "navigation/**"
@@ -36,6 +38,8 @@ jobs:
         include:
           - directory: housing-affordability-calculator
             workspace: sg-property-options
+          - directory: krisflyer-spontaneous-escapes
+            workspace: krisflyer-spontaneous-escapes
           - directory: trading-course
             workspace: trading-course
           - directory: us-compensation-compare
@@ -108,6 +112,12 @@ jobs:
         with:
           name: application-trading-course
           path: trading-course/dist
+
+      - name: Download KrisFlyer application
+        uses: actions/download-artifact@v4
+        with:
+          name: application-krisflyer-spontaneous-escapes
+          path: krisflyer-spontaneous-escapes/dist
 
       - name: Download compensation application
         uses: actions/download-artifact@v4
