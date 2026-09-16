@@ -1,0 +1,5214 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-09-16T07:07:29+00:00",
+  "promotion": {
+    "name": "KrisFlyer Spontaneous Escapes",
+    "currency": "KrisFlyer miles",
+    "pricing_basis": "per person, one-way",
+    "booking_window": {
+      "start": "2026-09-15",
+      "end": "2026-09-30"
+    },
+    "travel_window": {
+      "start": "2026-10-01",
+      "end": "2026-10-31"
+    }
+  },
+  "summary": {
+    "offer_count": 204,
+    "airlines": [
+      "Scoot",
+      "Singapore Airlines"
+    ],
+    "cabin_classes": [
+      "Business",
+      "Economy",
+      "Premium Economy"
+    ]
+  },
+  "sources": [
+    {
+      "airline": "Singapore Airlines",
+      "url": "https://www.singaporeair.com/en_UK/sg/plan-travel/promotions/global/kf/kf-promo/kfescapes/",
+      "retrieved_at": "2026-09-16T07:07:29+00:00",
+      "access_method": "local file",
+      "offer_count": 115
+    },
+    {
+      "airline": "Scoot",
+      "url": "https://www.flyscoot.com/en/krisflyer/spontaneous-escapes",
+      "retrieved_at": "2026-09-16T07:07:29+00:00",
+      "access_method": "local file",
+      "offer_count": 89
+    }
+  ],
+  "offers": [
+    {
+      "id": "tr-melbourne-singapore-economy",
+      "airline": "Scoot",
+      "airline_code": "TR",
+      "region": "Australia",
+      "origin": "Melbourne",
+      "origin_code": "MEL",
+      "destination": "Singapore",
+      "destination_code": "SIN",
+      "miles_required": 10625,
+      "cabin_class": "Economy",
+      "flight_numbers": [
+        "TR59"
+      ],
+      "blackout_period": "1 - 12 Oct 26 24 - 31 OCt 26",
+      "blackout_dates": [
+        "2026-10-01",
+        "2026-10-02",
+        "2026-10-03",
+        "2026-10-04",
+        "2026-10-05",
+        "2026-10-06",
+        "2026-10-07",
+        "2026-10-08",
+        "2026-10-09",
+        "2026-10-10",
+        "2026-10-11",
+        "2026-10-12",
+        "2026-10-24",
+        "2026-10-25",
+        "2026-10-26",
+        "2026-10-27",
+        "2026-10-28",
+        "2026-10-29",
+        "2026-10-30",
+        "2026-10-31"
+      ]
+    },
+    {
+      "id": "tr-singapore-melbourne-economy",
+      "airline": "Scoot",
+      "airline_code": "TR",
+      "region": "Australia",
+      "origin": "Singapore",
+      "origin_code": "SIN",
+      "destination": "Melbourne",
+      "destination_code": "MEL",
+      "miles_required": 10625,
+      "cabin_class": "Economy",
+      "flight_numbers": [
+        "TR38"
+      ],
+      "blackout_period": "1 - 21 Oct 26",
+      "blackout_dates": [
+        "2026-10-01",
+        "2026-10-02",
+        "2026-10-03",
+        "2026-10-04",
+        "2026-10-05",
+        "2026-10-06",
+        "2026-10-07",
+        "2026-10-08",
+        "2026-10-09",
+        "2026-10-10",
+        "2026-10-11",
+        "2026-10-12",
+        "2026-10-13",
+        "2026-10-14",
+        "2026-10-15",
+        "2026-10-16",
+        "2026-10-17",
+        "2026-10-18",
+        "2026-10-19",
+        "2026-10-20",
+        "2026-10-21"
+      ]
+    },
+    {
+      "id": "tr-singapore-vienna-economy",
+      "airline": "Scoot",
+      "airline_code": "TR",
+      "region": "Austria",
+      "origin": "Singapore",
+      "origin_code": "SIN",
+      "destination": "Vienna",
+      "destination_code": "VIE",
+      "miles_required": 20400,
+      "cabin_class": "Economy",
+      "flight_numbers": [
+        "All"
+      ],
+      "blackout_period": "1 - 11 Oct 26 24 - 31 Oct 26",
+      "blackout_dates": [
+        "2026-10-01",
+        "2026-10-02",
+        "2026-10-03",
+        "2026-10-04",
+        "2026-10-05",
+        "2026-10-06",
+        "2026-10-07",
+        "2026-10-08",
+        "2026-10-09",
+        "2026-10-10",
+        "2026-10-11",
+        "2026-10-24",
+        "2026-10-25",
+        "2026-10-26",
+        "2026-10-27",
+        "2026-10-28",
+        "2026-10-29",
+        "2026-10-30",
+        "2026-10-31"
+      ]
+    },
+    {
+      "id": "tr-changsha-singapore-economy",
+      "airline": "Scoot",
+      "airline_code": "TR",
+      "region": "China",
+      "origin": "Changsha",
+      "origin_code": "CSX",
+      "destination": "Singapore",
+      "destination_code": "SIN",
+      "miles_required": 10200,
+      "cabin_class": "Economy",
+      "flight_numbers": [
+        "All"
+      ],
+      "blackout_period": "1 - 3 Oct 26 15 - 24 Oct 26",
+      "blackout_dates": [
+        "2026-10-01",
+        "2026-10-02",
+        "2026-10-03",
+        "2026-10-15",
+        "2026-10-16",
+        "2026-10-17",
+        "2026-10-18",
+        "2026-10-19",
+        "2026-10-20",
+        "2026-10-21",
+        "2026-10-22",
+        "2026-10-23",
+        "2026-10-24"
+      ]
+    },
+    {
+      "id": "tr-fuzhou-singapore-economy",
+      "airline": "Scoot",
+      "airline_code": "TR",
+      "region": "China",
+      "origin": "Fuzhou",
+      "origin_code": "FOC",
+      "destination": "Singapore",
+      "destination_code": "SIN",
+      "miles_required": 10200,
+      "cabin_class": "Economy",
+      "flight_numbers": [
+        "All"
+      ],
+      "blackout_period": "1 - 4 Oct 26",
+      "blackout_dates": [
+        "2026-10-01",
+        "2026-10-02",
+        "2026-10-03",
+        "2026-10-04"
+      ]
+    },
+    {
+      "id": "tr-guangzhou-singapore-economy",
+      "airline": "Scoot",
+      "airline_code": "TR",
+      "region": "China",
+      "origin": "Guangzhou",
+      "origin_code": "CAN",
+      "destination": "Singapore",
+      "destination_code": "SIN",
+      "miles_required": 5525,
+      "cabin_class": "Economy",
+      "flight_numbers": [
+        "All"
+      ],
+      "blackout_period": "1 - 3 Oct 26 15 - 31 Oct 26",
+      "blackout_dates": [
+        "2026-10-01",
+        "2026-10-02",
+        "2026-10-03",
+        "2026-10-15",
+        "2026-10-16",
+        "2026-10-17",
+        "2026-10-18",
+        "2026-10-19",
+        "2026-10-20",
+        "2026-10-21",
+        "2026-10-22",
+        "2026-10-23",
+        "2026-10-24",
+        "2026-10-25",
+        "2026-10-26",
+        "2026-10-27",
+        "2026-10-28",
+        "2026-10-29",
+        "2026-10-30",
+        "2026-10-31"
+      ]
+    },
+    {
+      "id": "tr-guiyang-singapore-economy",
+      "airline": "Scoot",
+      "airline_code": "TR",
+      "region": "China",
+      "origin": "Guiyang",
+      "origin_code": "KWE",
+      "destination": "Singapore",
+      "destination_code": "SIN",
+      "miles_required": 10200,
+      "cabin_class": "Economy",
+      "flight_numbers": [
+        "All"
+      ],
+      "blackout_period": null,
+      "blackout_dates": []
+    },
+    {
+      "id": "tr-haikou-singapore-economy",
+      "airline": "Scoot",
+      "airline_code": "TR",
+      "region": "China",
+      "origin": "Haikou",
+      "origin_code": "HAK",
+      "destination": "Singapore",
+      "destination_code": "SIN",
+      "miles_required": 5525,
+      "cabin_class": "Economy",
+      "flight_numbers": [
+        "All"
+      ],
+      "blackout_period": "1 - 3 Oct 26 17 - 31 Oct 26",
+      "blackout_dates": [
+        "2026-10-01",
+        "2026-10-02",
+        "2026-10-03",
+        "2026-10-17",
+        "2026-10-18",
+        "2026-10-19",
+        "2026-10-20",
+        "2026-10-21",
+        "2026-10-22",
+        "2026-10-23",
+        "2026-10-24",
+        "2026-10-25",
+        "2026-10-26",
+        "2026-10-27",
+        "2026-10-28",
+        "2026-10-29",
+        "2026-10-30",
+        "2026-10-31"
+      ]
+    },
+    {
+      "id": "tr-hangzhou-singapore-economy",
+      "airline": "Scoot",
+      "airline_code": "TR",
+      "region": "China",
+      "origin": "Hangzhou",
+      "origin_code": "HGH",
+      "destination": "Singapore",
+      "destination_code": "SIN",
+      "miles_required": 10200,
+      "cabin_class": "Economy",
+      "flight_numbers": [
+        "All"
+      ],
+      "blackout_period": "1 - 3 Oct 26 16 - 31 Oct 26",
+      "blackout_dates": [
+        "2026-10-01",
+        "2026-10-02",
+        "2026-10-03",
+        "2026-10-16",
+        "2026-10-17",
+        "2026-10-18",
+        "2026-10-19",
+        "2026-10-20",
+        "2026-10-21",
+        "2026-10-22",
+        "2026-10-23",
+        "2026-10-24",
+        "2026-10-25",
+        "2026-10-26",
+        "2026-10-27",
+        "2026-10-28",
+        "2026-10-29",
+        "2026-10-30",
+        "2026-10-31"
+      ]
+    },
+    {
+      "id": "tr-kunming-singapore-economy",
+      "airline": "Scoot",
+      "airline_code": "TR",
+      "region": "China",
+      "origin": "Kunming",
+      "origin_code": "KMG",
+      "destination": "Singapore",
+      "destination_code": "SIN",
+      "miles_required": 10200,
+      "cabin_class": "Economy",
+      "flight_numbers": [
+        "All"
+      ],
+      "blackout_period": "2 - 5 Oct 26 16 - 30 Oct 26",
+      "blackout_dates": [
+        "2026-10-02",
+        "2026-10-03",
+        "2026-10-04",
+        "2026-10-05",
+        "2026-10-16",
+        "2026-10-17",
+        "2026-10-18",
+        "2026-10-19",
+        "2026-10-20",
+        "2026-10-21",
+        "2026-10-22",
+        "2026-10-23",
+        "2026-10-24",
+        "2026-10-25",
+        "2026-10-26",
+        "2026-10-27",
+        "2026-10-28",
+        "2026-10-29",
+        "2026-10-30"
+      ]
+    },
+    {
+      "id": "tr-nanjing-singapore-economy",
+      "airline": "Scoot",
+      "airline_code": "TR",
+      "region": "China",
+      "origin": "Nanjing",
+      "origin_code": "NKG",
+      "destination": "Singapore",
+      "destination_code": "SIN",
+      "miles_required": 10200,
+      "cabin_class": "Economy",
+      "flight_numbers": [
+        "All"
+      ],
+      "blackout_period": "1 - 4 Oct 26",
+      "blackout_dates": [
+        "2026-10-01",
+        "2026-10-02",
+        "2026-10-03",
+        "2026-10-04"
+      ]
+    },
+    {
+      "id": "tr-nanning-singapore-economy",
+      "airline": "Scoot",
+      "airline_code": "TR",
+      "region": "China",
+      "origin": "Nanning",
+      "origin_code": "NNG",
+      "destination": "Singapore",
+      "destination_code": "SIN",
+      "miles_required": 5525,
+      "cabin_class": "Economy",
+      "flight_numbers": [
+        "All"
+      ],
+      "blackout_period": "1 - 3 Oct 26 15 - 26 Oct 26",
+      "blackout_dates": [
+        "2026-10-01",
+        "2026-10-02",
+        "2026-10-03",
+        "2026-10-15",
+        "2026-10-16",
+        "2026-10-17",
+        "2026-10-18",
+        "2026-10-19",
+        "2026-10-20",
+        "2026-10-21",
+        "2026-10-22",
+        "2026-10-23",
+        "2026-10-24",
+        "2026-10-25",
+        "2026-10-26"
+      ]
+    },
+    {
+      "id": "tr-qingdao-singapore-economy",
+      "airline": "Scoot",
+      "airline_code": "TR",
+      "region": "China",
+      "origin": "Qingdao",
+      "origin_code": "TAO",
+      "destination": "Singapore",
+      "destination_code": "SIN",
+      "miles_required": 10200,
+      "cabin_class": "Economy",
+      "flight_numbers": [
+        "All"
+      ],
+      "blackout_period": "1 - 2 Oct 26 22 - 31 Oct 26",
+      "blackout_dates": [
+        "2026-10-01",
+        "2026-10-02",
+        "2026-10-22",
+        "2026-10-23",
+        "2026-10-24",
+        "2026-10-25",
+        "2026-10-26",
+        "2026-10-27",
+        "2026-10-28",
+        "2026-10-29",
+        "2026-10-30",
+        "2026-10-31"
+      ]
+    },
+    {
+      "id": "tr-shantou-singapore-economy",
+      "airline": "Scoot",
+      "airline_code": "TR",
+      "region": "China",
+      "origin": "Shantou",
+      "origin_code": "SWA",
+      "destination": "Singapore",
+      "destination_code": "SIN",
+      "miles_required": 10200,
+      "cabin_class": "Economy",
+      "flight_numbers": [
+        "All"
+      ],
+      "blackout_period": "1 - 3 Oct 26",
+      "blackout_dates": [
+        "2026-10-01",
+        "2026-10-02",
+        "2026-10-03"
+      ]
+    },
+    {
+      "id": "tr-shenyang-singapore-economy",
+      "airline": "Scoot",
+      "airline_code": "TR",
+      "region": "China",
+      "origin": "Shenyang",
+      "origin_code": "SHE",
+      "destination": "Singapore",
+      "destination_code": "SIN",
+      "miles_required": 10200,
+      "cabin_class": "Economy",
+      "flight_numbers": [
+        "All"
+      ],
+      "blackout_period": "1 - 4 Oct 26",
+      "blackout_dates": [
+        "2026-10-01",
+        "2026-10-02",
+        "2026-10-03",
+        "2026-10-04"
+      ]
+    },
+    {
+      "id": "tr-singapore-changsha-economy",
+      "airline": "Scoot",
+      "airline_code": "TR",
+      "region": "China",
+      "origin": "Singapore",
+      "origin_code": "SIN",
+      "destination": "Changsha",
+      "destination_code": "CSX",
+      "miles_required": 10200,
+      "cabin_class": "Economy",
+      "flight_numbers": [
+        "All"
+      ],
+      "blackout_period": "6 - 23 Oct 26",
+      "blackout_dates": [
+        "2026-10-06",
+        "2026-10-07",
+        "2026-10-08",
+        "2026-10-09",
+        "2026-10-10",
+        "2026-10-11",
+        "2026-10-12",
+        "2026-10-13",
+        "2026-10-14",
+        "2026-10-15",
+        "2026-10-16",
+        "2026-10-17",
+        "2026-10-18",
+        "2026-10-19",
+        "2026-10-20",
+        "2026-10-21",
+        "2026-10-22",
+        "2026-10-23"
+      ]
+    },
+    {
+      "id": "tr-singapore-fuzhou-economy",
+      "airline": "Scoot",
+      "airline_code": "TR",
+      "region": "China",
+      "origin": "Singapore",
+      "origin_code": "SIN",
+      "destination": "Fuzhou",
+      "destination_code": "FOC",
+      "miles_required": 10200,
+      "cabin_class": "Economy",
+      "flight_numbers": [
+        "All"
+      ],
+      "blackout_period": "5 - 16 Oct 26",
+      "blackout_dates": [
+        "2026-10-05",
+        "2026-10-06",
+        "2026-10-07",
+        "2026-10-08",
+        "2026-10-09",
+        "2026-10-10",
+        "2026-10-11",
+        "2026-10-12",
+        "2026-10-13",
+        "2026-10-14",
+        "2026-10-15",
+        "2026-10-16"
+      ]
+    },
+    {
+      "id": "tr-singapore-guangzhou-economy",
+      "airline": "Scoot",
+      "airline_code": "TR",
+      "region": "China",
+      "origin": "Singapore",
+      "origin_code": "SIN",
+      "destination": "Guangzhou",
+      "destination_code": "CAN",
+      "miles_required": 5525,
+      "cabin_class": "Economy",
+      "flight_numbers": [
+        "All"
+      ],
+      "blackout_period": "3 - 31 Oct 26",
+      "blackout_dates": [
+        "2026-10-03",
+        "2026-10-04",
+        "2026-10-05",
+        "2026-10-06",
+        "2026-10-07",
+        "2026-10-08",
+        "2026-10-09",
+        "2026-10-10",
+        "2026-10-11",
+        "2026-10-12",
+        "2026-10-13",
+        "2026-10-14",
+        "2026-10-15",
+        "2026-10-16",
+        "2026-10-17",
+        "2026-10-18",
+        "2026-10-19",
+        "2026-10-20",
+        "2026-10-21",
+        "2026-10-22",
+        "2026-10-23",
+        "2026-10-24",
+        "2026-10-25",
+        "2026-10-26",
+        "2026-10-27",
+        "2026-10-28",
+        "2026-10-29",
+        "2026-10-30",
+        "2026-10-31"
+      ]
+    },
+    {
+      "id": "tr-singapore-guiyang-economy",
+      "airline": "Scoot",
+      "airline_code": "TR",
+      "region": "China",
+      "origin": "Singapore",
+      "origin_code": "SIN",
+      "destination": "Guiyang",
+      "destination_code": "KWE",
+      "miles_required": 10200,
+      "cabin_class": "Economy",
+      "flight_numbers": [
+        "All"
+      ],
+      "blackout_period": null,
+      "blackout_dates": []
+    },
+    {
+      "id": "tr-singapore-haikou-economy",
+      "airline": "Scoot",
+      "airline_code": "TR",
+      "region": "China",
+      "origin": "Singapore",
+      "origin_code": "SIN",
+      "destination": "Haikou",
+      "destination_code": "HAK",
+      "miles_required": 5525,
+      "cabin_class": "Economy",
+      "flight_numbers": [
+        "All"
+      ],
+      "blackout_period": "6 - 24 Oct 26",
+      "blackout_dates": [
+        "2026-10-06",
+        "2026-10-07",
+        "2026-10-08",
+        "2026-10-09",
+        "2026-10-10",
+        "2026-10-11",
+        "2026-10-12",
+        "2026-10-13",
+        "2026-10-14",
+        "2026-10-15",
+        "2026-10-16",
+        "2026-10-17",
+        "2026-10-18",
+        "2026-10-19",
+        "2026-10-20",
+        "2026-10-21",
+        "2026-10-22",
+        "2026-10-23",
+        "2026-10-24"
+      ]
+    },
+    {
+      "id": "tr-singapore-hangzhou-economy",
+      "airline": "Scoot",
+      "airline_code": "TR",
+      "region": "China",
+      "origin": "Singapore",
+      "origin_code": "SIN",
+      "destination": "Hangzhou",
+      "destination_code": "HGH",
+      "miles_required": 10200,
+      "cabin_class": "Economy",
+      "flight_numbers": [
+        "All"
+      ],
+      "blackout_period": "2 - 19 Oct 26",
+      "blackout_dates": [
+        "2026-10-02",
+        "2026-10-03",
+        "2026-10-04",
+        "2026-10-05",
+        "2026-10-06",
+        "2026-10-07",
+        "2026-10-08",
+        "2026-10-09",
+        "2026-10-10",
+        "2026-10-11",
+        "2026-10-12",
+        "2026-10-13",
+        "2026-10-14",
+        "2026-10-15",
+        "2026-10-16",
+        "2026-10-17",
+        "2026-10-18",
+        "2026-10-19"
+      ]
+    },
+    {
+      "id": "tr-singapore-kunming-economy",
+      "airline": "Scoot",
+      "airline_code": "TR",
+      "region": "China",
+      "origin": "Singapore",
+      "origin_code": "SIN",
+      "destination": "Kunming",
+      "destination_code": "KMG",
+      "miles_required": 10200,
+      "cabin_class": "Economy",
+      "flight_numbers": [
+        "All"
+      ],
+      "blackout_period": "4 - 31 Oct 26",
+      "blackout_dates": [
+        "2026-10-04",
+        "2026-10-05",
+        "2026-10-06",
+        "2026-10-07",
+        "2026-10-08",
+        "2026-10-09",
+        "2026-10-10",
+        "2026-10-11",
+        "2026-10-12",
+        "2026-10-13",
+        "2026-10-14",
+        "2026-10-15",
+        "2026-10-16",
+        "2026-10-17",
+        "2026-10-18",
+        "2026-10-19",
+        "2026-10-20",
+        "2026-10-21",
+        "2026-10-22",
+        "2026-10-23",
+        "2026-10-24",
+        "2026-10-25",
+        "2026-10-26",
+        "2026-10-27",
+        "2026-10-28",
+        "2026-10-29",
+        "2026-10-30",
+        "2026-10-31"
+      ]
+    },
+    {
+      "id": "tr-singapore-nanjing-economy",
+      "airline": "Scoot",
+      "airline_code": "TR",
+      "region": "China",
+      "origin": "Singapore",
+      "origin_code": "SIN",
+      "destination": "Nanjing",
+      "destination_code": "NKG",
+      "miles_required": 10200,
+      "cabin_class": "Economy",
+      "flight_numbers": [
+        "All"
+      ],
+      "blackout_period": "3 - 12 Oct 26",
+      "blackout_dates": [
+        "2026-10-03",
+        "2026-10-04",
+        "2026-10-05",
+        "2026-10-06",
+        "2026-10-07",
+        "2026-10-08",
+        "2026-10-09",
+        "2026-10-10",
+        "2026-10-11",
+        "2026-10-12"
+      ]
+    },
+    {
+      "id": "tr-singapore-nanning-economy",
+      "airline": "Scoot",
+      "airline_code": "TR",
+      "region": "China",
+      "origin": "Singapore",
+      "origin_code": "SIN",
+      "destination": "Nanning",
+      "destination_code": "NNG",
+      "miles_required": 5525,
+      "cabin_class": "Economy",
+      "flight_numbers": [
+        "All"
+      ],
+      "blackout_period": "3 - 24 Oct 26",
+      "blackout_dates": [
+        "2026-10-03",
+        "2026-10-04",
+        "2026-10-05",
+        "2026-10-06",
+        "2026-10-07",
+        "2026-10-08",
+        "2026-10-09",
+        "2026-10-10",
+        "2026-10-11",
+        "2026-10-12",
+        "2026-10-13",
+        "2026-10-14",
+        "2026-10-15",
+        "2026-10-16",
+        "2026-10-17",
+        "2026-10-18",
+        "2026-10-19",
+        "2026-10-20",
+        "2026-10-21",
+        "2026-10-22",
+        "2026-10-23",
+        "2026-10-24"
+      ]
+    },
+    {
+      "id": "tr-singapore-qingdao-economy",
+      "airline": "Scoot",
+      "airline_code": "TR",
+      "region": "China",
+      "origin": "Singapore",
+      "origin_code": "SIN",
+      "destination": "Qingdao",
+      "destination_code": "TAO",
+      "miles_required": 10200,
+      "cabin_class": "Economy",
+      "flight_numbers": [
+        "All"
+      ],
+      "blackout_period": "6 - 25 Oct 26",
+      "blackout_dates": [
+        "2026-10-06",
+        "2026-10-07",
+        "2026-10-08",
+        "2026-10-09",
+        "2026-10-10",
+        "2026-10-11",
+        "2026-10-12",
+        "2026-10-13",
+        "2026-10-14",
+        "2026-10-15",
+        "2026-10-16",
+        "2026-10-17",
+        "2026-10-18",
+        "2026-10-19",
+        "2026-10-20",
+        "2026-10-21",
+        "2026-10-22",
+        "2026-10-23",
+        "2026-10-24",
+        "2026-10-25"
+      ]
+    },
+    {
+      "id": "tr-singapore-shantou-economy",
+      "airline": "Scoot",
+      "airline_code": "TR",
+      "region": "China",
+      "origin": "Singapore",
+      "origin_code": "SIN",
+      "destination": "Shantou",
+      "destination_code": "SWA",
+      "miles_required": 10200,
+      "cabin_class": "Economy",
+      "flight_numbers": [
+        "All"
+      ],
+      "blackout_period": "6 - 24 Oct 26 29 - 31 Oct 26",
+      "blackout_dates": [
+        "2026-10-06",
+        "2026-10-07",
+        "2026-10-08",
+        "2026-10-09",
+        "2026-10-10",
+        "2026-10-11",
+        "2026-10-12",
+        "2026-10-13",
+        "2026-10-14",
+        "2026-10-15",
+        "2026-10-16",
+        "2026-10-17",
+        "2026-10-18",
+        "2026-10-19",
+        "2026-10-20",
+        "2026-10-21",
+        "2026-10-22",
+        "2026-10-23",
+        "2026-10-24",
+        "2026-10-29",
+        "2026-10-30",
+        "2026-10-31"
+      ]
+    },
+    {
+      "id": "tr-singapore-shenyang-economy",
+      "airline": "Scoot",
+      "airline_code": "TR",
+      "region": "China",
+      "origin": "Singapore",
+      "origin_code": "SIN",
+      "destination": "Shenyang",
+      "destination_code": "SHE",
+      "miles_required": 10200,
+      "cabin_class": "Economy",
+      "flight_numbers": [
+        "All"
+      ],
+      "blackout_period": "4 - 18 Oct 26",
+      "blackout_dates": [
+        "2026-10-04",
+        "2026-10-05",
+        "2026-10-06",
+        "2026-10-07",
+        "2026-10-08",
+        "2026-10-09",
+        "2026-10-10",
+        "2026-10-11",
+        "2026-10-12",
+        "2026-10-13",
+        "2026-10-14",
+        "2026-10-15",
+        "2026-10-16",
+        "2026-10-17",
+        "2026-10-18"
+      ]
+    },
+    {
+      "id": "tr-singapore-tianjin-economy",
+      "airline": "Scoot",
+      "airline_code": "TR",
+      "region": "China",
+      "origin": "Singapore",
+      "origin_code": "SIN",
+      "destination": "Tianjin",
+      "destination_code": "TSN",
+      "miles_required": 10200,
+      "cabin_class": "Economy",
+      "flight_numbers": [
+        "All"
+      ],
+      "blackout_period": "6 - 15 Oct 26",
+      "blackout_dates": [
+        "2026-10-06",
+        "2026-10-07",
+        "2026-10-08",
+        "2026-10-09",
+        "2026-10-10",
+        "2026-10-11",
+        "2026-10-12",
+        "2026-10-13",
+        "2026-10-14",
+        "2026-10-15"
+      ]
+    },
+    {
+      "id": "tr-singapore-wuhan-economy",
+      "airline": "Scoot",
+      "airline_code": "TR",
+      "region": "China",
+      "origin": "Singapore",
+      "origin_code": "SIN",
+      "destination": "Wuhan",
+      "destination_code": "WUH",
+      "miles_required": 10200,
+      "cabin_class": "Economy",
+      "flight_numbers": [
+        "All"
+      ],
+      "blackout_period": "3 - 18 Oct 26",
+      "blackout_dates": [
+        "2026-10-03",
+        "2026-10-04",
+        "2026-10-05",
+        "2026-10-06",
+        "2026-10-07",
+        "2026-10-08",
+        "2026-10-09",
+        "2026-10-10",
+        "2026-10-11",
+        "2026-10-12",
+        "2026-10-13",
+        "2026-10-14",
+        "2026-10-15",
+        "2026-10-16",
+        "2026-10-17",
+        "2026-10-18"
+      ]
+    },
+    {
+      "id": "tr-singapore-xi-an-economy",
+      "airline": "Scoot",
+      "airline_code": "TR",
+      "region": "China",
+      "origin": "Singapore",
+      "origin_code": "SIN",
+      "destination": "Xi'an",
+      "destination_code": "XIY",
+      "miles_required": 10200,
+      "cabin_class": "Economy",
+      "flight_numbers": [
+        "All"
+      ],
+      "blackout_period": "3 - 31 Oct 26",
+      "blackout_dates": [
+        "2026-10-03",
+        "2026-10-04",
+        "2026-10-05",
+        "2026-10-06",
+        "2026-10-07",
+        "2026-10-08",
+        "2026-10-09",
+        "2026-10-10",
+        "2026-10-11",
+        "2026-10-12",
+        "2026-10-13",
+        "2026-10-14",
+        "2026-10-15",
+        "2026-10-16",
+        "2026-10-17",
+        "2026-10-18",
+        "2026-10-19",
+        "2026-10-20",
+        "2026-10-21",
+        "2026-10-22",
+        "2026-10-23",
+        "2026-10-24",
+        "2026-10-25",
+        "2026-10-26",
+        "2026-10-27",
+        "2026-10-28",
+        "2026-10-29",
+        "2026-10-30",
+        "2026-10-31"
+      ]
+    },
+    {
+      "id": "tr-singapore-zhengzhou-economy",
+      "airline": "Scoot",
+      "airline_code": "TR",
+      "region": "China",
+      "origin": "Singapore",
+      "origin_code": "SIN",
+      "destination": "Zhengzhou",
+      "destination_code": "CGO",
+      "miles_required": 10200,
+      "cabin_class": "Economy",
+      "flight_numbers": [
+        "All"
+      ],
+      "blackout_period": "6 - 25 Oct 26",
+      "blackout_dates": [
+        "2026-10-06",
+        "2026-10-07",
+        "2026-10-08",
+        "2026-10-09",
+        "2026-10-10",
+        "2026-10-11",
+        "2026-10-12",
+        "2026-10-13",
+        "2026-10-14",
+        "2026-10-15",
+        "2026-10-16",
+        "2026-10-17",
+        "2026-10-18",
+        "2026-10-19",
+        "2026-10-20",
+        "2026-10-21",
+        "2026-10-22",
+        "2026-10-23",
+        "2026-10-24",
+        "2026-10-25"
+      ]
+    },
+    {
+      "id": "tr-tianjin-singapore-economy",
+      "airline": "Scoot",
+      "airline_code": "TR",
+      "region": "China",
+      "origin": "Tianjin",
+      "origin_code": "TSN",
+      "destination": "Singapore",
+      "destination_code": "SIN",
+      "miles_required": 10200,
+      "cabin_class": "Economy",
+      "flight_numbers": [
+        "All"
+      ],
+      "blackout_period": "1 - 3 Oct 26",
+      "blackout_dates": [
+        "2026-10-01",
+        "2026-10-02",
+        "2026-10-03"
+      ]
+    },
+    {
+      "id": "tr-wuhan-singapore-economy",
+      "airline": "Scoot",
+      "airline_code": "TR",
+      "region": "China",
+      "origin": "Wuhan",
+      "origin_code": "WUH",
+      "destination": "Singapore",
+      "destination_code": "SIN",
+      "miles_required": 10200,
+      "cabin_class": "Economy",
+      "flight_numbers": [
+        "All"
+      ],
+      "blackout_period": "1 - 4 Oct 26 16 - 25 Oct 26",
+      "blackout_dates": [
+        "2026-10-01",
+        "2026-10-02",
+        "2026-10-03",
+        "2026-10-04",
+        "2026-10-16",
+        "2026-10-17",
+        "2026-10-18",
+        "2026-10-19",
+        "2026-10-20",
+        "2026-10-21",
+        "2026-10-22",
+        "2026-10-23",
+        "2026-10-24",
+        "2026-10-25"
+      ]
+    },
+    {
+      "id": "tr-xi-an-singapore-economy",
+      "airline": "Scoot",
+      "airline_code": "TR",
+      "region": "China",
+      "origin": "Xi'an",
+      "origin_code": "XIY",
+      "destination": "Singapore",
+      "destination_code": "SIN",
+      "miles_required": 10200,
+      "cabin_class": "Economy",
+      "flight_numbers": [
+        "All"
+      ],
+      "blackout_period": "1 - 3 Oct 26 13 - 31 Oct 26",
+      "blackout_dates": [
+        "2026-10-01",
+        "2026-10-02",
+        "2026-10-03",
+        "2026-10-13",
+        "2026-10-14",
+        "2026-10-15",
+        "2026-10-16",
+        "2026-10-17",
+        "2026-10-18",
+        "2026-10-19",
+        "2026-10-20",
+        "2026-10-21",
+        "2026-10-22",
+        "2026-10-23",
+        "2026-10-24",
+        "2026-10-25",
+        "2026-10-26",
+        "2026-10-27",
+        "2026-10-28",
+        "2026-10-29",
+        "2026-10-30",
+        "2026-10-31"
+      ]
+    },
+    {
+      "id": "tr-singapore-athens-economy",
+      "airline": "Scoot",
+      "airline_code": "TR",
+      "region": "Greece",
+      "origin": "Singapore",
+      "origin_code": "SIN",
+      "destination": "Athens",
+      "destination_code": "ATH",
+      "miles_required": 20400,
+      "cabin_class": "Economy",
+      "flight_numbers": [
+        "All"
+      ],
+      "blackout_period": "1 - 11 Oct 26",
+      "blackout_dates": [
+        "2026-10-01",
+        "2026-10-02",
+        "2026-10-03",
+        "2026-10-04",
+        "2026-10-05",
+        "2026-10-06",
+        "2026-10-07",
+        "2026-10-08",
+        "2026-10-09",
+        "2026-10-10",
+        "2026-10-11"
+      ]
+    },
+    {
+      "id": "tr-hong-kong-singapore-economy",
+      "airline": "Scoot",
+      "airline_code": "TR",
+      "region": "Hong Kong / Macau",
+      "origin": "Hong Kong",
+      "origin_code": "HKG",
+      "destination": "Singapore",
+      "destination_code": "SIN",
+      "miles_required": 5525,
+      "cabin_class": "Economy",
+      "flight_numbers": [
+        "All"
+      ],
+      "blackout_period": "1 - 4 Oct 26",
+      "blackout_dates": [
+        "2026-10-01",
+        "2026-10-02",
+        "2026-10-03",
+        "2026-10-04"
+      ]
+    },
+    {
+      "id": "tr-macau-singapore-economy",
+      "airline": "Scoot",
+      "airline_code": "TR",
+      "region": "Hong Kong / Macau",
+      "origin": "Macau",
+      "origin_code": "MFM",
+      "destination": "Singapore",
+      "destination_code": "SIN",
+      "miles_required": 5525,
+      "cabin_class": "Economy",
+      "flight_numbers": [
+        "All"
+      ],
+      "blackout_period": "1 - 3 Oct 26",
+      "blackout_dates": [
+        "2026-10-01",
+        "2026-10-02",
+        "2026-10-03"
+      ]
+    },
+    {
+      "id": "tr-singapore-hong-kong-economy",
+      "airline": "Scoot",
+      "airline_code": "TR",
+      "region": "Hong Kong / Macau",
+      "origin": "Singapore",
+      "origin_code": "SIN",
+      "destination": "Hong Kong",
+      "destination_code": "HKG",
+      "miles_required": 5525,
+      "cabin_class": "Economy",
+      "flight_numbers": [
+        "All"
+      ],
+      "blackout_period": "1 - 26 Oct 26",
+      "blackout_dates": [
+        "2026-10-01",
+        "2026-10-02",
+        "2026-10-03",
+        "2026-10-04",
+        "2026-10-05",
+        "2026-10-06",
+        "2026-10-07",
+        "2026-10-08",
+        "2026-10-09",
+        "2026-10-10",
+        "2026-10-11",
+        "2026-10-12",
+        "2026-10-13",
+        "2026-10-14",
+        "2026-10-15",
+        "2026-10-16",
+        "2026-10-17",
+        "2026-10-18",
+        "2026-10-19",
+        "2026-10-20",
+        "2026-10-21",
+        "2026-10-22",
+        "2026-10-23",
+        "2026-10-24",
+        "2026-10-25",
+        "2026-10-26"
+      ]
+    },
+    {
+      "id": "tr-singapore-macau-economy",
+      "airline": "Scoot",
+      "airline_code": "TR",
+      "region": "Hong Kong / Macau",
+      "origin": "Singapore",
+      "origin_code": "SIN",
+      "destination": "Macau",
+      "destination_code": "MFM",
+      "miles_required": 5525,
+      "cabin_class": "Economy",
+      "flight_numbers": [
+        "All"
+      ],
+      "blackout_period": "4 - 12 Oct 26",
+      "blackout_dates": [
+        "2026-10-04",
+        "2026-10-05",
+        "2026-10-06",
+        "2026-10-07",
+        "2026-10-08",
+        "2026-10-09",
+        "2026-10-10",
+        "2026-10-11",
+        "2026-10-12"
+      ]
+    },
+    {
+      "id": "tr-amritsar-singapore-economy",
+      "airline": "Scoot",
+      "airline_code": "TR",
+      "region": "India",
+      "origin": "Amritsar",
+      "origin_code": "ATQ",
+      "destination": "Singapore",
+      "destination_code": "SIN",
+      "miles_required": 6800,
+      "cabin_class": "Economy",
+      "flight_numbers": [
+        "All"
+      ],
+      "blackout_period": null,
+      "blackout_dates": []
+    },
+    {
+      "id": "tr-singapore-thiruvananthapuram-economy",
+      "airline": "Scoot",
+      "airline_code": "TR",
+      "region": "India",
+      "origin": "Singapore",
+      "origin_code": "SIN",
+      "destination": "Thiruvananthapuram",
+      "destination_code": "TRV",
+      "miles_required": 6800,
+      "cabin_class": "Economy",
+      "flight_numbers": [
+        "All"
+      ],
+      "blackout_period": "16 - 23 Oct 26",
+      "blackout_dates": [
+        "2026-10-16",
+        "2026-10-17",
+        "2026-10-18",
+        "2026-10-19",
+        "2026-10-20",
+        "2026-10-21",
+        "2026-10-22",
+        "2026-10-23"
+      ]
+    },
+    {
+      "id": "tr-thiruvananthapuram-singapore-economy",
+      "airline": "Scoot",
+      "airline_code": "TR",
+      "region": "India",
+      "origin": "Thiruvananthapuram",
+      "origin_code": "TRV",
+      "destination": "Singapore",
+      "destination_code": "SIN",
+      "miles_required": 6800,
+      "cabin_class": "Economy",
+      "flight_numbers": [
+        "All"
+      ],
+      "blackout_period": "15 - 23 Oct 26",
+      "blackout_dates": [
+        "2026-10-15",
+        "2026-10-16",
+        "2026-10-17",
+        "2026-10-18",
+        "2026-10-19",
+        "2026-10-20",
+        "2026-10-21",
+        "2026-10-22",
+        "2026-10-23"
+      ]
+    },
+    {
+      "id": "tr-balikpapan-singapore-economy",
+      "airline": "Scoot",
+      "airline_code": "TR",
+      "region": "Indonesia",
+      "origin": "Balikpapan",
+      "origin_code": "BPN",
+      "destination": "Singapore",
+      "destination_code": "SIN",
+      "miles_required": 3825,
+      "cabin_class": "Economy",
+      "flight_numbers": [
+        "TR223"
+      ],
+      "blackout_period": null,
+      "blackout_dates": []
+    },
+    {
+      "id": "tr-belitung-tanjung-pandan-singapore-economy",
+      "airline": "Scoot",
+      "airline_code": "TR",
+      "region": "Indonesia",
+      "origin": "Belitung (Tanjung Pandan)",
+      "origin_code": "TJQ",
+      "destination": "Singapore",
+      "destination_code": "SIN",
+      "miles_required": 2125,
+      "cabin_class": "Economy",
+      "flight_numbers": [
+        "All"
+      ],
+      "blackout_period": null,
+      "blackout_dates": []
+    },
+    {
+      "id": "tr-denpasar-bali-singapore-economy",
+      "airline": "Scoot",
+      "airline_code": "TR",
+      "region": "Indonesia",
+      "origin": "Denpasar (Bali)",
+      "origin_code": "DPS",
+      "destination": "Singapore",
+      "destination_code": "SIN",
+      "miles_required": 3825,
+      "cabin_class": "Economy",
+      "flight_numbers": [
+        "TR281",
+        "TR283",
+        "TR347"
+      ],
+      "blackout_period": "1 - 14 Oct 26",
+      "blackout_dates": [
+        "2026-10-01",
+        "2026-10-02",
+        "2026-10-03",
+        "2026-10-04",
+        "2026-10-05",
+        "2026-10-06",
+        "2026-10-07",
+        "2026-10-08",
+        "2026-10-09",
+        "2026-10-10",
+        "2026-10-11",
+        "2026-10-12",
+        "2026-10-13",
+        "2026-10-14"
+      ]
+    },
+    {
+      "id": "tr-medan-singapore-economy",
+      "airline": "Scoot",
+      "airline_code": "TR",
+      "region": "Indonesia",
+      "origin": "Medan",
+      "origin_code": "KNO",
+      "destination": "Singapore",
+      "destination_code": "SIN",
+      "miles_required": 3825,
+      "cabin_class": "Economy",
+      "flight_numbers": [
+        "All"
+      ],
+      "blackout_period": null,
+      "blackout_dates": []
+    },
+    {
+      "id": "tr-palembang-singapore-economy",
+      "airline": "Scoot",
+      "airline_code": "TR",
+      "region": "Indonesia",
+      "origin": "Palembang",
+      "origin_code": "PLM",
+      "destination": "Singapore",
+      "destination_code": "SIN",
+      "miles_required": 3825,
+      "cabin_class": "Economy",
+      "flight_numbers": [
+        "All"
+      ],
+      "blackout_period": null,
+      "blackout_dates": []
+    },
+    {
+      "id": "tr-pekanbaru-singapore-economy",
+      "airline": "Scoot",
+      "airline_code": "TR",
+      "region": "Indonesia",
+      "origin": "Pekanbaru",
+      "origin_code": "PKU",
+      "destination": "Singapore",
+      "destination_code": "SIN",
+      "miles_required": 2125,
+      "cabin_class": "Economy",
+      "flight_numbers": [
+        "All"
+      ],
+      "blackout_period": null,
+      "blackout_dates": []
+    },
+    {
+      "id": "tr-pontianak-singapore-economy",
+      "airline": "Scoot",
+      "airline_code": "TR",
+      "region": "Indonesia",
+      "origin": "Pontianak",
+      "origin_code": "PNK",
+      "destination": "Singapore",
+      "destination_code": "SIN",
+      "miles_required": 3825,
+      "cabin_class": "Economy",
+      "flight_numbers": [
+        "All"
+      ],
+      "blackout_period": "5 Oct 26",
+      "blackout_dates": [
+        "2026-10-05"
+      ]
+    },
+    {
+      "id": "tr-semarang-singapore-economy",
+      "airline": "Scoot",
+      "airline_code": "TR",
+      "region": "Indonesia",
+      "origin": "Semarang",
+      "origin_code": "SRG",
+      "destination": "Singapore",
+      "destination_code": "SIN",
+      "miles_required": 3825,
+      "cabin_class": "Economy",
+      "flight_numbers": [
+        "All"
+      ],
+      "blackout_period": null,
+      "blackout_dates": []
+    },
+    {
+      "id": "tr-singapore-balikpapan-economy",
+      "airline": "Scoot",
+      "airline_code": "TR",
+      "region": "Indonesia",
+      "origin": "Singapore",
+      "origin_code": "SIN",
+      "destination": "Balikpapan",
+      "destination_code": "BPN",
+      "miles_required": 3825,
+      "cabin_class": "Economy",
+      "flight_numbers": [
+        "All"
+      ],
+      "blackout_period": "12 Oct 26",
+      "blackout_dates": [
+        "2026-10-12"
+      ]
+    },
+    {
+      "id": "tr-singapore-belitung-tanjung-pandan-economy",
+      "airline": "Scoot",
+      "airline_code": "TR",
+      "region": "Indonesia",
+      "origin": "Singapore",
+      "origin_code": "SIN",
+      "destination": "Belitung (Tanjung Pandan)",
+      "destination_code": "TJQ",
+      "miles_required": 2125,
+      "cabin_class": "Economy",
+      "flight_numbers": [
+        "All"
+      ],
+      "blackout_period": null,
+      "blackout_dates": []
+    },
+    {
+      "id": "tr-singapore-denpasar-bali-economy",
+      "airline": "Scoot",
+      "airline_code": "TR",
+      "region": "Indonesia",
+      "origin": "Singapore",
+      "origin_code": "SIN",
+      "destination": "Denpasar (Bali)",
+      "destination_code": "DPS",
+      "miles_required": 3825,
+      "cabin_class": "Economy",
+      "flight_numbers": [
+        "TR280",
+        "TR282",
+        "TR346"
+      ],
+      "blackout_period": "1 - 3 Oct 26",
+      "blackout_dates": [
+        "2026-10-01",
+        "2026-10-02",
+        "2026-10-03"
+      ]
+    },
+    {
+      "id": "tr-singapore-kertajati-economy",
+      "airline": "Scoot",
+      "airline_code": "TR",
+      "region": "Indonesia",
+      "origin": "Singapore",
+      "origin_code": "SIN",
+      "destination": "Kertajati",
+      "destination_code": "KJT",
+      "miles_required": 2125,
+      "cabin_class": "Economy",
+      "flight_numbers": [
+        "All"
+      ],
+      "blackout_period": null,
+      "blackout_dates": []
+    },
+    {
+      "id": "tr-singapore-makassar-economy",
+      "airline": "Scoot",
+      "airline_code": "TR",
+      "region": "Indonesia",
+      "origin": "Singapore",
+      "origin_code": "SIN",
+      "destination": "Makassar",
+      "destination_code": "UPG",
+      "miles_required": 3825,
+      "cabin_class": "Economy",
+      "flight_numbers": [
+        "All"
+      ],
+      "blackout_period": "12 - 15 Oct 26 29 Oct 26",
+      "blackout_dates": [
+        "2026-10-12",
+        "2026-10-13",
+        "2026-10-14",
+        "2026-10-15",
+        "2026-10-29"
+      ]
+    },
+    {
+      "id": "tr-singapore-manado-economy",
+      "airline": "Scoot",
+      "airline_code": "TR",
+      "region": "Indonesia",
+      "origin": "Singapore",
+      "origin_code": "SIN",
+      "destination": "Manado",
+      "destination_code": "MDC",
+      "miles_required": 3825,
+      "cabin_class": "Economy",
+      "flight_numbers": [
+        "All"
+      ],
+      "blackout_period": "1 - 3 Oct 26",
+      "blackout_dates": [
+        "2026-10-01",
+        "2026-10-02",
+        "2026-10-03"
+      ]
+    },
+    {
+      "id": "tr-singapore-medan-economy",
+      "airline": "Scoot",
+      "airline_code": "TR",
+      "region": "Indonesia",
+      "origin": "Singapore",
+      "origin_code": "SIN",
+      "destination": "Medan",
+      "destination_code": "KNO",
+      "miles_required": 3825,
+      "cabin_class": "Economy",
+      "flight_numbers": [
+        "All"
+      ],
+      "blackout_period": "4 Oct 26 15 Oct 26",
+      "blackout_dates": [
+        "2026-10-04",
+        "2026-10-15"
+      ]
+    },
+    {
+      "id": "tr-singapore-padang-economy",
+      "airline": "Scoot",
+      "airline_code": "TR",
+      "region": "Indonesia",
+      "origin": "Singapore",
+      "origin_code": "SIN",
+      "destination": "Padang",
+      "destination_code": "PDG",
+      "miles_required": 2125,
+      "cabin_class": "Economy",
+      "flight_numbers": [
+        "All"
+      ],
+      "blackout_period": "6 Oct 26 13 - 20 Oct 26",
+      "blackout_dates": [
+        "2026-10-06",
+        "2026-10-13",
+        "2026-10-14",
+        "2026-10-15",
+        "2026-10-16",
+        "2026-10-17",
+        "2026-10-18",
+        "2026-10-19",
+        "2026-10-20"
+      ]
+    },
+    {
+      "id": "tr-singapore-palembang-economy",
+      "airline": "Scoot",
+      "airline_code": "TR",
+      "region": "Indonesia",
+      "origin": "Singapore",
+      "origin_code": "SIN",
+      "destination": "Palembang",
+      "destination_code": "PLM",
+      "miles_required": 3825,
+      "cabin_class": "Economy",
+      "flight_numbers": [
+        "All"
+      ],
+      "blackout_period": null,
+      "blackout_dates": []
+    },
+    {
+      "id": "tr-singapore-pekanbaru-economy",
+      "airline": "Scoot",
+      "airline_code": "TR",
+      "region": "Indonesia",
+      "origin": "Singapore",
+      "origin_code": "SIN",
+      "destination": "Pekanbaru",
+      "destination_code": "PKU",
+      "miles_required": 2125,
+      "cabin_class": "Economy",
+      "flight_numbers": [
+        "All"
+      ],
+      "blackout_period": null,
+      "blackout_dates": []
+    },
+    {
+      "id": "tr-singapore-pontianak-economy",
+      "airline": "Scoot",
+      "airline_code": "TR",
+      "region": "Indonesia",
+      "origin": "Singapore",
+      "origin_code": "SIN",
+      "destination": "Pontianak",
+      "destination_code": "PNK",
+      "miles_required": 3825,
+      "cabin_class": "Economy",
+      "flight_numbers": [
+        "All"
+      ],
+      "blackout_period": "3 Oct 26",
+      "blackout_dates": [
+        "2026-10-03"
+      ]
+    },
+    {
+      "id": "tr-singapore-semarang-economy",
+      "airline": "Scoot",
+      "airline_code": "TR",
+      "region": "Indonesia",
+      "origin": "Singapore",
+      "origin_code": "SIN",
+      "destination": "Semarang",
+      "destination_code": "SRG",
+      "miles_required": 3825,
+      "cabin_class": "Economy",
+      "flight_numbers": [
+        "All"
+      ],
+      "blackout_period": null,
+      "blackout_dates": []
+    },
+    {
+      "id": "tr-singapore-yogyakarta-economy",
+      "airline": "Scoot",
+      "airline_code": "TR",
+      "region": "Indonesia",
+      "origin": "Singapore",
+      "origin_code": "SIN",
+      "destination": "Yogyakarta",
+      "destination_code": "YIA",
+      "miles_required": 3825,
+      "cabin_class": "Economy",
+      "flight_numbers": [
+        "All"
+      ],
+      "blackout_period": "1 - 2 Oct 26 15 Oct 26",
+      "blackout_dates": [
+        "2026-10-01",
+        "2026-10-02",
+        "2026-10-15"
+      ]
+    },
+    {
+      "id": "tr-yogyakarta-singapore-economy",
+      "airline": "Scoot",
+      "airline_code": "TR",
+      "region": "Indonesia",
+      "origin": "Yogyakarta",
+      "origin_code": "YIA",
+      "destination": "Singapore",
+      "destination_code": "SIN",
+      "miles_required": 3825,
+      "cabin_class": "Economy",
+      "flight_numbers": [
+        "All"
+      ],
+      "blackout_period": "1 - 6 Oct 26",
+      "blackout_dates": [
+        "2026-10-01",
+        "2026-10-02",
+        "2026-10-03",
+        "2026-10-04",
+        "2026-10-05",
+        "2026-10-06"
+      ]
+    },
+    {
+      "id": "tr-ipoh-singapore-economy",
+      "airline": "Scoot",
+      "airline_code": "TR",
+      "region": "Malaysia",
+      "origin": "Ipoh",
+      "origin_code": "IPH",
+      "destination": "Singapore",
+      "destination_code": "SIN",
+      "miles_required": 1275,
+      "cabin_class": "Economy",
+      "flight_numbers": [
+        "All"
+      ],
+      "blackout_period": null,
+      "blackout_dates": []
+    },
+    {
+      "id": "tr-malacca-melaka-singapore-economy",
+      "airline": "Scoot",
+      "airline_code": "TR",
+      "region": "Malaysia",
+      "origin": "Malacca (Melaka)",
+      "origin_code": "MKZ",
+      "destination": "Singapore",
+      "destination_code": "SIN",
+      "miles_required": 1275,
+      "cabin_class": "Economy",
+      "flight_numbers": [
+        "All"
+      ],
+      "blackout_period": null,
+      "blackout_dates": []
+    },
+    {
+      "id": "tr-penang-singapore-economy",
+      "airline": "Scoot",
+      "airline_code": "TR",
+      "region": "Malaysia",
+      "origin": "Penang",
+      "origin_code": "PEN",
+      "destination": "Singapore",
+      "destination_code": "SIN",
+      "miles_required": 1275,
+      "cabin_class": "Economy",
+      "flight_numbers": [
+        "All"
+      ],
+      "blackout_period": null,
+      "blackout_dates": []
+    },
+    {
+      "id": "tr-singapore-ipoh-economy",
+      "airline": "Scoot",
+      "airline_code": "TR",
+      "region": "Malaysia",
+      "origin": "Singapore",
+      "origin_code": "SIN",
+      "destination": "Ipoh",
+      "destination_code": "IPH",
+      "miles_required": 1275,
+      "cabin_class": "Economy",
+      "flight_numbers": [
+        "All"
+      ],
+      "blackout_period": null,
+      "blackout_dates": []
+    },
+    {
+      "id": "tr-singapore-kota-bharu-economy",
+      "airline": "Scoot",
+      "airline_code": "TR",
+      "region": "Malaysia",
+      "origin": "Singapore",
+      "origin_code": "SIN",
+      "destination": "Kota Bharu",
+      "destination_code": "KBR",
+      "miles_required": 1275,
+      "cabin_class": "Economy",
+      "flight_numbers": [
+        "All"
+      ],
+      "blackout_period": null,
+      "blackout_dates": []
+    },
+    {
+      "id": "tr-singapore-kuala-lumpur-economy",
+      "airline": "Scoot",
+      "airline_code": "TR",
+      "region": "Malaysia",
+      "origin": "Singapore",
+      "origin_code": "SIN",
+      "destination": "Kuala Lumpur",
+      "destination_code": "KUL",
+      "miles_required": 1275,
+      "cabin_class": "Economy",
+      "flight_numbers": [
+        "All"
+      ],
+      "blackout_period": "1 - 4 Oct 26",
+      "blackout_dates": [
+        "2026-10-01",
+        "2026-10-02",
+        "2026-10-03",
+        "2026-10-04"
+      ]
+    },
+    {
+      "id": "tr-singapore-kuantan-economy",
+      "airline": "Scoot",
+      "airline_code": "TR",
+      "region": "Malaysia",
+      "origin": "Singapore",
+      "origin_code": "SIN",
+      "destination": "Kuantan",
+      "destination_code": "KUA",
+      "miles_required": 1275,
+      "cabin_class": "Economy",
+      "flight_numbers": [
+        "All"
+      ],
+      "blackout_period": null,
+      "blackout_dates": []
+    },
+    {
+      "id": "tr-singapore-kuching-economy",
+      "airline": "Scoot",
+      "airline_code": "TR",
+      "region": "Malaysia",
+      "origin": "Singapore",
+      "origin_code": "SIN",
+      "destination": "Kuching",
+      "destination_code": "KCH",
+      "miles_required": 1700,
+      "cabin_class": "Economy",
+      "flight_numbers": [
+        "All"
+      ],
+      "blackout_period": null,
+      "blackout_dates": []
+    },
+    {
+      "id": "tr-singapore-langkawi-economy",
+      "airline": "Scoot",
+      "airline_code": "TR",
+      "region": "Malaysia",
+      "origin": "Singapore",
+      "origin_code": "SIN",
+      "destination": "Langkawi",
+      "destination_code": "LGK",
+      "miles_required": 1275,
+      "cabin_class": "Economy",
+      "flight_numbers": [
+        "All"
+      ],
+      "blackout_period": null,
+      "blackout_dates": []
+    },
+    {
+      "id": "tr-singapore-malacca-melaka-economy",
+      "airline": "Scoot",
+      "airline_code": "TR",
+      "region": "Malaysia",
+      "origin": "Singapore",
+      "origin_code": "SIN",
+      "destination": "Malacca (Melaka)",
+      "destination_code": "MKZ",
+      "miles_required": 1275,
+      "cabin_class": "Economy",
+      "flight_numbers": [
+        "All"
+      ],
+      "blackout_period": null,
+      "blackout_dates": []
+    },
+    {
+      "id": "tr-singapore-penang-economy",
+      "airline": "Scoot",
+      "airline_code": "TR",
+      "region": "Malaysia",
+      "origin": "Singapore",
+      "origin_code": "SIN",
+      "destination": "Penang",
+      "destination_code": "PEN",
+      "miles_required": 1275,
+      "cabin_class": "Economy",
+      "flight_numbers": [
+        "All"
+      ],
+      "blackout_period": null,
+      "blackout_dates": []
+    },
+    {
+      "id": "tr-singapore-davao-economy",
+      "airline": "Scoot",
+      "airline_code": "TR",
+      "region": "Philippines",
+      "origin": "Singapore",
+      "origin_code": "SIN",
+      "destination": "Davao",
+      "destination_code": "DVO",
+      "miles_required": 5100,
+      "cabin_class": "Economy",
+      "flight_numbers": [
+        "All"
+      ],
+      "blackout_period": null,
+      "blackout_dates": []
+    },
+    {
+      "id": "tr-taipei-singapore-economy",
+      "airline": "Scoot",
+      "airline_code": "TR",
+      "region": "Taiwan",
+      "origin": "Taipei",
+      "origin_code": "TPE",
+      "destination": "Singapore",
+      "destination_code": "SIN",
+      "miles_required": 5525,
+      "cabin_class": "Economy",
+      "flight_numbers": [
+        "TR873",
+        "TR875",
+        "TR893"
+      ],
+      "blackout_period": "7 - 9 Oct 26 23 - 24 Oct 26",
+      "blackout_dates": [
+        "2026-10-07",
+        "2026-10-08",
+        "2026-10-09",
+        "2026-10-23",
+        "2026-10-24"
+      ]
+    },
+    {
+      "id": "tr-chiang-mai-singapore-economy",
+      "airline": "Scoot",
+      "airline_code": "TR",
+      "region": "Thailand",
+      "origin": "Chiang Mai",
+      "origin_code": "CNX",
+      "destination": "Singapore",
+      "destination_code": "SIN",
+      "miles_required": 8925,
+      "cabin_class": "Economy",
+      "flight_numbers": [
+        "All"
+      ],
+      "blackout_period": null,
+      "blackout_dates": []
+    },
+    {
+      "id": "tr-chiang-rai-singapore-economy",
+      "airline": "Scoot",
+      "airline_code": "TR",
+      "region": "Thailand",
+      "origin": "Chiang Rai",
+      "origin_code": "CEI",
+      "destination": "Singapore",
+      "destination_code": "SIN",
+      "miles_required": 8925,
+      "cabin_class": "Economy",
+      "flight_numbers": [
+        "All"
+      ],
+      "blackout_period": null,
+      "blackout_dates": []
+    },
+    {
+      "id": "tr-koh-samui-singapore-economy",
+      "airline": "Scoot",
+      "airline_code": "TR",
+      "region": "Thailand",
+      "origin": "Koh Samui",
+      "origin_code": "USM",
+      "destination": "Singapore",
+      "destination_code": "SIN",
+      "miles_required": 8925,
+      "cabin_class": "Economy",
+      "flight_numbers": [
+        "All"
+      ],
+      "blackout_period": null,
+      "blackout_dates": []
+    },
+    {
+      "id": "tr-krabi-singapore-economy",
+      "airline": "Scoot",
+      "airline_code": "TR",
+      "region": "Thailand",
+      "origin": "Krabi",
+      "origin_code": "KBV",
+      "destination": "Singapore",
+      "destination_code": "SIN",
+      "miles_required": 2125,
+      "cabin_class": "Economy",
+      "flight_numbers": [
+        "All"
+      ],
+      "blackout_period": null,
+      "blackout_dates": []
+    },
+    {
+      "id": "tr-phuket-singapore-economy",
+      "airline": "Scoot",
+      "airline_code": "TR",
+      "region": "Thailand",
+      "origin": "Phuket",
+      "origin_code": "HKT",
+      "destination": "Singapore",
+      "destination_code": "SIN",
+      "miles_required": 2125,
+      "cabin_class": "Economy",
+      "flight_numbers": [
+        "All"
+      ],
+      "blackout_period": "1 - 8 Oct 26 19 Oct 26",
+      "blackout_dates": [
+        "2026-10-01",
+        "2026-10-02",
+        "2026-10-03",
+        "2026-10-04",
+        "2026-10-05",
+        "2026-10-06",
+        "2026-10-07",
+        "2026-10-08",
+        "2026-10-19"
+      ]
+    },
+    {
+      "id": "tr-singapore-chiang-mai-economy",
+      "airline": "Scoot",
+      "airline_code": "TR",
+      "region": "Thailand",
+      "origin": "Singapore",
+      "origin_code": "SIN",
+      "destination": "Chiang Mai",
+      "destination_code": "CNX",
+      "miles_required": 8925,
+      "cabin_class": "Economy",
+      "flight_numbers": [
+        "All"
+      ],
+      "blackout_period": null,
+      "blackout_dates": []
+    },
+    {
+      "id": "tr-singapore-chiang-rai-economy",
+      "airline": "Scoot",
+      "airline_code": "TR",
+      "region": "Thailand",
+      "origin": "Singapore",
+      "origin_code": "SIN",
+      "destination": "Chiang Rai",
+      "destination_code": "CEI",
+      "miles_required": 8925,
+      "cabin_class": "Economy",
+      "flight_numbers": [
+        "All"
+      ],
+      "blackout_period": null,
+      "blackout_dates": []
+    },
+    {
+      "id": "tr-singapore-koh-samui-economy",
+      "airline": "Scoot",
+      "airline_code": "TR",
+      "region": "Thailand",
+      "origin": "Singapore",
+      "origin_code": "SIN",
+      "destination": "Koh Samui",
+      "destination_code": "USM",
+      "miles_required": 8925,
+      "cabin_class": "Economy",
+      "flight_numbers": [
+        "All"
+      ],
+      "blackout_period": null,
+      "blackout_dates": []
+    },
+    {
+      "id": "tr-singapore-krabi-economy",
+      "airline": "Scoot",
+      "airline_code": "TR",
+      "region": "Thailand",
+      "origin": "Singapore",
+      "origin_code": "SIN",
+      "destination": "Krabi",
+      "destination_code": "KBV",
+      "miles_required": 2125,
+      "cabin_class": "Economy",
+      "flight_numbers": [
+        "All"
+      ],
+      "blackout_period": null,
+      "blackout_dates": []
+    },
+    {
+      "id": "tr-singapore-phuket-economy",
+      "airline": "Scoot",
+      "airline_code": "TR",
+      "region": "Thailand",
+      "origin": "Singapore",
+      "origin_code": "SIN",
+      "destination": "Phuket",
+      "destination_code": "HKT",
+      "miles_required": 2125,
+      "cabin_class": "Economy",
+      "flight_numbers": [
+        "All"
+      ],
+      "blackout_period": "1 - 3 Oct 26 10 - 12 Oct 26",
+      "blackout_dates": [
+        "2026-10-01",
+        "2026-10-02",
+        "2026-10-03",
+        "2026-10-10",
+        "2026-10-11",
+        "2026-10-12"
+      ]
+    },
+    {
+      "id": "tr-nha-trang-cam-ranh-singapore-economy",
+      "airline": "Scoot",
+      "airline_code": "TR",
+      "region": "Vietnam",
+      "origin": "Nha Trang (Cam Ranh)",
+      "origin_code": "CXR",
+      "destination": "Singapore",
+      "destination_code": "SIN",
+      "miles_required": 5100,
+      "cabin_class": "Economy",
+      "flight_numbers": [
+        "All"
+      ],
+      "blackout_period": null,
+      "blackout_dates": []
+    },
+    {
+      "id": "tr-singapore-nha-trang-cam-ranh-economy",
+      "airline": "Scoot",
+      "airline_code": "TR",
+      "region": "Vietnam",
+      "origin": "Singapore",
+      "origin_code": "SIN",
+      "destination": "Nha Trang (Cam Ranh)",
+      "destination_code": "CXR",
+      "miles_required": 5100,
+      "cabin_class": "Economy",
+      "flight_numbers": [
+        "All"
+      ],
+      "blackout_period": null,
+      "blackout_dates": []
+    },
+    {
+      "id": "sq-frankfurt-new-york-premium-economy",
+      "airline": "Singapore Airlines",
+      "airline_code": "SQ",
+      "region": "Europe",
+      "origin": "Frankfurt",
+      "origin_code": null,
+      "destination": "New York",
+      "destination_code": null,
+      "miles_required": 39900,
+      "cabin_class": "Premium Economy",
+      "flight_numbers": [
+        "SQ26"
+      ],
+      "blackout_period": "3 – 7 October 2026",
+      "blackout_dates": [
+        "2026-10-03",
+        "2026-10-04",
+        "2026-10-05",
+        "2026-10-06",
+        "2026-10-07"
+      ]
+    },
+    {
+      "id": "sq-new-york-frankfurt-premium-economy",
+      "airline": "Singapore Airlines",
+      "airline_code": "SQ",
+      "region": "Europe",
+      "origin": "New York",
+      "origin_code": null,
+      "destination": "Frankfurt",
+      "destination_code": null,
+      "miles_required": 39900,
+      "cabin_class": "Premium Economy",
+      "flight_numbers": [
+        "SQ25"
+      ],
+      "blackout_period": "3 – 5 October 2026",
+      "blackout_dates": [
+        "2026-10-03",
+        "2026-10-04",
+        "2026-10-05"
+      ]
+    },
+    {
+      "id": "sq-singapore-amsterdam-economy",
+      "airline": "Singapore Airlines",
+      "airline_code": "SQ",
+      "region": "Europe",
+      "origin": "Singapore",
+      "origin_code": null,
+      "destination": "Amsterdam",
+      "destination_code": null,
+      "miles_required": 30800,
+      "cabin_class": "Economy",
+      "flight_numbers": [
+        "SQ334"
+      ],
+      "blackout_period": "23 – 31 October 2026",
+      "blackout_dates": [
+        "2026-10-23",
+        "2026-10-24",
+        "2026-10-25",
+        "2026-10-26",
+        "2026-10-27",
+        "2026-10-28",
+        "2026-10-29",
+        "2026-10-30",
+        "2026-10-31"
+      ]
+    },
+    {
+      "id": "sq-singapore-amsterdam-premium-economy",
+      "airline": "Singapore Airlines",
+      "airline_code": "SQ",
+      "region": "Europe",
+      "origin": "Singapore",
+      "origin_code": null,
+      "destination": "Amsterdam",
+      "destination_code": null,
+      "miles_required": 52150,
+      "cabin_class": "Premium Economy",
+      "flight_numbers": [
+        "SQ334"
+      ],
+      "blackout_period": "23 – 31 October 2026",
+      "blackout_dates": [
+        "2026-10-23",
+        "2026-10-24",
+        "2026-10-25",
+        "2026-10-26",
+        "2026-10-27",
+        "2026-10-28",
+        "2026-10-29",
+        "2026-10-30",
+        "2026-10-31"
+      ]
+    },
+    {
+      "id": "sq-singapore-brussels-economy",
+      "airline": "Singapore Airlines",
+      "airline_code": "SQ",
+      "region": "Europe",
+      "origin": "Singapore",
+      "origin_code": null,
+      "destination": "Brussels",
+      "destination_code": null,
+      "miles_required": 30800,
+      "cabin_class": "Economy",
+      "flight_numbers": [
+        "SQ304"
+      ],
+      "blackout_period": "2 October, 9 October, 14 – 16 October, 23 October, 28 – 30 October 2026",
+      "blackout_dates": [
+        "2026-10-02",
+        "2026-10-09",
+        "2026-10-14",
+        "2026-10-15",
+        "2026-10-16",
+        "2026-10-23",
+        "2026-10-28",
+        "2026-10-29",
+        "2026-10-30"
+      ]
+    },
+    {
+      "id": "sq-singapore-brussels-premium-economy",
+      "airline": "Singapore Airlines",
+      "airline_code": "SQ",
+      "region": "Europe",
+      "origin": "Singapore",
+      "origin_code": null,
+      "destination": "Brussels",
+      "destination_code": null,
+      "miles_required": 52150,
+      "cabin_class": "Premium Economy",
+      "flight_numbers": [
+        "SQ304"
+      ],
+      "blackout_period": "2 – 5 October, 9 October, 14 October, 18 October, 30 October 2026",
+      "blackout_dates": [
+        "2026-10-02",
+        "2026-10-03",
+        "2026-10-04",
+        "2026-10-05",
+        "2026-10-09",
+        "2026-10-14",
+        "2026-10-18",
+        "2026-10-30"
+      ]
+    },
+    {
+      "id": "sq-singapore-copenhagen-economy",
+      "airline": "Singapore Airlines",
+      "airline_code": "SQ",
+      "region": "Europe",
+      "origin": "Singapore",
+      "origin_code": null,
+      "destination": "Copenhagen",
+      "destination_code": null,
+      "miles_required": 30800,
+      "cabin_class": "Economy",
+      "flight_numbers": [
+        "SQ352"
+      ],
+      "blackout_period": "1 – 4 October, 10 – 11 October, 15 – 20 October, 24 - 25 October, 31 October 2026",
+      "blackout_dates": [
+        "2026-10-01",
+        "2026-10-02",
+        "2026-10-03",
+        "2026-10-04",
+        "2026-10-10",
+        "2026-10-11",
+        "2026-10-15",
+        "2026-10-16",
+        "2026-10-17",
+        "2026-10-18",
+        "2026-10-19",
+        "2026-10-20",
+        "2026-10-24",
+        "2026-10-25",
+        "2026-10-31"
+      ]
+    },
+    {
+      "id": "sq-singapore-copenhagen-premium-economy",
+      "airline": "Singapore Airlines",
+      "airline_code": "SQ",
+      "region": "Europe",
+      "origin": "Singapore",
+      "origin_code": null,
+      "destination": "Copenhagen",
+      "destination_code": null,
+      "miles_required": 52150,
+      "cabin_class": "Premium Economy",
+      "flight_numbers": [
+        "SQ352"
+      ],
+      "blackout_period": "2 – 5 October, 10 October, 16 – 18 October, 23 – 24 October, 30 – 31 October 2026",
+      "blackout_dates": [
+        "2026-10-02",
+        "2026-10-03",
+        "2026-10-04",
+        "2026-10-05",
+        "2026-10-10",
+        "2026-10-16",
+        "2026-10-17",
+        "2026-10-18",
+        "2026-10-23",
+        "2026-10-24",
+        "2026-10-30",
+        "2026-10-31"
+      ]
+    },
+    {
+      "id": "sq-singapore-frankfurt-economy",
+      "airline": "Singapore Airlines",
+      "airline_code": "SQ",
+      "region": "Europe",
+      "origin": "Singapore",
+      "origin_code": null,
+      "destination": "Frankfurt",
+      "destination_code": null,
+      "miles_required": 30800,
+      "cabin_class": "Economy",
+      "flight_numbers": [
+        "SQ326",
+        "SQ330"
+      ],
+      "blackout_period": "1 – 4 October, 16 – 18 October, 23 – 25 October 2026",
+      "blackout_dates": [
+        "2026-10-01",
+        "2026-10-02",
+        "2026-10-03",
+        "2026-10-04",
+        "2026-10-16",
+        "2026-10-17",
+        "2026-10-18",
+        "2026-10-23",
+        "2026-10-24",
+        "2026-10-25"
+      ]
+    },
+    {
+      "id": "sq-singapore-frankfurt-premium-economy",
+      "airline": "Singapore Airlines",
+      "airline_code": "SQ",
+      "region": "Europe",
+      "origin": "Singapore",
+      "origin_code": null,
+      "destination": "Frankfurt",
+      "destination_code": null,
+      "miles_required": 52150,
+      "cabin_class": "Premium Economy",
+      "flight_numbers": [
+        "SQ326",
+        "SQ330"
+      ],
+      "blackout_period": null,
+      "blackout_dates": []
+    },
+    {
+      "id": "sq-singapore-london-lgw-economy",
+      "airline": "Singapore Airlines",
+      "airline_code": "SQ",
+      "region": "Europe",
+      "origin": "Singapore",
+      "origin_code": null,
+      "destination": "London (LGW)",
+      "destination_code": null,
+      "miles_required": 30800,
+      "cabin_class": "Economy",
+      "flight_numbers": [
+        "SQ314"
+      ],
+      "blackout_period": "3 October, 10 October, 30 – 31 October 2026",
+      "blackout_dates": [
+        "2026-10-03",
+        "2026-10-10",
+        "2026-10-30",
+        "2026-10-31"
+      ]
+    },
+    {
+      "id": "sq-singapore-london-lgw-premium-economy",
+      "airline": "Singapore Airlines",
+      "airline_code": "SQ",
+      "region": "Europe",
+      "origin": "Singapore",
+      "origin_code": null,
+      "destination": "London (LGW)",
+      "destination_code": null,
+      "miles_required": 52150,
+      "cabin_class": "Premium Economy",
+      "flight_numbers": [
+        "SQ314"
+      ],
+      "blackout_period": "3 October 2026",
+      "blackout_dates": [
+        "2026-10-03"
+      ]
+    },
+    {
+      "id": "sq-singapore-london-lhr-economy",
+      "airline": "Singapore Airlines",
+      "airline_code": "SQ",
+      "region": "Europe",
+      "origin": "Singapore",
+      "origin_code": null,
+      "destination": "London (LHR)",
+      "destination_code": null,
+      "miles_required": 30800,
+      "cabin_class": "Economy",
+      "flight_numbers": [
+        "SQ308",
+        "SQ318"
+      ],
+      "blackout_period": "1 – 3 October, 12 October, 17 October, 30 – 31 October 2026",
+      "blackout_dates": [
+        "2026-10-01",
+        "2026-10-02",
+        "2026-10-03",
+        "2026-10-12",
+        "2026-10-17",
+        "2026-10-30",
+        "2026-10-31"
+      ]
+    },
+    {
+      "id": "sq-singapore-london-lhr-premium-economy",
+      "airline": "Singapore Airlines",
+      "airline_code": "SQ",
+      "region": "Europe",
+      "origin": "Singapore",
+      "origin_code": null,
+      "destination": "London (LHR)",
+      "destination_code": null,
+      "miles_required": 52150,
+      "cabin_class": "Premium Economy",
+      "flight_numbers": [
+        "SQ308",
+        "SQ318"
+      ],
+      "blackout_period": "1 October, 12 October, 31 October 2026",
+      "blackout_dates": [
+        "2026-10-01",
+        "2026-10-12",
+        "2026-10-31"
+      ]
+    },
+    {
+      "id": "sq-singapore-manchester-premium-economy",
+      "airline": "Singapore Airlines",
+      "airline_code": "SQ",
+      "region": "Europe",
+      "origin": "Singapore",
+      "origin_code": null,
+      "destination": "Manchester",
+      "destination_code": null,
+      "miles_required": 52150,
+      "cabin_class": "Premium Economy",
+      "flight_numbers": [
+        "SQ302"
+      ],
+      "blackout_period": "9 – 10 October, 16 – 17 October, 23 October, 25 – 27 October, 31 October 2026",
+      "blackout_dates": [
+        "2026-10-09",
+        "2026-10-10",
+        "2026-10-16",
+        "2026-10-17",
+        "2026-10-23",
+        "2026-10-25",
+        "2026-10-26",
+        "2026-10-27",
+        "2026-10-31"
+      ]
+    },
+    {
+      "id": "sq-singapore-milan-economy",
+      "airline": "Singapore Airlines",
+      "airline_code": "SQ",
+      "region": "Europe",
+      "origin": "Singapore",
+      "origin_code": null,
+      "destination": "Milan",
+      "destination_code": null,
+      "miles_required": 30800,
+      "cabin_class": "Economy",
+      "flight_numbers": [
+        "SQ356",
+        "SQ378"
+      ],
+      "blackout_period": "1 – 4 October, 7 October, 9 – 10 October, 13 October, 16 – 17 October, 20 October, 24 October 2026",
+      "blackout_dates": [
+        "2026-10-01",
+        "2026-10-02",
+        "2026-10-03",
+        "2026-10-04",
+        "2026-10-07",
+        "2026-10-09",
+        "2026-10-10",
+        "2026-10-13",
+        "2026-10-16",
+        "2026-10-17",
+        "2026-10-20",
+        "2026-10-24"
+      ]
+    },
+    {
+      "id": "sq-singapore-milan-premium-economy",
+      "airline": "Singapore Airlines",
+      "airline_code": "SQ",
+      "region": "Europe",
+      "origin": "Singapore",
+      "origin_code": null,
+      "destination": "Milan",
+      "destination_code": null,
+      "miles_required": 52150,
+      "cabin_class": "Premium Economy",
+      "flight_numbers": [
+        "SQ356",
+        "SQ378"
+      ],
+      "blackout_period": "1 – 6 October, 9 October, 14 – 18 October, 20 October, 24 October 2026",
+      "blackout_dates": [
+        "2026-10-01",
+        "2026-10-02",
+        "2026-10-03",
+        "2026-10-04",
+        "2026-10-05",
+        "2026-10-06",
+        "2026-10-09",
+        "2026-10-14",
+        "2026-10-15",
+        "2026-10-16",
+        "2026-10-17",
+        "2026-10-18",
+        "2026-10-20",
+        "2026-10-24"
+      ]
+    },
+    {
+      "id": "sq-singapore-paris-economy",
+      "airline": "Singapore Airlines",
+      "airline_code": "SQ",
+      "region": "Europe",
+      "origin": "Singapore",
+      "origin_code": null,
+      "destination": "Paris",
+      "destination_code": null,
+      "miles_required": 30800,
+      "cabin_class": "Economy",
+      "flight_numbers": [
+        "SQ338"
+      ],
+      "blackout_period": "1 – 3 October, 10 October, 15 October, 17 October, 31 October 2026",
+      "blackout_dates": [
+        "2026-10-01",
+        "2026-10-02",
+        "2026-10-03",
+        "2026-10-10",
+        "2026-10-15",
+        "2026-10-17",
+        "2026-10-31"
+      ]
+    },
+    {
+      "id": "sq-singapore-paris-premium-economy",
+      "airline": "Singapore Airlines",
+      "airline_code": "SQ",
+      "region": "Europe",
+      "origin": "Singapore",
+      "origin_code": null,
+      "destination": "Paris",
+      "destination_code": null,
+      "miles_required": 52150,
+      "cabin_class": "Premium Economy",
+      "flight_numbers": [
+        "SQ338"
+      ],
+      "blackout_period": "1 October, 15 October 2026",
+      "blackout_dates": [
+        "2026-10-01",
+        "2026-10-15"
+      ]
+    },
+    {
+      "id": "sq-beijing-singapore-economy",
+      "airline": "Singapore Airlines",
+      "airline_code": "SQ",
+      "region": "North Asia",
+      "origin": "Beijing",
+      "origin_code": null,
+      "destination": "Singapore",
+      "destination_code": null,
+      "miles_required": 14350,
+      "cabin_class": "Economy",
+      "flight_numbers": [
+        "SQ801",
+        "SQ805",
+        "SQ807"
+      ],
+      "blackout_period": "1 – 2 October, 25 October 2026",
+      "blackout_dates": [
+        "2026-10-01",
+        "2026-10-02",
+        "2026-10-25"
+      ]
+    },
+    {
+      "id": "sq-beijing-singapore-premium-economy",
+      "airline": "Singapore Airlines",
+      "airline_code": "SQ",
+      "region": "North Asia",
+      "origin": "Beijing",
+      "origin_code": null,
+      "destination": "Singapore",
+      "destination_code": null,
+      "miles_required": 25200,
+      "cabin_class": "Premium Economy",
+      "flight_numbers": [
+        "SQ807"
+      ],
+      "blackout_period": "1 October, 15 October, 17 October 2026",
+      "blackout_dates": [
+        "2026-10-01",
+        "2026-10-15",
+        "2026-10-17"
+      ]
+    },
+    {
+      "id": "sq-beijing-daxing-singapore-business",
+      "airline": "Singapore Airlines",
+      "airline_code": "SQ",
+      "region": "North Asia",
+      "origin": "Beijing Daxing",
+      "origin_code": null,
+      "destination": "Singapore",
+      "destination_code": null,
+      "miles_required": 31500,
+      "cabin_class": "Business",
+      "flight_numbers": [
+        "SQ811"
+      ],
+      "blackout_period": "1 – 3 October, 16 – 31 October 2026",
+      "blackout_dates": [
+        "2026-10-01",
+        "2026-10-02",
+        "2026-10-03",
+        "2026-10-16",
+        "2026-10-17",
+        "2026-10-18",
+        "2026-10-19",
+        "2026-10-20",
+        "2026-10-21",
+        "2026-10-22",
+        "2026-10-23",
+        "2026-10-24",
+        "2026-10-25",
+        "2026-10-26",
+        "2026-10-27",
+        "2026-10-28",
+        "2026-10-29",
+        "2026-10-30",
+        "2026-10-31"
+      ]
+    },
+    {
+      "id": "sq-beijing-daxing-singapore-economy",
+      "airline": "Singapore Airlines",
+      "airline_code": "SQ",
+      "region": "North Asia",
+      "origin": "Beijing Daxing",
+      "origin_code": null,
+      "destination": "Singapore",
+      "destination_code": null,
+      "miles_required": 14350,
+      "cabin_class": "Economy",
+      "flight_numbers": [
+        "SQ811"
+      ],
+      "blackout_period": "1 – 2 October, 31 October 2026",
+      "blackout_dates": [
+        "2026-10-01",
+        "2026-10-02",
+        "2026-10-31"
+      ]
+    },
+    {
+      "id": "sq-chengdu-singapore-economy",
+      "airline": "Singapore Airlines",
+      "airline_code": "SQ",
+      "region": "North Asia",
+      "origin": "Chengdu",
+      "origin_code": null,
+      "destination": "Singapore",
+      "destination_code": null,
+      "miles_required": 10850,
+      "cabin_class": "Economy",
+      "flight_numbers": [
+        "SQ843"
+      ],
+      "blackout_period": "1 – 3 October, 14 – 25 October, 30 – 31 October 2026",
+      "blackout_dates": [
+        "2026-10-01",
+        "2026-10-02",
+        "2026-10-03",
+        "2026-10-14",
+        "2026-10-15",
+        "2026-10-16",
+        "2026-10-17",
+        "2026-10-18",
+        "2026-10-19",
+        "2026-10-20",
+        "2026-10-21",
+        "2026-10-22",
+        "2026-10-23",
+        "2026-10-24",
+        "2026-10-25",
+        "2026-10-30",
+        "2026-10-31"
+      ]
+    },
+    {
+      "id": "sq-chongqing-singapore-economy",
+      "airline": "Singapore Airlines",
+      "airline_code": "SQ",
+      "region": "North Asia",
+      "origin": "Chongqing",
+      "origin_code": null,
+      "destination": "Singapore",
+      "destination_code": null,
+      "miles_required": 10850,
+      "cabin_class": "Economy",
+      "flight_numbers": [
+        "SQ819"
+      ],
+      "blackout_period": "1 – 3 October, 15 – 24 October 2026",
+      "blackout_dates": [
+        "2026-10-01",
+        "2026-10-02",
+        "2026-10-03",
+        "2026-10-15",
+        "2026-10-16",
+        "2026-10-17",
+        "2026-10-18",
+        "2026-10-19",
+        "2026-10-20",
+        "2026-10-21",
+        "2026-10-22",
+        "2026-10-23",
+        "2026-10-24"
+      ]
+    },
+    {
+      "id": "sq-hangzhou-singapore-business",
+      "airline": "Singapore Airlines",
+      "airline_code": "SQ",
+      "region": "North Asia",
+      "origin": "Hangzhou",
+      "origin_code": null,
+      "destination": "Singapore",
+      "destination_code": null,
+      "miles_required": 24850,
+      "cabin_class": "Business",
+      "flight_numbers": [
+        "SQ839"
+      ],
+      "blackout_period": "1 October, 14 October, 16 October, 18 October, 20 – 25 October 2026",
+      "blackout_dates": [
+        "2026-10-01",
+        "2026-10-14",
+        "2026-10-16",
+        "2026-10-18",
+        "2026-10-20",
+        "2026-10-21",
+        "2026-10-22",
+        "2026-10-23",
+        "2026-10-24",
+        "2026-10-25"
+      ]
+    },
+    {
+      "id": "sq-hangzhou-singapore-economy",
+      "airline": "Singapore Airlines",
+      "airline_code": "SQ",
+      "region": "North Asia",
+      "origin": "Hangzhou",
+      "origin_code": null,
+      "destination": "Singapore",
+      "destination_code": null,
+      "miles_required": 10850,
+      "cabin_class": "Economy",
+      "flight_numbers": [
+        "SQ839"
+      ],
+      "blackout_period": "1 – 3 October, 16 – 24 October 2026",
+      "blackout_dates": [
+        "2026-10-01",
+        "2026-10-02",
+        "2026-10-03",
+        "2026-10-16",
+        "2026-10-17",
+        "2026-10-18",
+        "2026-10-19",
+        "2026-10-20",
+        "2026-10-21",
+        "2026-10-22",
+        "2026-10-23",
+        "2026-10-24"
+      ]
+    },
+    {
+      "id": "sq-hong-kong-singapore-economy",
+      "airline": "Singapore Airlines",
+      "airline_code": "SQ",
+      "region": "North Asia",
+      "origin": "Hong Kong",
+      "origin_code": null,
+      "destination": "Singapore",
+      "destination_code": null,
+      "miles_required": 10850,
+      "cabin_class": "Economy",
+      "flight_numbers": [
+        "SQ875",
+        "SQ883",
+        "SQ899"
+      ],
+      "blackout_period": "1 – 3 October, 16 – 19 October, 25 October 2026",
+      "blackout_dates": [
+        "2026-10-01",
+        "2026-10-02",
+        "2026-10-03",
+        "2026-10-16",
+        "2026-10-17",
+        "2026-10-18",
+        "2026-10-19",
+        "2026-10-25"
+      ]
+    },
+    {
+      "id": "sq-hong-kong-singapore-premium-economy",
+      "airline": "Singapore Airlines",
+      "airline_code": "SQ",
+      "region": "North Asia",
+      "origin": "Hong Kong",
+      "origin_code": null,
+      "destination": "Singapore",
+      "destination_code": null,
+      "miles_required": 19600,
+      "cabin_class": "Premium Economy",
+      "flight_numbers": [
+        "SQ875",
+        "SQ893",
+        "SQ895"
+      ],
+      "blackout_period": "23 – 25 October 2026",
+      "blackout_dates": [
+        "2026-10-23",
+        "2026-10-24",
+        "2026-10-25"
+      ]
+    },
+    {
+      "id": "sq-shanghai-singapore-business",
+      "airline": "Singapore Airlines",
+      "airline_code": "SQ",
+      "region": "North Asia",
+      "origin": "Shanghai",
+      "origin_code": null,
+      "destination": "Singapore",
+      "destination_code": null,
+      "miles_required": 31500,
+      "cabin_class": "Business",
+      "flight_numbers": [
+        "SQ825",
+        "SQ827",
+        "SQ835"
+      ],
+      "blackout_period": "16 – 31 October 2026",
+      "blackout_dates": [
+        "2026-10-16",
+        "2026-10-17",
+        "2026-10-18",
+        "2026-10-19",
+        "2026-10-20",
+        "2026-10-21",
+        "2026-10-22",
+        "2026-10-23",
+        "2026-10-24",
+        "2026-10-25",
+        "2026-10-26",
+        "2026-10-27",
+        "2026-10-28",
+        "2026-10-29",
+        "2026-10-30",
+        "2026-10-31"
+      ]
+    },
+    {
+      "id": "sq-shanghai-singapore-economy",
+      "airline": "Singapore Airlines",
+      "airline_code": "SQ",
+      "region": "North Asia",
+      "origin": "Shanghai",
+      "origin_code": null,
+      "destination": "Singapore",
+      "destination_code": null,
+      "miles_required": 14350,
+      "cabin_class": "Economy",
+      "flight_numbers": [
+        "SQ825",
+        "SQ827",
+        "SQ831",
+        "SQ833",
+        "SQ835"
+      ],
+      "blackout_period": "1 October, 16 – 31 October 2026",
+      "blackout_dates": [
+        "2026-10-01",
+        "2026-10-16",
+        "2026-10-17",
+        "2026-10-18",
+        "2026-10-19",
+        "2026-10-20",
+        "2026-10-21",
+        "2026-10-22",
+        "2026-10-23",
+        "2026-10-24",
+        "2026-10-25",
+        "2026-10-26",
+        "2026-10-27",
+        "2026-10-28",
+        "2026-10-29",
+        "2026-10-30",
+        "2026-10-31"
+      ]
+    },
+    {
+      "id": "sq-shanghai-singapore-premium-economy",
+      "airline": "Singapore Airlines",
+      "airline_code": "SQ",
+      "region": "North Asia",
+      "origin": "Shanghai",
+      "origin_code": null,
+      "destination": "Singapore",
+      "destination_code": null,
+      "miles_required": 25200,
+      "cabin_class": "Premium Economy",
+      "flight_numbers": [
+        "SQ831",
+        "SQ833"
+      ],
+      "blackout_period": "18 – 19 October, 23 – 25 October, 30 – 31 October 2026",
+      "blackout_dates": [
+        "2026-10-18",
+        "2026-10-19",
+        "2026-10-23",
+        "2026-10-24",
+        "2026-10-25",
+        "2026-10-30",
+        "2026-10-31"
+      ]
+    },
+    {
+      "id": "sq-shenzhen-singapore-economy",
+      "airline": "Singapore Airlines",
+      "airline_code": "SQ",
+      "region": "North Asia",
+      "origin": "Shenzhen",
+      "origin_code": null,
+      "destination": "Singapore",
+      "destination_code": null,
+      "miles_required": 10850,
+      "cabin_class": "Economy",
+      "flight_numbers": [
+        "SQ857"
+      ],
+      "blackout_period": "1 – 2 October, 18 October 2026",
+      "blackout_dates": [
+        "2026-10-01",
+        "2026-10-02",
+        "2026-10-18"
+      ]
+    },
+    {
+      "id": "sq-singapore-beijing-premium-economy",
+      "airline": "Singapore Airlines",
+      "airline_code": "SQ",
+      "region": "North Asia",
+      "origin": "Singapore",
+      "origin_code": null,
+      "destination": "Beijing",
+      "destination_code": null,
+      "miles_required": 25200,
+      "cabin_class": "Premium Economy",
+      "flight_numbers": [
+        "SQ802"
+      ],
+      "blackout_period": "6 – 12 October, 16 – 17 October, 20 October 2026",
+      "blackout_dates": [
+        "2026-10-06",
+        "2026-10-07",
+        "2026-10-08",
+        "2026-10-09",
+        "2026-10-10",
+        "2026-10-11",
+        "2026-10-12",
+        "2026-10-16",
+        "2026-10-17",
+        "2026-10-20"
+      ]
+    },
+    {
+      "id": "sq-singapore-beijing-daxing-economy",
+      "airline": "Singapore Airlines",
+      "airline_code": "SQ",
+      "region": "North Asia",
+      "origin": "Singapore",
+      "origin_code": null,
+      "destination": "Beijing Daxing",
+      "destination_code": null,
+      "miles_required": 14350,
+      "cabin_class": "Economy",
+      "flight_numbers": [
+        "SQ810"
+      ],
+      "blackout_period": "5 – 15 October, 17 – 20 October, 22 October, 30 – 31 October 2026",
+      "blackout_dates": [
+        "2026-10-05",
+        "2026-10-06",
+        "2026-10-07",
+        "2026-10-08",
+        "2026-10-09",
+        "2026-10-10",
+        "2026-10-11",
+        "2026-10-12",
+        "2026-10-13",
+        "2026-10-14",
+        "2026-10-15",
+        "2026-10-17",
+        "2026-10-18",
+        "2026-10-19",
+        "2026-10-20",
+        "2026-10-22",
+        "2026-10-30",
+        "2026-10-31"
+      ]
+    },
+    {
+      "id": "sq-singapore-hangzhou-business",
+      "airline": "Singapore Airlines",
+      "airline_code": "SQ",
+      "region": "North Asia",
+      "origin": "Singapore",
+      "origin_code": null,
+      "destination": "Hangzhou",
+      "destination_code": null,
+      "miles_required": 24850,
+      "cabin_class": "Business",
+      "flight_numbers": [
+        "SQ838"
+      ],
+      "blackout_period": "3 – 19 October, 23 October 2026",
+      "blackout_dates": [
+        "2026-10-03",
+        "2026-10-04",
+        "2026-10-05",
+        "2026-10-06",
+        "2026-10-07",
+        "2026-10-08",
+        "2026-10-09",
+        "2026-10-10",
+        "2026-10-11",
+        "2026-10-12",
+        "2026-10-13",
+        "2026-10-14",
+        "2026-10-15",
+        "2026-10-16",
+        "2026-10-17",
+        "2026-10-18",
+        "2026-10-19",
+        "2026-10-23"
+      ]
+    },
+    {
+      "id": "sq-singapore-hangzhou-economy",
+      "airline": "Singapore Airlines",
+      "airline_code": "SQ",
+      "region": "North Asia",
+      "origin": "Singapore",
+      "origin_code": null,
+      "destination": "Hangzhou",
+      "destination_code": null,
+      "miles_required": 10850,
+      "cabin_class": "Economy",
+      "flight_numbers": [
+        "SQ838"
+      ],
+      "blackout_period": "3 – 21 October, 23 October 2026",
+      "blackout_dates": [
+        "2026-10-03",
+        "2026-10-04",
+        "2026-10-05",
+        "2026-10-06",
+        "2026-10-07",
+        "2026-10-08",
+        "2026-10-09",
+        "2026-10-10",
+        "2026-10-11",
+        "2026-10-12",
+        "2026-10-13",
+        "2026-10-14",
+        "2026-10-15",
+        "2026-10-16",
+        "2026-10-17",
+        "2026-10-18",
+        "2026-10-19",
+        "2026-10-20",
+        "2026-10-21",
+        "2026-10-23"
+      ]
+    },
+    {
+      "id": "sq-singapore-hong-kong-economy",
+      "airline": "Singapore Airlines",
+      "airline_code": "SQ",
+      "region": "North Asia",
+      "origin": "Singapore",
+      "origin_code": null,
+      "destination": "Hong Kong",
+      "destination_code": null,
+      "miles_required": 10850,
+      "cabin_class": "Economy",
+      "flight_numbers": [
+        "SQ874",
+        "SQ898"
+      ],
+      "blackout_period": "4 – 13 October 2026",
+      "blackout_dates": [
+        "2026-10-04",
+        "2026-10-05",
+        "2026-10-06",
+        "2026-10-07",
+        "2026-10-08",
+        "2026-10-09",
+        "2026-10-10",
+        "2026-10-11",
+        "2026-10-12",
+        "2026-10-13"
+      ]
+    },
+    {
+      "id": "sq-singapore-hong-kong-premium-economy",
+      "airline": "Singapore Airlines",
+      "airline_code": "SQ",
+      "region": "North Asia",
+      "origin": "Singapore",
+      "origin_code": null,
+      "destination": "Hong Kong",
+      "destination_code": null,
+      "miles_required": 19600,
+      "cabin_class": "Premium Economy",
+      "flight_numbers": [
+        "SQ874",
+        "SQ894"
+      ],
+      "blackout_period": "7 October, 11 – 12 October 2026",
+      "blackout_dates": [
+        "2026-10-07",
+        "2026-10-11",
+        "2026-10-12"
+      ]
+    },
+    {
+      "id": "sq-singapore-shanghai-economy",
+      "airline": "Singapore Airlines",
+      "airline_code": "SQ",
+      "region": "North Asia",
+      "origin": "Singapore",
+      "origin_code": null,
+      "destination": "Shanghai",
+      "destination_code": null,
+      "miles_required": 14350,
+      "cabin_class": "Economy",
+      "flight_numbers": [
+        "SQ828",
+        "SQ836"
+      ],
+      "blackout_period": "4 – 15 October, 18 October, 29 – 30 October 2026",
+      "blackout_dates": [
+        "2026-10-04",
+        "2026-10-05",
+        "2026-10-06",
+        "2026-10-07",
+        "2026-10-08",
+        "2026-10-09",
+        "2026-10-10",
+        "2026-10-11",
+        "2026-10-12",
+        "2026-10-13",
+        "2026-10-14",
+        "2026-10-15",
+        "2026-10-18",
+        "2026-10-29",
+        "2026-10-30"
+      ]
+    },
+    {
+      "id": "sq-singapore-shanghai-premium-economy",
+      "airline": "Singapore Airlines",
+      "airline_code": "SQ",
+      "region": "North Asia",
+      "origin": "Singapore",
+      "origin_code": null,
+      "destination": "Shanghai",
+      "destination_code": null,
+      "miles_required": 25200,
+      "cabin_class": "Premium Economy",
+      "flight_numbers": [
+        "SQ828",
+        "SQ830"
+      ],
+      "blackout_period": "6 – 11 October, 16 – 17 October 2026",
+      "blackout_dates": [
+        "2026-10-06",
+        "2026-10-07",
+        "2026-10-08",
+        "2026-10-09",
+        "2026-10-10",
+        "2026-10-11",
+        "2026-10-16",
+        "2026-10-17"
+      ]
+    },
+    {
+      "id": "sq-singapore-taipei-economy",
+      "airline": "Singapore Airlines",
+      "airline_code": "SQ",
+      "region": "North Asia",
+      "origin": "Singapore",
+      "origin_code": null,
+      "destination": "Taipei",
+      "destination_code": null,
+      "miles_required": 10850,
+      "cabin_class": "Economy",
+      "flight_numbers": [
+        "SQ878"
+      ],
+      "blackout_period": "1 – 3 October, 8 – 17 October, 22 – 24 October, 26 October, 28 – 31 October 2026",
+      "blackout_dates": [
+        "2026-10-01",
+        "2026-10-02",
+        "2026-10-03",
+        "2026-10-08",
+        "2026-10-09",
+        "2026-10-10",
+        "2026-10-11",
+        "2026-10-12",
+        "2026-10-13",
+        "2026-10-14",
+        "2026-10-15",
+        "2026-10-16",
+        "2026-10-17",
+        "2026-10-22",
+        "2026-10-23",
+        "2026-10-24",
+        "2026-10-26",
+        "2026-10-28",
+        "2026-10-29",
+        "2026-10-30",
+        "2026-10-31"
+      ]
+    },
+    {
+      "id": "sq-singapore-xiamen-economy",
+      "airline": "Singapore Airlines",
+      "airline_code": "SQ",
+      "region": "North Asia",
+      "origin": "Singapore",
+      "origin_code": null,
+      "destination": "Xiamen",
+      "destination_code": null,
+      "miles_required": 10850,
+      "cabin_class": "Economy",
+      "flight_numbers": [
+        "SQ868"
+      ],
+      "blackout_period": "6 – 9 October, 20 – 21 October, 24 October 2026",
+      "blackout_dates": [
+        "2026-10-06",
+        "2026-10-07",
+        "2026-10-08",
+        "2026-10-09",
+        "2026-10-20",
+        "2026-10-21",
+        "2026-10-24"
+      ]
+    },
+    {
+      "id": "sq-taipei-singapore-economy",
+      "airline": "Singapore Airlines",
+      "airline_code": "SQ",
+      "region": "North Asia",
+      "origin": "Taipei",
+      "origin_code": null,
+      "destination": "Singapore",
+      "destination_code": null,
+      "miles_required": 10850,
+      "cabin_class": "Economy",
+      "flight_numbers": [
+        "SQ877"
+      ],
+      "blackout_period": "4 – 6 October, 8 – 14 October, 18 – 21 October, 23 – 26 October, 28 – 31 October 2026",
+      "blackout_dates": [
+        "2026-10-04",
+        "2026-10-05",
+        "2026-10-06",
+        "2026-10-08",
+        "2026-10-09",
+        "2026-10-10",
+        "2026-10-11",
+        "2026-10-12",
+        "2026-10-13",
+        "2026-10-14",
+        "2026-10-18",
+        "2026-10-19",
+        "2026-10-20",
+        "2026-10-21",
+        "2026-10-23",
+        "2026-10-24",
+        "2026-10-25",
+        "2026-10-26",
+        "2026-10-28",
+        "2026-10-29",
+        "2026-10-30",
+        "2026-10-31"
+      ]
+    },
+    {
+      "id": "sq-xiamen-singapore-economy",
+      "airline": "Singapore Airlines",
+      "airline_code": "SQ",
+      "region": "North Asia",
+      "origin": "Xiamen",
+      "origin_code": null,
+      "destination": "Singapore",
+      "destination_code": null,
+      "miles_required": 10850,
+      "cabin_class": "Economy",
+      "flight_numbers": [
+        "SQ869"
+      ],
+      "blackout_period": "1 – 3 October, 15 – 18 October, 20 – 22 October 2026",
+      "blackout_dates": [
+        "2026-10-01",
+        "2026-10-02",
+        "2026-10-03",
+        "2026-10-15",
+        "2026-10-16",
+        "2026-10-17",
+        "2026-10-18",
+        "2026-10-20",
+        "2026-10-21",
+        "2026-10-22"
+      ]
+    },
+    {
+      "id": "sq-bangkok-singapore-business",
+      "airline": "Singapore Airlines",
+      "airline_code": "SQ",
+      "region": "South East Asia",
+      "origin": "Bangkok",
+      "origin_code": null,
+      "destination": "Singapore",
+      "destination_code": null,
+      "miles_required": 17500,
+      "cabin_class": "Business",
+      "flight_numbers": [
+        "SQ713",
+        "SQ719"
+      ],
+      "blackout_period": null,
+      "blackout_dates": []
+    },
+    {
+      "id": "sq-bangkok-singapore-economy",
+      "airline": "Singapore Airlines",
+      "airline_code": "SQ",
+      "region": "South East Asia",
+      "origin": "Bangkok",
+      "origin_code": null,
+      "destination": "Singapore",
+      "destination_code": null,
+      "miles_required": 9100,
+      "cabin_class": "Economy",
+      "flight_numbers": [
+        "SQ707",
+        "SQ713",
+        "SQ719"
+      ],
+      "blackout_period": "4 October, 11 October, 18 October, 25 October 2026",
+      "blackout_dates": [
+        "2026-10-04",
+        "2026-10-11",
+        "2026-10-18",
+        "2026-10-25"
+      ]
+    },
+    {
+      "id": "sq-brunei-singapore-economy",
+      "airline": "Singapore Airlines",
+      "airline_code": "SQ",
+      "region": "South East Asia",
+      "origin": "Brunei",
+      "origin_code": null,
+      "destination": "Singapore",
+      "destination_code": null,
+      "miles_required": 5600,
+      "cabin_class": "Economy",
+      "flight_numbers": [
+        "SQ147"
+      ],
+      "blackout_period": "24 October 2026",
+      "blackout_dates": [
+        "2026-10-24"
+      ]
+    },
+    {
+      "id": "sq-da-nang-singapore-economy",
+      "airline": "Singapore Airlines",
+      "airline_code": "SQ",
+      "region": "South East Asia",
+      "origin": "Da Nang",
+      "origin_code": null,
+      "destination": "Singapore",
+      "destination_code": null,
+      "miles_required": 9100,
+      "cabin_class": "Economy",
+      "flight_numbers": [
+        "SQ171",
+        "SQ173",
+        "SQ175"
+      ],
+      "blackout_period": "3 – 6 October, 10 October, 12 – 14 October, 18 October 2026",
+      "blackout_dates": [
+        "2026-10-03",
+        "2026-10-04",
+        "2026-10-05",
+        "2026-10-06",
+        "2026-10-10",
+        "2026-10-12",
+        "2026-10-13",
+        "2026-10-14",
+        "2026-10-18"
+      ]
+    },
+    {
+      "id": "sq-denpasar-singapore-business",
+      "airline": "Singapore Airlines",
+      "airline_code": "SQ",
+      "region": "South East Asia",
+      "origin": "Denpasar",
+      "origin_code": null,
+      "destination": "Singapore",
+      "destination_code": null,
+      "miles_required": 15400,
+      "cabin_class": "Business",
+      "flight_numbers": [
+        "SQ935",
+        "SQ947",
+        "SQ949"
+      ],
+      "blackout_period": "27 – 31 October 2026",
+      "blackout_dates": [
+        "2026-10-27",
+        "2026-10-28",
+        "2026-10-29",
+        "2026-10-30",
+        "2026-10-31"
+      ]
+    },
+    {
+      "id": "sq-hanoi-singapore-business",
+      "airline": "Singapore Airlines",
+      "airline_code": "SQ",
+      "region": "South East Asia",
+      "origin": "Hanoi",
+      "origin_code": null,
+      "destination": "Singapore",
+      "destination_code": null,
+      "miles_required": 17500,
+      "cabin_class": "Business",
+      "flight_numbers": [
+        "SQ191"
+      ],
+      "blackout_period": "3 October, 8 – 10 October, 17 October, 23 October, 27 October, 30 October 2026",
+      "blackout_dates": [
+        "2026-10-03",
+        "2026-10-08",
+        "2026-10-09",
+        "2026-10-10",
+        "2026-10-17",
+        "2026-10-23",
+        "2026-10-27",
+        "2026-10-30"
+      ]
+    },
+    {
+      "id": "sq-hanoi-singapore-economy",
+      "airline": "Singapore Airlines",
+      "airline_code": "SQ",
+      "region": "South East Asia",
+      "origin": "Hanoi",
+      "origin_code": null,
+      "destination": "Singapore",
+      "destination_code": null,
+      "miles_required": 9100,
+      "cabin_class": "Economy",
+      "flight_numbers": [
+        "SQ191",
+        "SQ193"
+      ],
+      "blackout_period": "1 – 6 October, 11 October, 13 October, 16 – 18 October, 24 – 26 October, 29 October, 31 October 2026",
+      "blackout_dates": [
+        "2026-10-01",
+        "2026-10-02",
+        "2026-10-03",
+        "2026-10-04",
+        "2026-10-05",
+        "2026-10-06",
+        "2026-10-11",
+        "2026-10-13",
+        "2026-10-16",
+        "2026-10-17",
+        "2026-10-18",
+        "2026-10-24",
+        "2026-10-25",
+        "2026-10-26",
+        "2026-10-29",
+        "2026-10-31"
+      ]
+    },
+    {
+      "id": "sq-ho-chi-minh-city-singapore-business",
+      "airline": "Singapore Airlines",
+      "airline_code": "SQ",
+      "region": "South East Asia",
+      "origin": "Ho Chi Minh City",
+      "origin_code": null,
+      "destination": "Singapore",
+      "destination_code": null,
+      "miles_required": 17500,
+      "cabin_class": "Business",
+      "flight_numbers": [
+        "SQ177",
+        "SQ183",
+        "SQ185"
+      ],
+      "blackout_period": null,
+      "blackout_dates": []
+    },
+    {
+      "id": "sq-ho-chi-minh-city-singapore-economy",
+      "airline": "Singapore Airlines",
+      "airline_code": "SQ",
+      "region": "South East Asia",
+      "origin": "Ho Chi Minh City",
+      "origin_code": null,
+      "destination": "Singapore",
+      "destination_code": null,
+      "miles_required": 9100,
+      "cabin_class": "Economy",
+      "flight_numbers": [
+        "SQ177",
+        "SQ187"
+      ],
+      "blackout_period": null,
+      "blackout_dates": []
+    },
+    {
+      "id": "sq-jakarta-singapore-business",
+      "airline": "Singapore Airlines",
+      "airline_code": "SQ",
+      "region": "South East Asia",
+      "origin": "Jakarta",
+      "origin_code": null,
+      "destination": "Singapore",
+      "destination_code": null,
+      "miles_required": 15400,
+      "cabin_class": "Business",
+      "flight_numbers": [
+        "SQ951",
+        "SQ963",
+        "SQ965"
+      ],
+      "blackout_period": "1 – 2 October 2026",
+      "blackout_dates": [
+        "2026-10-01",
+        "2026-10-02"
+      ]
+    },
+    {
+      "id": "sq-kuala-lumpur-singapore-business",
+      "airline": "Singapore Airlines",
+      "airline_code": "SQ",
+      "region": "South East Asia",
+      "origin": "Kuala Lumpur",
+      "origin_code": null,
+      "destination": "Singapore",
+      "destination_code": null,
+      "miles_required": 15400,
+      "cabin_class": "Business",
+      "flight_numbers": [
+        "SQ105",
+        "SQ121"
+      ],
+      "blackout_period": "3 – 5 October 2026",
+      "blackout_dates": [
+        "2026-10-03",
+        "2026-10-04",
+        "2026-10-05"
+      ]
+    },
+    {
+      "id": "sq-kuala-lumpur-singapore-economy",
+      "airline": "Singapore Airlines",
+      "airline_code": "SQ",
+      "region": "South East Asia",
+      "origin": "Kuala Lumpur",
+      "origin_code": null,
+      "destination": "Singapore",
+      "destination_code": null,
+      "miles_required": 5600,
+      "cabin_class": "Economy",
+      "flight_numbers": [
+        "SQ103",
+        "SQ105"
+      ],
+      "blackout_period": "3 – 5 October 2026",
+      "blackout_dates": [
+        "2026-10-03",
+        "2026-10-04",
+        "2026-10-05"
+      ]
+    },
+    {
+      "id": "sq-manila-singapore-business",
+      "airline": "Singapore Airlines",
+      "airline_code": "SQ",
+      "region": "South East Asia",
+      "origin": "Manila",
+      "origin_code": null,
+      "destination": "Singapore",
+      "destination_code": null,
+      "miles_required": 17500,
+      "cabin_class": "Business",
+      "flight_numbers": [
+        "SQ921"
+      ],
+      "blackout_period": "22 – 31 October 2026",
+      "blackout_dates": [
+        "2026-10-22",
+        "2026-10-23",
+        "2026-10-24",
+        "2026-10-25",
+        "2026-10-26",
+        "2026-10-27",
+        "2026-10-28",
+        "2026-10-29",
+        "2026-10-30",
+        "2026-10-31"
+      ]
+    },
+    {
+      "id": "sq-manila-singapore-economy",
+      "airline": "Singapore Airlines",
+      "airline_code": "SQ",
+      "region": "South East Asia",
+      "origin": "Manila",
+      "origin_code": null,
+      "destination": "Singapore",
+      "destination_code": null,
+      "miles_required": 9100,
+      "cabin_class": "Economy",
+      "flight_numbers": [
+        "SQ917",
+        "SQ921"
+      ],
+      "blackout_period": "11 October, 18 October, 21 October, 24 October, 28 October 2026",
+      "blackout_dates": [
+        "2026-10-11",
+        "2026-10-18",
+        "2026-10-21",
+        "2026-10-24",
+        "2026-10-28"
+      ]
+    },
+    {
+      "id": "sq-penang-singapore-economy",
+      "airline": "Singapore Airlines",
+      "airline_code": "SQ",
+      "region": "South East Asia",
+      "origin": "Penang",
+      "origin_code": null,
+      "destination": "Singapore",
+      "destination_code": null,
+      "miles_required": 5600,
+      "cabin_class": "Economy",
+      "flight_numbers": [
+        "SQ133",
+        "SQ135"
+      ],
+      "blackout_period": "4 – 6 October 2026",
+      "blackout_dates": [
+        "2026-10-04",
+        "2026-10-05",
+        "2026-10-06"
+      ]
+    },
+    {
+      "id": "sq-phnom-penh-singapore-economy",
+      "airline": "Singapore Airlines",
+      "airline_code": "SQ",
+      "region": "South East Asia",
+      "origin": "Phnom Penh",
+      "origin_code": null,
+      "destination": "Singapore",
+      "destination_code": null,
+      "miles_required": 9100,
+      "cabin_class": "Economy",
+      "flight_numbers": [
+        "SQ153",
+        "SQ155",
+        "SQ157"
+      ],
+      "blackout_period": "9 October 2026",
+      "blackout_dates": [
+        "2026-10-09"
+      ]
+    },
+    {
+      "id": "sq-phuket-singapore-business",
+      "airline": "Singapore Airlines",
+      "airline_code": "SQ",
+      "region": "South East Asia",
+      "origin": "Phuket",
+      "origin_code": null,
+      "destination": "Singapore",
+      "destination_code": null,
+      "miles_required": 17500,
+      "cabin_class": "Business",
+      "flight_numbers": [
+        "SQ723",
+        "SQ725"
+      ],
+      "blackout_period": "3 October, 7 – 8 October, 10 October, 20 – 21 October 2026",
+      "blackout_dates": [
+        "2026-10-03",
+        "2026-10-07",
+        "2026-10-08",
+        "2026-10-10",
+        "2026-10-20",
+        "2026-10-21"
+      ]
+    },
+    {
+      "id": "sq-phuket-singapore-economy",
+      "airline": "Singapore Airlines",
+      "airline_code": "SQ",
+      "region": "South East Asia",
+      "origin": "Phuket",
+      "origin_code": null,
+      "destination": "Singapore",
+      "destination_code": null,
+      "miles_required": 9100,
+      "cabin_class": "Economy",
+      "flight_numbers": [
+        "SQ723",
+        "SQ725",
+        "SQ727",
+        "SQ739"
+      ],
+      "blackout_period": "4 October, 18 October, 24 October, 30 – 31 October 2026",
+      "blackout_dates": [
+        "2026-10-04",
+        "2026-10-18",
+        "2026-10-24",
+        "2026-10-30",
+        "2026-10-31"
+      ]
+    },
+    {
+      "id": "sq-siem-reap-singapore-economy",
+      "airline": "Singapore Airlines",
+      "airline_code": "SQ",
+      "region": "South East Asia",
+      "origin": "Siem Reap",
+      "origin_code": null,
+      "destination": "Singapore",
+      "destination_code": null,
+      "miles_required": 9100,
+      "cabin_class": "Economy",
+      "flight_numbers": [
+        "SQ163"
+      ],
+      "blackout_period": "2 October, 5 – 6 October, 8 October, 16 October 2026",
+      "blackout_dates": [
+        "2026-10-02",
+        "2026-10-05",
+        "2026-10-06",
+        "2026-10-08",
+        "2026-10-16"
+      ]
+    },
+    {
+      "id": "sq-singapore-bangkok-business",
+      "airline": "Singapore Airlines",
+      "airline_code": "SQ",
+      "region": "South East Asia",
+      "origin": "Singapore",
+      "origin_code": null,
+      "destination": "Bangkok",
+      "destination_code": null,
+      "miles_required": 17500,
+      "cabin_class": "Business",
+      "flight_numbers": [
+        "SQ706",
+        "SQ714"
+      ],
+      "blackout_period": null,
+      "blackout_dates": []
+    },
+    {
+      "id": "sq-singapore-bangkok-economy",
+      "airline": "Singapore Airlines",
+      "airline_code": "SQ",
+      "region": "South East Asia",
+      "origin": "Singapore",
+      "origin_code": null,
+      "destination": "Bangkok",
+      "destination_code": null,
+      "miles_required": 9100,
+      "cabin_class": "Economy",
+      "flight_numbers": [
+        "SQ712",
+        "SQ714",
+        "SQ720"
+      ],
+      "blackout_period": null,
+      "blackout_dates": []
+    },
+    {
+      "id": "sq-singapore-brunei-economy",
+      "airline": "Singapore Airlines",
+      "airline_code": "SQ",
+      "region": "South East Asia",
+      "origin": "Singapore",
+      "origin_code": null,
+      "destination": "Brunei",
+      "destination_code": null,
+      "miles_required": 5600,
+      "cabin_class": "Economy",
+      "flight_numbers": [
+        "SQ148"
+      ],
+      "blackout_period": "20 October 2026",
+      "blackout_dates": [
+        "2026-10-20"
+      ]
+    },
+    {
+      "id": "sq-singapore-da-nang-economy",
+      "airline": "Singapore Airlines",
+      "airline_code": "SQ",
+      "region": "South East Asia",
+      "origin": "Singapore",
+      "origin_code": null,
+      "destination": "Da Nang",
+      "destination_code": null,
+      "miles_required": 9100,
+      "cabin_class": "Economy",
+      "flight_numbers": [
+        "SQ172",
+        "SQ174",
+        "SQ176"
+      ],
+      "blackout_period": "1 – 2 October, 8 October, 10 October 2026",
+      "blackout_dates": [
+        "2026-10-01",
+        "2026-10-02",
+        "2026-10-08",
+        "2026-10-10"
+      ]
+    },
+    {
+      "id": "sq-singapore-denpasar-business",
+      "airline": "Singapore Airlines",
+      "airline_code": "SQ",
+      "region": "South East Asia",
+      "origin": "Singapore",
+      "origin_code": null,
+      "destination": "Denpasar",
+      "destination_code": null,
+      "miles_required": 15400,
+      "cabin_class": "Business",
+      "flight_numbers": [
+        "SQ934",
+        "SQ948"
+      ],
+      "blackout_period": "1 October, 28 – 30 October 2026",
+      "blackout_dates": [
+        "2026-10-01",
+        "2026-10-28",
+        "2026-10-29",
+        "2026-10-30"
+      ]
+    },
+    {
+      "id": "sq-singapore-denpasar-economy",
+      "airline": "Singapore Airlines",
+      "airline_code": "SQ",
+      "region": "South East Asia",
+      "origin": "Singapore",
+      "origin_code": null,
+      "destination": "Denpasar",
+      "destination_code": null,
+      "miles_required": 5600,
+      "cabin_class": "Economy",
+      "flight_numbers": [
+        "SQ948"
+      ],
+      "blackout_period": "1 – 3 October, 9 October 2026",
+      "blackout_dates": [
+        "2026-10-01",
+        "2026-10-02",
+        "2026-10-03",
+        "2026-10-09"
+      ]
+    },
+    {
+      "id": "sq-singapore-ho-chi-minh-city-business",
+      "airline": "Singapore Airlines",
+      "airline_code": "SQ",
+      "region": "South East Asia",
+      "origin": "Singapore",
+      "origin_code": null,
+      "destination": "Ho Chi Minh City",
+      "destination_code": null,
+      "miles_required": 17500,
+      "cabin_class": "Business",
+      "flight_numbers": [
+        "SQ178",
+        "SQ184",
+        "SQ186",
+        "SQ188"
+      ],
+      "blackout_period": null,
+      "blackout_dates": []
+    },
+    {
+      "id": "sq-singapore-ho-chi-minh-city-economy",
+      "airline": "Singapore Airlines",
+      "airline_code": "SQ",
+      "region": "South East Asia",
+      "origin": "Singapore",
+      "origin_code": null,
+      "destination": "Ho Chi Minh City",
+      "destination_code": null,
+      "miles_required": 9100,
+      "cabin_class": "Economy",
+      "flight_numbers": [
+        "SQ186",
+        "SQ188"
+      ],
+      "blackout_period": null,
+      "blackout_dates": []
+    },
+    {
+      "id": "sq-singapore-jakarta-business",
+      "airline": "Singapore Airlines",
+      "airline_code": "SQ",
+      "region": "South East Asia",
+      "origin": "Singapore",
+      "origin_code": null,
+      "destination": "Jakarta",
+      "destination_code": null,
+      "miles_required": 15400,
+      "cabin_class": "Business",
+      "flight_numbers": [
+        "SQ950",
+        "SQ952",
+        "SQ960",
+        "SQ964"
+      ],
+      "blackout_period": "3 – 5 October 2026",
+      "blackout_dates": [
+        "2026-10-03",
+        "2026-10-04",
+        "2026-10-05"
+      ]
+    },
+    {
+      "id": "sq-singapore-kuala-lumpur-business",
+      "airline": "Singapore Airlines",
+      "airline_code": "SQ",
+      "region": "South East Asia",
+      "origin": "Singapore",
+      "origin_code": null,
+      "destination": "Kuala Lumpur",
+      "destination_code": null,
+      "miles_required": 15400,
+      "cabin_class": "Business",
+      "flight_numbers": [
+        "SQ122",
+        "SQ126"
+      ],
+      "blackout_period": "1 – 3 October 2026",
+      "blackout_dates": [
+        "2026-10-01",
+        "2026-10-02",
+        "2026-10-03"
+      ]
+    },
+    {
+      "id": "sq-singapore-kuala-lumpur-economy",
+      "airline": "Singapore Airlines",
+      "airline_code": "SQ",
+      "region": "South East Asia",
+      "origin": "Singapore",
+      "origin_code": null,
+      "destination": "Kuala Lumpur",
+      "destination_code": null,
+      "miles_required": 5600,
+      "cabin_class": "Economy",
+      "flight_numbers": [
+        "SQ122",
+        "SQ126",
+        "SQ128"
+      ],
+      "blackout_period": "1 – 3 October 2026",
+      "blackout_dates": [
+        "2026-10-01",
+        "2026-10-02",
+        "2026-10-03"
+      ]
+    },
+    {
+      "id": "sq-singapore-manila-business",
+      "airline": "Singapore Airlines",
+      "airline_code": "SQ",
+      "region": "South East Asia",
+      "origin": "Singapore",
+      "origin_code": null,
+      "destination": "Manila",
+      "destination_code": null,
+      "miles_required": 17500,
+      "cabin_class": "Business",
+      "flight_numbers": [
+        "SQ914"
+      ],
+      "blackout_period": "3 October, 11 – 13 October 2026",
+      "blackout_dates": [
+        "2026-10-03",
+        "2026-10-11",
+        "2026-10-12",
+        "2026-10-13"
+      ]
+    },
+    {
+      "id": "sq-singapore-manila-economy",
+      "airline": "Singapore Airlines",
+      "airline_code": "SQ",
+      "region": "South East Asia",
+      "origin": "Singapore",
+      "origin_code": null,
+      "destination": "Manila",
+      "destination_code": null,
+      "miles_required": 9100,
+      "cabin_class": "Economy",
+      "flight_numbers": [
+        "SQ914",
+        "SQ916"
+      ],
+      "blackout_period": "4 October, 12 October, 18 October 2026",
+      "blackout_dates": [
+        "2026-10-04",
+        "2026-10-12",
+        "2026-10-18"
+      ]
+    },
+    {
+      "id": "sq-singapore-medan-economy",
+      "airline": "Singapore Airlines",
+      "airline_code": "SQ",
+      "region": "South East Asia",
+      "origin": "Singapore",
+      "origin_code": null,
+      "destination": "Medan",
+      "destination_code": null,
+      "miles_required": 5600,
+      "cabin_class": "Economy",
+      "flight_numbers": [
+        "SQ990"
+      ],
+      "blackout_period": "3 – 5 October, 19 – 26 October 2026",
+      "blackout_dates": [
+        "2026-10-03",
+        "2026-10-04",
+        "2026-10-05",
+        "2026-10-19",
+        "2026-10-20",
+        "2026-10-21",
+        "2026-10-22",
+        "2026-10-23",
+        "2026-10-24",
+        "2026-10-25",
+        "2026-10-26"
+      ]
+    },
+    {
+      "id": "sq-singapore-penang-economy",
+      "airline": "Singapore Airlines",
+      "airline_code": "SQ",
+      "region": "South East Asia",
+      "origin": "Singapore",
+      "origin_code": null,
+      "destination": "Penang",
+      "destination_code": null,
+      "miles_required": 5600,
+      "cabin_class": "Economy",
+      "flight_numbers": [
+        "SQ136",
+        "SQ138"
+      ],
+      "blackout_period": "1 – 3 October 2026",
+      "blackout_dates": [
+        "2026-10-01",
+        "2026-10-02",
+        "2026-10-03"
+      ]
+    },
+    {
+      "id": "sq-singapore-phnom-penh-economy",
+      "airline": "Singapore Airlines",
+      "airline_code": "SQ",
+      "region": "South East Asia",
+      "origin": "Singapore",
+      "origin_code": null,
+      "destination": "Phnom Penh",
+      "destination_code": null,
+      "miles_required": 9100,
+      "cabin_class": "Economy",
+      "flight_numbers": [
+        "SQ154",
+        "SQ156",
+        "SQ158"
+      ],
+      "blackout_period": "4 October 2026",
+      "blackout_dates": [
+        "2026-10-04"
+      ]
+    },
+    {
+      "id": "sq-singapore-phuket-business",
+      "airline": "Singapore Airlines",
+      "airline_code": "SQ",
+      "region": "South East Asia",
+      "origin": "Singapore",
+      "origin_code": null,
+      "destination": "Phuket",
+      "destination_code": null,
+      "miles_required": 17500,
+      "cabin_class": "Business",
+      "flight_numbers": [
+        "SQ724",
+        "SQ740"
+      ],
+      "blackout_period": "1 – 2 October, 10 October, 12 October, 14 – 15 October, 17 – 18 October, 22 October, 27 October, 29 – 31 October 2026",
+      "blackout_dates": [
+        "2026-10-01",
+        "2026-10-02",
+        "2026-10-10",
+        "2026-10-12",
+        "2026-10-14",
+        "2026-10-15",
+        "2026-10-17",
+        "2026-10-18",
+        "2026-10-22",
+        "2026-10-27",
+        "2026-10-29",
+        "2026-10-30",
+        "2026-10-31"
+      ]
+    },
+    {
+      "id": "sq-singapore-phuket-economy",
+      "airline": "Singapore Airlines",
+      "airline_code": "SQ",
+      "region": "South East Asia",
+      "origin": "Singapore",
+      "origin_code": null,
+      "destination": "Phuket",
+      "destination_code": null,
+      "miles_required": 9100,
+      "cabin_class": "Economy",
+      "flight_numbers": [
+        "SQ724",
+        "SQ732",
+        "SQ736",
+        "SQ740"
+      ],
+      "blackout_period": null,
+      "blackout_dates": []
+    },
+    {
+      "id": "sq-singapore-siem-reap-economy",
+      "airline": "Singapore Airlines",
+      "airline_code": "SQ",
+      "region": "South East Asia",
+      "origin": "Singapore",
+      "origin_code": null,
+      "destination": "Siem Reap",
+      "destination_code": null,
+      "miles_required": 9100,
+      "cabin_class": "Economy",
+      "flight_numbers": [
+        "SQ166"
+      ],
+      "blackout_period": null,
+      "blackout_dates": []
+    },
+    {
+      "id": "sq-singapore-surabaya-business",
+      "airline": "Singapore Airlines",
+      "airline_code": "SQ",
+      "region": "South East Asia",
+      "origin": "Singapore",
+      "origin_code": null,
+      "destination": "Surabaya",
+      "destination_code": null,
+      "miles_required": 15400,
+      "cabin_class": "Business",
+      "flight_numbers": [
+        "SQ922"
+      ],
+      "blackout_period": "4 October, 6 October, 17 – 18 October 2026",
+      "blackout_dates": [
+        "2026-10-04",
+        "2026-10-06",
+        "2026-10-17",
+        "2026-10-18"
+      ]
+    },
+    {
+      "id": "sq-surabaya-singapore-business",
+      "airline": "Singapore Airlines",
+      "airline_code": "SQ",
+      "region": "South East Asia",
+      "origin": "Surabaya",
+      "origin_code": null,
+      "destination": "Singapore",
+      "destination_code": null,
+      "miles_required": 15400,
+      "cabin_class": "Business",
+      "flight_numbers": [
+        "SQ923",
+        "SQ927"
+      ],
+      "blackout_period": "1 October, 7 October, 10 October, 13 – 14 October 2026",
+      "blackout_dates": [
+        "2026-10-01",
+        "2026-10-07",
+        "2026-10-10",
+        "2026-10-13",
+        "2026-10-14"
+      ]
+    },
+    {
+      "id": "sq-adelaide-singapore-economy",
+      "airline": "Singapore Airlines",
+      "airline_code": "SQ",
+      "region": "Southwest Pacific",
+      "origin": "Adelaide",
+      "origin_code": null,
+      "destination": "Singapore",
+      "destination_code": null,
+      "miles_required": 20300,
+      "cabin_class": "Economy",
+      "flight_numbers": [
+        "SQ278"
+      ],
+      "blackout_period": "1 – 19 October 2026",
+      "blackout_dates": [
+        "2026-10-01",
+        "2026-10-02",
+        "2026-10-03",
+        "2026-10-04",
+        "2026-10-05",
+        "2026-10-06",
+        "2026-10-07",
+        "2026-10-08",
+        "2026-10-09",
+        "2026-10-10",
+        "2026-10-11",
+        "2026-10-12",
+        "2026-10-13",
+        "2026-10-14",
+        "2026-10-15",
+        "2026-10-16",
+        "2026-10-17",
+        "2026-10-18",
+        "2026-10-19"
+      ]
+    },
+    {
+      "id": "sq-brisbane-singapore-economy",
+      "airline": "Singapore Airlines",
+      "airline_code": "SQ",
+      "region": "Southwest Pacific",
+      "origin": "Brisbane",
+      "origin_code": null,
+      "destination": "Singapore",
+      "destination_code": null,
+      "miles_required": 20300,
+      "cabin_class": "Economy",
+      "flight_numbers": [
+        "SQ266"
+      ],
+      "blackout_period": "1 – 11 October 2026",
+      "blackout_dates": [
+        "2026-10-01",
+        "2026-10-02",
+        "2026-10-03",
+        "2026-10-04",
+        "2026-10-05",
+        "2026-10-06",
+        "2026-10-07",
+        "2026-10-08",
+        "2026-10-09",
+        "2026-10-10",
+        "2026-10-11"
+      ]
+    },
+    {
+      "id": "sq-cairns-singapore-business",
+      "airline": "Singapore Airlines",
+      "airline_code": "SQ",
+      "region": "Southwest Pacific",
+      "origin": "Cairns",
+      "origin_code": null,
+      "destination": "Singapore",
+      "destination_code": null,
+      "miles_required": 50400,
+      "cabin_class": "Business",
+      "flight_numbers": [
+        "SQ204"
+      ],
+      "blackout_period": "14 – 16 October, 30 October 2026",
+      "blackout_dates": [
+        "2026-10-14",
+        "2026-10-15",
+        "2026-10-16",
+        "2026-10-30"
+      ]
+    },
+    {
+      "id": "sq-cairns-singapore-economy",
+      "airline": "Singapore Airlines",
+      "airline_code": "SQ",
+      "region": "Southwest Pacific",
+      "origin": "Cairns",
+      "origin_code": null,
+      "destination": "Singapore",
+      "destination_code": null,
+      "miles_required": 20300,
+      "cabin_class": "Economy",
+      "flight_numbers": [
+        "SQ204"
+      ],
+      "blackout_period": "1 – 10 October, 14 – 16 October, 20 – 25 October, 30 October 2026",
+      "blackout_dates": [
+        "2026-10-01",
+        "2026-10-02",
+        "2026-10-03",
+        "2026-10-04",
+        "2026-10-05",
+        "2026-10-06",
+        "2026-10-07",
+        "2026-10-08",
+        "2026-10-09",
+        "2026-10-10",
+        "2026-10-14",
+        "2026-10-15",
+        "2026-10-16",
+        "2026-10-20",
+        "2026-10-21",
+        "2026-10-22",
+        "2026-10-23",
+        "2026-10-24",
+        "2026-10-25",
+        "2026-10-30"
+      ]
+    },
+    {
+      "id": "sq-melbourne-singapore-economy",
+      "airline": "Singapore Airlines",
+      "airline_code": "SQ",
+      "region": "Southwest Pacific",
+      "origin": "Melbourne",
+      "origin_code": null,
+      "destination": "Singapore",
+      "destination_code": null,
+      "miles_required": 20300,
+      "cabin_class": "Economy",
+      "flight_numbers": [
+        "SQ228"
+      ],
+      "blackout_period": "1 – 11 October, 16 – 18 October, 23 – 25 October, 30 – 31 October 2026",
+      "blackout_dates": [
+        "2026-10-01",
+        "2026-10-02",
+        "2026-10-03",
+        "2026-10-04",
+        "2026-10-05",
+        "2026-10-06",
+        "2026-10-07",
+        "2026-10-08",
+        "2026-10-09",
+        "2026-10-10",
+        "2026-10-11",
+        "2026-10-16",
+        "2026-10-17",
+        "2026-10-18",
+        "2026-10-23",
+        "2026-10-24",
+        "2026-10-25",
+        "2026-10-30",
+        "2026-10-31"
+      ]
+    },
+    {
+      "id": "sq-singapore-darwin-economy",
+      "airline": "Singapore Airlines",
+      "airline_code": "SQ",
+      "region": "Southwest Pacific",
+      "origin": "Singapore",
+      "origin_code": null,
+      "destination": "Darwin",
+      "destination_code": null,
+      "miles_required": 14350,
+      "cabin_class": "Economy",
+      "flight_numbers": [
+        "SQ251",
+        "SQ253"
+      ],
+      "blackout_period": "1 – 15 October 2026",
+      "blackout_dates": [
+        "2026-10-01",
+        "2026-10-02",
+        "2026-10-03",
+        "2026-10-04",
+        "2026-10-05",
+        "2026-10-06",
+        "2026-10-07",
+        "2026-10-08",
+        "2026-10-09",
+        "2026-10-10",
+        "2026-10-11",
+        "2026-10-12",
+        "2026-10-13",
+        "2026-10-14",
+        "2026-10-15"
+      ]
+    },
+    {
+      "id": "sq-sydney-singapore-economy",
+      "airline": "Singapore Airlines",
+      "airline_code": "SQ",
+      "region": "Southwest Pacific",
+      "origin": "Sydney",
+      "origin_code": null,
+      "destination": "Singapore",
+      "destination_code": null,
+      "miles_required": 20300,
+      "cabin_class": "Economy",
+      "flight_numbers": [
+        "SQ222"
+      ],
+      "blackout_period": "1 – 11 October, 16 – 18 October, 23 – 25 October, 30 – 31 October 2026",
+      "blackout_dates": [
+        "2026-10-01",
+        "2026-10-02",
+        "2026-10-03",
+        "2026-10-04",
+        "2026-10-05",
+        "2026-10-06",
+        "2026-10-07",
+        "2026-10-08",
+        "2026-10-09",
+        "2026-10-10",
+        "2026-10-11",
+        "2026-10-16",
+        "2026-10-17",
+        "2026-10-18",
+        "2026-10-23",
+        "2026-10-24",
+        "2026-10-25",
+        "2026-10-30",
+        "2026-10-31"
+      ]
+    },
+    {
+      "id": "sq-singapore-new-york-premium-economy",
+      "airline": "Singapore Airlines",
+      "airline_code": "SQ",
+      "region": "U.S.A",
+      "origin": "Singapore",
+      "origin_code": null,
+      "destination": "New York",
+      "destination_code": null,
+      "miles_required": 59150,
+      "cabin_class": "Premium Economy",
+      "flight_numbers": [
+        "SQ24"
+      ],
+      "blackout_period": "2 – 3 October, 10 – 12 October 2026",
+      "blackout_dates": [
+        "2026-10-02",
+        "2026-10-03",
+        "2026-10-10",
+        "2026-10-11",
+        "2026-10-12"
+      ]
+    },
+    {
+      "id": "sq-singapore-seattle-economy",
+      "airline": "Singapore Airlines",
+      "airline_code": "SQ",
+      "region": "USA",
+      "origin": "Singapore",
+      "origin_code": null,
+      "destination": "Seattle",
+      "destination_code": null,
+      "miles_required": 30800,
+      "cabin_class": "Economy",
+      "flight_numbers": [
+        "SQ28"
+      ],
+      "blackout_period": null,
+      "blackout_dates": []
+    },
+    {
+      "id": "sq-ahmedabad-singapore-business",
+      "airline": "Singapore Airlines",
+      "airline_code": "SQ",
+      "region": "West Asia & Africa",
+      "origin": "Ahmedabad",
+      "origin_code": null,
+      "destination": "Singapore",
+      "destination_code": null,
+      "miles_required": 31500,
+      "cabin_class": "Business",
+      "flight_numbers": [
+        "SQ505"
+      ],
+      "blackout_period": null,
+      "blackout_dates": []
+    },
+    {
+      "id": "sq-ahmedabad-singapore-economy",
+      "airline": "Singapore Airlines",
+      "airline_code": "SQ",
+      "region": "West Asia & Africa",
+      "origin": "Ahmedabad",
+      "origin_code": null,
+      "destination": "Singapore",
+      "destination_code": null,
+      "miles_required": 13300,
+      "cabin_class": "Economy",
+      "flight_numbers": [
+        "SQ505"
+      ],
+      "blackout_period": "1 – 2 October, 13 October, 21 – 25 October 2026",
+      "blackout_dates": [
+        "2026-10-01",
+        "2026-10-02",
+        "2026-10-13",
+        "2026-10-21",
+        "2026-10-22",
+        "2026-10-23",
+        "2026-10-24",
+        "2026-10-25"
+      ]
+    },
+    {
+      "id": "sq-chennai-singapore-business",
+      "airline": "Singapore Airlines",
+      "airline_code": "SQ",
+      "region": "West Asia & Africa",
+      "origin": "Chennai",
+      "origin_code": null,
+      "destination": "Singapore",
+      "destination_code": null,
+      "miles_required": 31500,
+      "cabin_class": "Business",
+      "flight_numbers": [
+        "SQ529"
+      ],
+      "blackout_period": "1 October, 3 – 4 October, 8 October, 11 October, 17 October, 25 October, 31 October 2026",
+      "blackout_dates": [
+        "2026-10-01",
+        "2026-10-03",
+        "2026-10-04",
+        "2026-10-08",
+        "2026-10-11",
+        "2026-10-17",
+        "2026-10-25",
+        "2026-10-31"
+      ]
+    },
+    {
+      "id": "sq-colombo-singapore-business",
+      "airline": "Singapore Airlines",
+      "airline_code": "SQ",
+      "region": "West Asia & Africa",
+      "origin": "Colombo",
+      "origin_code": null,
+      "destination": "Singapore",
+      "destination_code": null,
+      "miles_required": 31500,
+      "cabin_class": "Business",
+      "flight_numbers": [
+        "SQ469"
+      ],
+      "blackout_period": null,
+      "blackout_dates": []
+    },
+    {
+      "id": "sq-colombo-singapore-economy",
+      "airline": "Singapore Airlines",
+      "airline_code": "SQ",
+      "region": "West Asia & Africa",
+      "origin": "Colombo",
+      "origin_code": null,
+      "destination": "Singapore",
+      "destination_code": null,
+      "miles_required": 13300,
+      "cabin_class": "Economy",
+      "flight_numbers": [
+        "SQ463",
+        "SQ469"
+      ],
+      "blackout_period": null,
+      "blackout_dates": []
+    },
+    {
+      "id": "sq-delhi-singapore-economy",
+      "airline": "Singapore Airlines",
+      "airline_code": "SQ",
+      "region": "West Asia & Africa",
+      "origin": "Delhi",
+      "origin_code": null,
+      "destination": "Singapore",
+      "destination_code": null,
+      "miles_required": 13300,
+      "cabin_class": "Economy",
+      "flight_numbers": [
+        "SQ401",
+        "SQ403"
+      ],
+      "blackout_period": "1 – 17 October 2026",
+      "blackout_dates": [
+        "2026-10-01",
+        "2026-10-02",
+        "2026-10-03",
+        "2026-10-04",
+        "2026-10-05",
+        "2026-10-06",
+        "2026-10-07",
+        "2026-10-08",
+        "2026-10-09",
+        "2026-10-10",
+        "2026-10-11",
+        "2026-10-12",
+        "2026-10-13",
+        "2026-10-14",
+        "2026-10-15",
+        "2026-10-16",
+        "2026-10-17"
+      ]
+    },
+    {
+      "id": "sq-delhi-singapore-premium-economy",
+      "airline": "Singapore Airlines",
+      "airline_code": "SQ",
+      "region": "West Asia & Africa",
+      "origin": "Delhi",
+      "origin_code": null,
+      "destination": "Singapore",
+      "destination_code": null,
+      "miles_required": 25200,
+      "cabin_class": "Premium Economy",
+      "flight_numbers": [
+        "SQ403"
+      ],
+      "blackout_period": "1 – 3 October 2026",
+      "blackout_dates": [
+        "2026-10-01",
+        "2026-10-02",
+        "2026-10-03"
+      ]
+    },
+    {
+      "id": "sq-dhaka-singapore-business",
+      "airline": "Singapore Airlines",
+      "airline_code": "SQ",
+      "region": "West Asia & Africa",
+      "origin": "Dhaka",
+      "origin_code": null,
+      "destination": "Singapore",
+      "destination_code": null,
+      "miles_required": 31500,
+      "cabin_class": "Business",
+      "flight_numbers": [
+        "SQ447"
+      ],
+      "blackout_period": null,
+      "blackout_dates": []
+    },
+    {
+      "id": "sq-dhaka-singapore-economy",
+      "airline": "Singapore Airlines",
+      "airline_code": "SQ",
+      "region": "West Asia & Africa",
+      "origin": "Dhaka",
+      "origin_code": null,
+      "destination": "Singapore",
+      "destination_code": null,
+      "miles_required": 13300,
+      "cabin_class": "Economy",
+      "flight_numbers": [
+        "SQ447"
+      ],
+      "blackout_period": null,
+      "blackout_dates": []
+    },
+    {
+      "id": "sq-male-singapore-economy",
+      "airline": "Singapore Airlines",
+      "airline_code": "SQ",
+      "region": "West Asia & Africa",
+      "origin": "Male",
+      "origin_code": null,
+      "destination": "Singapore",
+      "destination_code": null,
+      "miles_required": 13300,
+      "cabin_class": "Economy",
+      "flight_numbers": [
+        "SQ431"
+      ],
+      "blackout_period": "1 – 15 October 2026",
+      "blackout_dates": [
+        "2026-10-01",
+        "2026-10-02",
+        "2026-10-03",
+        "2026-10-04",
+        "2026-10-05",
+        "2026-10-06",
+        "2026-10-07",
+        "2026-10-08",
+        "2026-10-09",
+        "2026-10-10",
+        "2026-10-11",
+        "2026-10-12",
+        "2026-10-13",
+        "2026-10-14",
+        "2026-10-15"
+      ]
+    },
+    {
+      "id": "sq-mumbai-singapore-economy",
+      "airline": "Singapore Airlines",
+      "airline_code": "SQ",
+      "region": "West Asia & Africa",
+      "origin": "Mumbai",
+      "origin_code": null,
+      "destination": "Singapore",
+      "destination_code": null,
+      "miles_required": 13300,
+      "cabin_class": "Economy",
+      "flight_numbers": [
+        "SQ421",
+        "SQ423"
+      ],
+      "blackout_period": "1 – 2 October, 10 October, 16 – 31 October 2026",
+      "blackout_dates": [
+        "2026-10-01",
+        "2026-10-02",
+        "2026-10-10",
+        "2026-10-16",
+        "2026-10-17",
+        "2026-10-18",
+        "2026-10-19",
+        "2026-10-20",
+        "2026-10-21",
+        "2026-10-22",
+        "2026-10-23",
+        "2026-10-24",
+        "2026-10-25",
+        "2026-10-26",
+        "2026-10-27",
+        "2026-10-28",
+        "2026-10-29",
+        "2026-10-30",
+        "2026-10-31"
+      ]
+    },
+    {
+      "id": "sq-mumbai-singapore-premium-economy",
+      "airline": "Singapore Airlines",
+      "airline_code": "SQ",
+      "region": "West Asia & Africa",
+      "origin": "Mumbai",
+      "origin_code": null,
+      "destination": "Singapore",
+      "destination_code": null,
+      "miles_required": 25200,
+      "cabin_class": "Premium Economy",
+      "flight_numbers": [
+        "SQ423"
+      ],
+      "blackout_period": "1 October 2026",
+      "blackout_dates": [
+        "2026-10-01"
+      ]
+    },
+    {
+      "id": "sq-singapore-chennai-business",
+      "airline": "Singapore Airlines",
+      "airline_code": "SQ",
+      "region": "West Asia & Africa",
+      "origin": "Singapore",
+      "origin_code": null,
+      "destination": "Chennai",
+      "destination_code": null,
+      "miles_required": 31500,
+      "cabin_class": "Business",
+      "flight_numbers": [
+        "SQ528"
+      ],
+      "blackout_period": "1 – 7 October, 12 October, 15 October, 19 – 20 October, 28 October, 30 – 31 October 2026",
+      "blackout_dates": [
+        "2026-10-01",
+        "2026-10-02",
+        "2026-10-03",
+        "2026-10-04",
+        "2026-10-05",
+        "2026-10-06",
+        "2026-10-07",
+        "2026-10-12",
+        "2026-10-15",
+        "2026-10-19",
+        "2026-10-20",
+        "2026-10-28",
+        "2026-10-30",
+        "2026-10-31"
+      ]
+    },
+    {
+      "id": "sq-singapore-colombo-business",
+      "airline": "Singapore Airlines",
+      "airline_code": "SQ",
+      "region": "West Asia & Africa",
+      "origin": "Singapore",
+      "origin_code": null,
+      "destination": "Colombo",
+      "destination_code": null,
+      "miles_required": 31500,
+      "cabin_class": "Business",
+      "flight_numbers": [
+        "SQ462",
+        "SQ468"
+      ],
+      "blackout_period": null,
+      "blackout_dates": []
+    },
+    {
+      "id": "sq-singapore-colombo-economy",
+      "airline": "Singapore Airlines",
+      "airline_code": "SQ",
+      "region": "West Asia & Africa",
+      "origin": "Singapore",
+      "origin_code": null,
+      "destination": "Colombo",
+      "destination_code": null,
+      "miles_required": 13300,
+      "cabin_class": "Economy",
+      "flight_numbers": [
+        "SQ462",
+        "SQ468"
+      ],
+      "blackout_period": null,
+      "blackout_dates": []
+    },
+    {
+      "id": "sq-singapore-delhi-premium-economy",
+      "airline": "Singapore Airlines",
+      "airline_code": "SQ",
+      "region": "West Asia & Africa",
+      "origin": "Singapore",
+      "origin_code": null,
+      "destination": "Delhi",
+      "destination_code": null,
+      "miles_required": 25200,
+      "cabin_class": "Premium Economy",
+      "flight_numbers": [
+        "SQ406"
+      ],
+      "blackout_period": "1 – 4 October, 23 – 25 October, 31 October 2026",
+      "blackout_dates": [
+        "2026-10-01",
+        "2026-10-02",
+        "2026-10-03",
+        "2026-10-04",
+        "2026-10-23",
+        "2026-10-24",
+        "2026-10-25",
+        "2026-10-31"
+      ]
+    },
+    {
+      "id": "sq-singapore-dhaka-business",
+      "airline": "Singapore Airlines",
+      "airline_code": "SQ",
+      "region": "West Asia & Africa",
+      "origin": "Singapore",
+      "origin_code": null,
+      "destination": "Dhaka",
+      "destination_code": null,
+      "miles_required": 31500,
+      "cabin_class": "Business",
+      "flight_numbers": [
+        "SQ446"
+      ],
+      "blackout_period": null,
+      "blackout_dates": []
+    },
+    {
+      "id": "sq-singapore-dhaka-economy",
+      "airline": "Singapore Airlines",
+      "airline_code": "SQ",
+      "region": "West Asia & Africa",
+      "origin": "Singapore",
+      "origin_code": null,
+      "destination": "Dhaka",
+      "destination_code": null,
+      "miles_required": 13300,
+      "cabin_class": "Economy",
+      "flight_numbers": [
+        "SQ446"
+      ],
+      "blackout_period": null,
+      "blackout_dates": []
+    },
+    {
+      "id": "sq-singapore-johannesburg-premium-economy",
+      "airline": "Singapore Airlines",
+      "airline_code": "SQ",
+      "region": "West Asia & Africa",
+      "origin": "Singapore",
+      "origin_code": null,
+      "destination": "Johannesburg",
+      "destination_code": null,
+      "miles_required": 36050,
+      "cabin_class": "Premium Economy",
+      "flight_numbers": [
+        "SQ482"
+      ],
+      "blackout_period": "2 – 3 October, 12 October, 23 October 2026",
+      "blackout_dates": [
+        "2026-10-02",
+        "2026-10-03",
+        "2026-10-12",
+        "2026-10-23"
+      ]
+    },
+    {
+      "id": "sq-singapore-male-economy",
+      "airline": "Singapore Airlines",
+      "airline_code": "SQ",
+      "region": "West Asia & Africa",
+      "origin": "Singapore",
+      "origin_code": null,
+      "destination": "Male",
+      "destination_code": null,
+      "miles_required": 13300,
+      "cabin_class": "Economy",
+      "flight_numbers": [
+        "SQ438"
+      ],
+      "blackout_period": "1 – 6 October 2026",
+      "blackout_dates": [
+        "2026-10-01",
+        "2026-10-02",
+        "2026-10-03",
+        "2026-10-04",
+        "2026-10-05",
+        "2026-10-06"
+      ]
+    },
+    {
+      "id": "sq-singapore-mumbai-premium-economy",
+      "airline": "Singapore Airlines",
+      "airline_code": "SQ",
+      "region": "West Asia & Africa",
+      "origin": "Singapore",
+      "origin_code": null,
+      "destination": "Mumbai",
+      "destination_code": null,
+      "miles_required": 25200,
+      "cabin_class": "Premium Economy",
+      "flight_numbers": [
+        "SQ424"
+      ],
+      "blackout_period": "1 – 5 October 2026",
+      "blackout_dates": [
+        "2026-10-01",
+        "2026-10-02",
+        "2026-10-03",
+        "2026-10-04",
+        "2026-10-05"
+      ]
+    }
+  ]
+}
