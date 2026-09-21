@@ -43,6 +43,9 @@ async function verifyLocalReferences(htmlPath) {
 
 const navigationPath = path.join(outputDirectory, 'index.html');
 const navigationHtml = await readFile(navigationPath, 'utf8');
+const appNavigationPath = path.join(outputDirectory, '_shared', 'app-navigation.js');
+
+await requirePath(appNavigationPath, 'Shared application navigation bundle');
 
 if (!navigationHtml.includes('<h1 id="page-title">Just Kudos Things</h1>')) {
   throw new Error('Navigation heading is missing or outdated.');
@@ -54,7 +57,13 @@ for (const application of applications) {
     throw new Error(`Navigation link is missing: ${expectedLink}`);
   }
 
-  await verifyLocalReferences(path.join(outputDirectory, application, 'index.html'));
+  const applicationIndex = path.join(outputDirectory, application, 'index.html');
+  const applicationHtml = await readFile(applicationIndex, 'utf8');
+  if (!applicationHtml.includes('data-perception-navigation-script')) {
+    throw new Error(`Shared navigation was not injected into ${application}.`);
+  }
+
+  await verifyLocalReferences(applicationIndex);
 }
 
 await verifyLocalReferences(navigationPath);
