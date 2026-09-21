@@ -187,6 +187,10 @@ h1 {
   --accent: #d7ff64;
 }
 
+.card-compound {
+  --accent: #73dec6;
+}
+
 .card-number {
   position: relative;
   color: var(--accent);

@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "workspaces": [
+    "compound-interest-calculator",
     "housing-affordability-calculator",
     "krisflyer-spontaneous-escapes",
     "trading-course",
@@ -12,12 +13,14 @@
     "node": ">=26.0.0"
   },
   "scripts": {
+    "dev:compound": "npm run dev --workspace=compound-interest-calculator",
     "dev:housing": "npm run dev --workspace=sg-property-options",
     "dev:escapes": "npm run dev --workspace=krisflyer-spontaneous-escapes",
     "dev:trading": "npm run dev --workspace=trading-course",
     "dev:compensation": "npm run dev --workspace=us-compensation-compare",
     "build": "npm run build:apps && npm run assemble",
     "build:apps": "npm run build --workspaces --if-present",
+    "build:compound": "npm run build --workspace=compound-interest-calculator",
     "build:housing": "npm run build --workspace=sg-property-options",
     "build:escapes": "npm run build --workspace=krisflyer-spontaneous-escapes",
     "build:trading": "npm run build --workspace=trading-course",
