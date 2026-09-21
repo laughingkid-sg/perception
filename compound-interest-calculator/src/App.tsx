@@ -11,6 +11,7 @@ import {
   CircleDollarSign,
   Download,
   FolderOpen,
+  Minus,
   Pencil,
   PieChart,
   Plus,
@@ -338,6 +339,31 @@ function NumberField({
   );
 }
 
+function ReactCheckbox({
+  checked,
+  mixed = false,
+  label,
+  onChange,
+}: {
+  checked: boolean;
+  mixed?: boolean;
+  label: string;
+  onChange: () => void;
+}) {
+  return (
+    <button
+      className={`react-checkbox ${checked || mixed ? 'checked' : ''}`}
+      type="button"
+      role="checkbox"
+      aria-checked={mixed ? 'mixed' : checked}
+      aria-label={label}
+      onClick={onChange}
+    >
+      {mixed ? <Minus size={12} aria-hidden="true" /> : checked ? <Check size={12} aria-hidden="true" /> : null}
+    </button>
+  );
+}
+
 function App() {
   const [saved] = useState(readSavedState);
   const [settings, setSettings] = useState(saved.settings);
@@ -346,6 +372,9 @@ function App() {
     saved.weightedInvestments,
   );
   const [activeTab, setActiveTab] = useState<'planner' | 'weighted'>('planner');
+  const [selectedScheduleYears, setSelectedScheduleYears] = useState<Set<number>>(
+    () => new Set(),
+  );
   const [isSavedLocally, setIsSavedLocally] = useState(false);
   const [savedPlans, setSavedPlans] = useState(() =>
     loadSavedPlans<PlanSnapshot>(window.localStorage, SAVES_STORAGE_KEY),
@@ -508,6 +537,9 @@ function App() {
         ).map((row) => ({ ...row, year: index + 1 }))[0];
       }),
     );
+    setSelectedScheduleYears((current) =>
+      new Set([...current].filter((year) => year <= years)),
+    );
   }
 
   function applyDefaults() {
@@ -518,6 +550,41 @@ function App() {
         settings.annualContribution,
         settings.annualRate,
       ),
+    );
+  }
+
+  function applyDefaultsToSelectedYears() {
+    if (selectedScheduleYears.size === 0) return;
+    setSchedule((current) =>
+      current.map((row) =>
+        selectedScheduleYears.has(row.year)
+          ? {
+              ...row,
+              monthlyContributions: Array(12).fill(
+                settings.monthlyContribution,
+              ),
+              annualContribution: settings.annualContribution,
+              annualRate: settings.annualRate,
+            }
+          : row,
+      ),
+    );
+  }
+
+  function toggleScheduleYear(year: number) {
+    setSelectedScheduleYears((current) => {
+      const next = new Set(current);
+      if (next.has(year)) next.delete(year);
+      else next.add(year);
+      return next;
+    });
+  }
+
+  function toggleAllScheduleYears() {
+    setSelectedScheduleYears((current) =>
+      current.size === schedule.length
+        ? new Set()
+        : new Set(schedule.map((row) => row.year)),
     );
   }
 
@@ -534,6 +601,7 @@ function App() {
     setWeightedInvestments(
       DEFAULT_WEIGHTED_INVESTMENTS.map((investment) => ({ ...investment })),
     );
+    setSelectedScheduleYears(new Set());
   }
 
   function updateWeightedInvestment(
@@ -622,6 +690,10 @@ function App() {
     1,
     ...projection.years.map((year) => year.endingBalance),
   );
+  const allScheduleYearsSelected =
+    schedule.length > 0 && selectedScheduleYears.size === schedule.length;
+  const someScheduleYearsSelected =
+    selectedScheduleYears.size > 0 && !allScheduleYearsSelected;
 
   return (
     <>
@@ -800,9 +872,20 @@ function App() {
             </fieldset>
             <div className="apply-area">
               <p>Defaults seed the detailed schedule below.</p>
-              <button type="button" className="apply-button" onClick={applyDefaults}>
-                Apply defaults to all years
-              </button>
+              <div className="apply-actions">
+                <button
+                  type="button"
+                  className="apply-button secondary"
+                  disabled={selectedScheduleYears.size === 0}
+                  onClick={applyDefaultsToSelectedYears}
+                >
+                  Apply to selected
+                  {selectedScheduleYears.size > 0 && ` (${selectedScheduleYears.size})`}
+                </button>
+                <button type="button" className="apply-button" onClick={applyDefaults}>
+                  Apply to all years
+                </button>
+              </div>
             </div>
           </div>
         </article>
@@ -865,7 +948,17 @@ function App() {
           <table className="schedule-table">
             <thead>
               <tr>
-                <th className="sticky-year">Year</th>
+                <th className="sticky-year">
+                  <div className="year-header-content">
+                    <ReactCheckbox
+                      checked={allScheduleYearsSelected}
+                      mixed={someScheduleYearsSelected}
+                      label={allScheduleYearsSelected ? 'Clear all year selections' : 'Select all years'}
+                      onChange={toggleAllScheduleYears}
+                    />
+                    <span>Year</span>
+                  </div>
+                </th>
                 <th>Monthly plan</th>
                 {MONTHS.map((month) => (
                   <th key={month}>{month}</th>
@@ -883,7 +976,14 @@ function App() {
                 return (
                   <tr key={row.year}>
                     <th className="sticky-year row-year" scope="row">
-                      <span>{String(row.year).padStart(2, '0')}</span>
+                      <div className="row-year-content">
+                        <ReactCheckbox
+                          checked={selectedScheduleYears.has(row.year)}
+                          label={`Select year ${row.year}`}
+                          onChange={() => toggleScheduleYear(row.year)}
+                        />
+                        <span className="year-badge">{String(row.year).padStart(2, '0')}</span>
+                      </div>
                     </th>
                     <td className="editable-cell monthly-plan-cell">
                       <span>S$</span>

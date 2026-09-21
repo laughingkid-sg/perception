@@ -192,8 +192,11 @@ h1 {
 .timing-row fieldset small { color: #82908c; font-size: 0.75rem; }
 .apply-area { display: flex; align-items: center; gap: 12px; }
 .apply-area p { max-width: 190px; margin: 0; color: #7a8783; font-size: 0.73rem; line-height: 1.35; text-align: right; }
+.apply-actions { display: flex; gap: 7px; }
 .apply-button { min-height: 40px; padding: 0 14px; border: 0; border-radius: 10px; background: #dce7df; color: #223b37; font-size: 0.78rem; font-weight: 820; white-space: nowrap; }
 .apply-button:hover { background: #cbdcd0; }
+.apply-button.secondary { border: 1px solid #ccd6cf; background: #fff; }
+.apply-button:disabled { cursor: not-allowed; opacity: 0.45; }
 
 .chart-panel { display: flex; min-height: 330px; flex-direction: column; overflow: hidden; background: #1a3231; color: #f4f8f1; }
 .chart-panel .section-kicker, .chart-panel .section-heading > svg { color: #b9f45e; }
@@ -219,14 +222,18 @@ h1 {
 .schedule-table { width: 100%; min-width: 2310px; border-collapse: separate; border-spacing: 0; font-size: 0.78rem; }
 .schedule-table thead { position: relative; z-index: 3; }
 .schedule-table th { position: sticky; top: 0; z-index: 4; min-width: 112px; padding: 12px 10px; border-bottom: 1px solid #ccd5cf; background: #e7ece7; color: #52625e; font-size: 0.68rem; letter-spacing: 0.06em; text-align: left; text-transform: uppercase; }
-.schedule-table th:first-child { min-width: 74px; }
+.schedule-table th:first-child { min-width: 112px; }
 .schedule-table th:nth-last-child(-n + 3) { min-width: 150px; }
 .schedule-table td { height: 58px; padding: 8px 9px; border-bottom: 1px solid #e2e7e3; background: rgba(255, 255, 255, 0.56); }
 .schedule-table tbody tr:hover td, .schedule-table tbody tr:hover .row-year { background: #f2f6f0; }
 .sticky-year { position: sticky; left: 0; z-index: 5; box-shadow: 1px 0 0 #d3dad5; }
 thead .sticky-year { z-index: 7; }
 .row-year { background: #f8faf7; }
-.row-year span { display: grid; width: 34px; height: 34px; place-items: center; border-radius: 9px; background: #17312f; color: #c9fa77; font-size: 0.75rem; }
+.year-header-content, .row-year-content { display: flex; align-items: center; gap: 8px; }
+.row-year .year-badge { display: grid; width: 34px; height: 34px; place-items: center; border-radius: 9px; background: #17312f; color: #c9fa77; font-size: 0.75rem; }
+.react-checkbox { display: grid; width: 20px; height: 20px; flex: 0 0 auto; place-items: center; padding: 0; border: 1px solid #aebdb5; border-radius: 6px; background: #fff; color: #17312f; }
+.react-checkbox:hover { border-color: #65847b; background: #f0f5f1; }
+.react-checkbox.checked { border-color: #72c4b3; background: #b9f45e; }
 .editable-cell { min-width: 112px; }
 .editable-cell { display: table-cell; color: #87938f; white-space: nowrap; }
 .editable-cell span { display: inline-block; margin-right: 3px; font-size: 0.68rem; }
@@ -367,6 +374,7 @@ thead .sticky-year { z-index: 7; }
   .controls-grid { grid-template-columns: 1fr; }
   .timing-row, .apply-area, .schedule-heading, .formula-note { align-items: flex-start; flex-direction: column; }
   .apply-area p { max-width: none; text-align: left; }
+  .apply-actions { width: 100%; flex-direction: column; }
   .apply-button { width: 100%; }
   .scroll-cue { white-space: normal; }
   .formula-note { gap: 7px; }
