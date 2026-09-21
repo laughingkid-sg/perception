@@ -3,6 +3,7 @@ name: Build deployable site
 on:
   push:
     paths:
+      - "compound-interest-calculator/**"
       - "housing-affordability-calculator/**"
       - "krisflyer-spontaneous-escapes/**"
       - "trading-course/**"
@@ -14,6 +15,7 @@ on:
       - ".github/workflows/ci.yml"
   pull_request:
     paths:
+      - "compound-interest-calculator/**"
       - "housing-affordability-calculator/**"
       - "krisflyer-spontaneous-escapes/**"
       - "trading-course/**"
@@ -36,6 +38,8 @@ jobs:
       fail-fast: false
       matrix:
         include:
+          - directory: compound-interest-calculator
+            workspace: compound-interest-calculator
           - directory: housing-affordability-calculator
             workspace: sg-property-options
           - directory: krisflyer-spontaneous-escapes
@@ -100,6 +104,12 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@v6
+
+      - name: Download compound interest application
+        uses: actions/download-artifact@v4
+        with:
+          name: application-compound-interest-calculator
+          path: compound-interest-calculator/dist
 
       - name: Download housing application
         uses: actions/download-artifact@v4
