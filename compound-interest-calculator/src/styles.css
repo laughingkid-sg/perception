@@ -166,7 +166,7 @@ h1 {
 
 .controls-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
 .field { display: flex; flex-direction: column; gap: 7px; color: #53635f; font-size: 0.78rem; font-weight: 780; }
-.input-shell, .field select {
+.input-shell, .react-select-trigger {
   display: flex;
   align-items: center;
   min-height: 44px;
@@ -179,7 +179,11 @@ h1 {
 .input-shell b { margin-left: 12px; color: #70807b; font-weight: 650; }
 .input-shell em { margin-right: 11px; color: #70807b; font-size: 0.76rem; font-style: normal; }
 .input-shell input { width: 100%; min-width: 0; border: 0; outline: 0; background: transparent; padding: 10px 7px; color: #172b29; font-weight: 750; }
-.field select { width: 100%; padding: 10px 12px; outline: none; font-weight: 720; }
+.react-select { position: relative; width: 100%; }
+.react-select-trigger { width: 100%; justify-content: space-between; padding: 10px 12px; outline: none; font-weight: 720; }
+.react-select-options { position: absolute; top: calc(100% + 7px); left: 0; z-index: 50; display: grid; width: 100%; min-width: 190px; overflow: hidden; padding: 5px; border: 1px solid #cbd6ce; border-radius: 11px; background: #fff; box-shadow: 0 14px 35px rgba(16, 43, 39, 0.2); }
+.react-select-options button { display: flex; min-height: 38px; align-items: center; justify-content: space-between; padding: 0 9px; border: 0; border-radius: 7px; background: transparent; color: #3b4f4b; font-size: 0.78rem; font-weight: 700; text-align: left; }
+.react-select-options button:hover, .react-select-options button.selected { background: #edf4ef; color: #17312f; }
 
 .timing-row { display: flex; align-items: flex-end; justify-content: space-between; gap: 22px; margin-top: 18px; padding-top: 17px; border-top: 1px solid #e0e5e1; }
 .timing-row fieldset { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; min-width: 0; margin: 0; padding: 0; border: 0; }
@@ -351,6 +355,7 @@ thead .sticky-year { z-index: 7; }
 .save-dialog { position: relative; width: min(440px, 100%); padding: 26px; border: 1px solid #cbd6ce; border-radius: 18px; background: #fff; box-shadow: 0 30px 80px rgba(9, 31, 28, 0.3); animation: dialog-in 160ms ease-out; }
 .save-dialog-icon { display: grid; width: 42px; height: 42px; margin-bottom: 18px; place-items: center; border-radius: 12px; background: #17312f; color: #c9fa77; }
 .restore-dialog-icon { background: #f6e8cf; color: #9a641d; }
+.delete-dialog-icon { background: #f6e3e0; color: #a64d44; }
 .save-dialog h2 { margin: 0; color: #19332f; font-size: 1.45rem; letter-spacing: -0.035em; }
 .save-dialog > p { margin: 8px 0 20px; color: #6c7b77; font-size: 0.84rem; line-height: 1.5; }
 .save-dialog label { display: flex; flex-direction: column; gap: 7px; color: #53635f; font-size: 0.76rem; font-weight: 780; }
@@ -359,6 +364,7 @@ thead .sticky-year { z-index: 7; }
 .dialog-actions button { display: inline-flex; min-height: 40px; align-items: center; justify-content: center; gap: 7px; padding: 0 14px; border: 1px solid #ccd6cf; border-radius: 9px; background: #fff; color: #40534f; font-size: 0.78rem; font-weight: 780; }
 .dialog-actions .confirm-save { border-color: #17312f; background: #17312f; color: #fff; }
 .dialog-actions .confirm-restore { border-color: #17312f; background: #17312f; color: #fff; }
+.dialog-actions .confirm-delete { border-color: #a64d44; background: #a64d44; color: #fff; }
 .dialog-actions .confirm-save:disabled { cursor: not-allowed; opacity: 0.45; }
 
 @keyframes drawer-in { from { transform: translateX(24px); opacity: 0; } }

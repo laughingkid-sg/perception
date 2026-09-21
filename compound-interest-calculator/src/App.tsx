@@ -442,6 +442,74 @@ function YearMultiSelect({
   );
 }
 
+function ReactSelect({
+  label,
+  value,
+  options,
+  onChange,
+}: {
+  label: string;
+  value: string;
+  options: Array<{ value: string; label: string }>;
+  onChange: (value: string) => void;
+}) {
+  const [open, setOpen] = useState(false);
+  const container = useRef<HTMLDivElement>(null);
+  const selectedLabel = options.find((option) => option.value === value)?.label ?? value;
+
+  useEffect(() => {
+    if (!open) return;
+    const closeOnOutsideClick = (event: PointerEvent) => {
+      if (!container.current?.contains(event.target as Node)) setOpen(false);
+    };
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setOpen(false);
+    };
+    document.addEventListener('pointerdown', closeOnOutsideClick);
+    window.addEventListener('keydown', closeOnEscape);
+    return () => {
+      document.removeEventListener('pointerdown', closeOnOutsideClick);
+      window.removeEventListener('keydown', closeOnEscape);
+    };
+  }, [open]);
+
+  return (
+    <div className="react-select" ref={container}>
+      <button
+        className="react-select-trigger"
+        type="button"
+        aria-label={label}
+        aria-haspopup="listbox"
+        aria-expanded={open}
+        onClick={() => setOpen((current) => !current)}
+      >
+        <span>{selectedLabel}</span>
+        <ChevronDown size={15} aria-hidden="true" />
+      </button>
+      {open && (
+        <div className="react-select-options" role="listbox" aria-label={label}>
+          {options.map((option) => (
+            <button
+              type="button"
+              role="option"
+              aria-selected={option.value === value}
+              className={option.value === value ? 'selected' : ''}
+              key={option.value}
+              onClick={() => {
+                onChange(option.value);
+                setOpen(false);
+              }}
+            >
+              <span>{option.label}</span>
+              {option.value === value && <Check size={14} aria-hidden="true" />}
+            </button>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
 function App() {
   const [saved] = useState(readSavedState);
   const [settings, setSettings] = useState(saved.settings);
@@ -466,6 +534,7 @@ function App() {
   const [editingSaveId, setEditingSaveId] = useState<string | null>(null);
   const [editingSaveName, setEditingSaveName] = useState('');
   const [pendingRestore, setPendingRestore] = useState<SavedPlan<PlanSnapshot> | null>(null);
+  const [pendingDelete, setPendingDelete] = useState<SavedPlan<PlanSnapshot> | null>(null);
 
   const projection = useMemo(
     () =>
@@ -505,11 +574,12 @@ function App() {
   }, [savedPlans]);
 
   useEffect(() => {
-    if (!savesOpen && !saveDialogOpen && !pendingRestore) return;
+    if (!savesOpen && !saveDialogOpen && !pendingRestore && !pendingDelete) return;
 
     const handleEscape = (event: KeyboardEvent) => {
       if (event.key !== 'Escape') return;
-      if (pendingRestore) setPendingRestore(null);
+      if (pendingDelete) setPendingDelete(null);
+      else if (pendingRestore) setPendingRestore(null);
       else if (saveDialogOpen) setSaveDialogOpen(false);
       else setSavesOpen(false);
     };
@@ -520,7 +590,7 @@ function App() {
       document.body.style.overflow = previousOverflow;
       window.removeEventListener('keydown', handleEscape);
     };
-  }, [pendingRestore, saveDialogOpen, savesOpen]);
+  }, [pendingDelete, pendingRestore, saveDialogOpen, savesOpen]);
 
   function openSaveDialog() {
     setSaveName(`Plan ${savedDate.format(new Date())}`);
@@ -572,8 +642,15 @@ function App() {
   }
 
   function deleteSavedPlan(record: SavedPlan<PlanSnapshot>) {
-    if (!window.confirm(`Delete “${record.name}”? This cannot be undone.`)) return;
-    setSavedPlans((current) => current.filter((item) => item.id !== record.id));
+    setPendingDelete(record);
+  }
+
+  function confirmDeleteSavedPlan() {
+    if (!pendingDelete) return;
+    setSavedPlans((current) =>
+      current.filter((item) => item.id !== pendingDelete.id),
+    );
+    setPendingDelete(null);
   }
 
   function exportSavedPlan(record: SavedPlan<PlanSnapshot>) {
@@ -929,24 +1006,26 @@ function App() {
               step={0.1}
               onChange={(value) => updateSetting('annualRate', value)}
             />
-            <label className="field">
+            <div className="field">
               <span>Compounding</span>
-              <select
+              <ReactSelect
+                label="Compounding frequency"
                 value={settings.compounding}
-                onChange={(event) =>
+                options={[
+                  { value: 'daily', label: 'Daily' },
+                  { value: 'monthly', label: 'Monthly' },
+                  { value: 'quarterly', label: 'Quarterly' },
+                  { value: 'semiannually', label: 'Semi-annually' },
+                  { value: 'annually', label: 'Annually' },
+                ]}
+                onChange={(value) =>
                   updateSetting(
                     'compounding',
-                    event.target.value as CompoundingFrequency,
+                    value as CompoundingFrequency,
                   )
                 }
-              >
-                <option value="daily">Daily</option>
-                <option value="monthly">Monthly</option>
-                <option value="quarterly">Quarterly</option>
-                <option value="semiannually">Semi-annually</option>
-                <option value="annually">Annually</option>
-              </select>
-            </label>
+              />
+            </div>
           </div>
 
           <div className="timing-row">
@@ -1537,6 +1616,39 @@ function App() {
               <button type="button" onClick={() => setPendingRestore(null)}>Keep current plan</button>
               <button className="confirm-restore" type="button" onClick={confirmRestoreSavedPlan}>
                 <RefreshCcw size={15} aria-hidden="true" /> Restore saved plan
+              </button>
+            </div>
+          </section>
+        </div>
+      )}
+
+      {pendingDelete && (
+        <div className="modal-layer">
+          <button
+            className="modal-backdrop"
+            type="button"
+            aria-label="Cancel deletion"
+            onClick={() => setPendingDelete(null)}
+          />
+          <section
+            className="save-dialog delete-dialog"
+            role="alertdialog"
+            aria-modal="true"
+            aria-labelledby="delete-dialog-title"
+            aria-describedby="delete-dialog-description"
+          >
+            <div className="save-dialog-icon delete-dialog-icon">
+              <Trash2 size={20} aria-hidden="true" />
+            </div>
+            <h2 id="delete-dialog-title">Delete this saved plan?</h2>
+            <p id="delete-dialog-description">
+              <strong>“{pendingDelete.name}”</strong> will be removed from this browser. This action
+              cannot be undone.
+            </p>
+            <div className="dialog-actions">
+              <button type="button" onClick={() => setPendingDelete(null)}>Keep saved plan</button>
+              <button className="confirm-delete" type="button" onClick={confirmDeleteSavedPlan}>
+                <Trash2 size={15} aria-hidden="true" /> Delete plan
               </button>
             </div>
           </section>
