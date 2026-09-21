@@ -1,6 +1,6 @@
 # Perception apps
 
-This repository contains five applications, a shared navigation page, and a platform-neutral static deployment bundle managed through one npm workspace:
+This repository contains five applications, a shared application launcher, a navigation page, and a platform-neutral static deployment bundle managed through one npm workspace:
 
 - `compound-interest-calculator`
 - `housing-affordability-calculator`
@@ -29,6 +29,7 @@ npm run dev:housing
 npm run dev:escapes
 npm run dev:trading
 npm run dev:compensation
+npm run dev:navigation
 ```
 
 ## Validation
@@ -55,12 +56,15 @@ The combined static site is written to `dist/` with this URL structure:
 - `/krisflyer-spontaneous-escapes/`
 - `/trading-course/`
 - `/us-compensation-compare/`
+- `/_shared/app-navigation.js` — the independently built React application launcher
 
-The output uses relative asset paths, so the entire `dist/` folder can be deployed to most static hosting platforms without provider-specific configuration.
+The assembler injects the shared launcher into each compiled application's `index.html`. The launcher renders inside a Shadow DOM to isolate its styles from every application. Because it is built and cached separately, launcher-only changes do not require rebuilding unchanged applications.
+
+The output uses relative asset paths, so the entire `dist/` folder can be deployed to most static hosting platforms without provider-specific configuration. Use `npm run preview` after building to test application switching across the complete site.
 
 ## Continuous integration
 
-GitHub Actions builds each application independently and publishes one `deployable-site` artifact. Each application's compiled output is cached by its source and dependency hash. If an application is unchanged, its existing output is restored and its install, validation, and build steps are skipped. Changes to the root package files invalidate every application cache because shared dependency changes can affect every build.
+GitHub Actions builds the application launcher and each application independently, then publishes one `deployable-site` artifact. Each compiled output is cached by its own source and dependency hash. If an application is unchanged, its existing output is restored and its install, validation, and build steps are skipped. Changes to the root package files invalidate every application cache because shared dependency changes can affect every build.
 
 Download the `deployable-site` artifact from a completed workflow run and upload its contents to the static host of your choice.
 

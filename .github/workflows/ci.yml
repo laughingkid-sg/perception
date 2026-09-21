@@ -4,6 +4,7 @@ on:
   push:
     paths:
       - "compound-interest-calculator/**"
+      - "app-navigation/**"
       - "housing-affordability-calculator/**"
       - "krisflyer-spontaneous-escapes/**"
       - "trading-course/**"
@@ -16,6 +17,7 @@ on:
   pull_request:
     paths:
       - "compound-interest-calculator/**"
+      - "app-navigation/**"
       - "housing-affordability-calculator/**"
       - "krisflyer-spontaneous-escapes/**"
       - "trading-course/**"
@@ -31,6 +33,50 @@ permissions:
   contents: read
 
 jobs:
+  build-navigation:
+    name: Build shared application navigation
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v6
+
+      - name: Restore unchanged navigation build
+        id: navigation-cache
+        uses: actions/cache@v4
+        with:
+          path: app-navigation/dist
+          key: navigation-${{ runner.os }}-${{ hashFiles('app-navigation/**', 'package.json', 'package-lock.json') }}
+
+      - name: Set up Node.js
+        if: steps.navigation-cache.outputs.cache-hit != 'true'
+        uses: actions/setup-node@v6
+        with:
+          node-version: 26
+          cache: npm
+
+      - name: Install dependencies
+        if: steps.navigation-cache.outputs.cache-hit != 'true'
+        run: npm ci
+
+      - name: Test navigation
+        if: steps.navigation-cache.outputs.cache-hit != 'true'
+        run: npm run test --workspace=perception-app-navigation
+
+      - name: Build navigation
+        if: steps.navigation-cache.outputs.cache-hit != 'true'
+        run: npm run build --workspace=perception-app-navigation
+
+      - name: Verify navigation output
+        run: test -f app-navigation/dist/app-navigation.js
+
+      - name: Upload navigation output
+        uses: actions/upload-artifact@v4
+        with:
+          name: shared-application-navigation
+          path: app-navigation/dist/
+          if-no-files-found: error
+          retention-days: 7
+
   build-applications:
     name: Build ${{ matrix.directory }}
     runs-on: ubuntu-latest
@@ -99,7 +145,7 @@ jobs:
 
   assemble:
     name: Assemble deployable site
-    needs: build-applications
+    needs: [build-applications, build-navigation]
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository
@@ -110,6 +156,12 @@ jobs:
         with:
           name: application-compound-interest-calculator
           path: compound-interest-calculator/dist
+
+      - name: Download shared application navigation
+        uses: actions/download-artifact@v4
+        with:
+          name: shared-application-navigation
+          path: app-navigation/dist
 
       - name: Download housing application
         uses: actions/download-artifact@v4
