@@ -21,6 +21,8 @@ import {
   X,
 } from 'lucide-react';
 
+import { CurrencyInput } from '@/components/CurrencyInput';
+
 import {
   type CompoundingFrequency,
   type ContributionTiming,
@@ -295,21 +297,41 @@ function NumberField({
       <span>{label}</span>
       <span className="input-shell">
         {prefix && <b>{prefix}</b>}
-        <input
-          type="number"
-          inputMode={step < 1 ? 'decimal' : 'numeric'}
-          min={min}
-          max={max}
-          step={step}
-          value={value}
-          onFocus={(event) => event.currentTarget.select()}
-          onChange={(event) => {
-            const parsed = Number(event.target.value);
-            if (Number.isFinite(parsed)) {
-              onChange(Math.min(max ?? Number.POSITIVE_INFINITY, Math.max(min, parsed)));
+        {prefix ? (
+          <CurrencyInput
+            value={value}
+            aria-label={label}
+            onValueChange={(parsed) =>
+              onChange(
+                Math.min(
+                  max ?? Number.POSITIVE_INFINITY,
+                  Math.max(min, parsed),
+                ),
+              )
             }
-          }}
-        />
+          />
+        ) : (
+          <input
+            type="number"
+            inputMode={step < 1 ? 'decimal' : 'numeric'}
+            min={min}
+            max={max}
+            step={step}
+            value={value}
+            onFocus={(event) => event.currentTarget.select()}
+            onChange={(event) => {
+              const parsed = Number(event.target.value);
+              if (Number.isFinite(parsed)) {
+                onChange(
+                  Math.min(
+                    max ?? Number.POSITIVE_INFINITY,
+                    Math.max(min, parsed),
+                  ),
+                );
+              }
+            }}
+          />
+        )}
         {suffix && <em>{suffix}</em>}
       </span>
     </label>
@@ -865,13 +887,9 @@ function App() {
                     </th>
                     <td className="editable-cell monthly-plan-cell">
                       <span>S$</span>
-                      <input
+                      <CurrencyInput
                         aria-label={`Year ${row.year} monthly contribution plan`}
                         title="Change this to fill all 12 months for this year"
-                        type="number"
-                        inputMode="numeric"
-                        min="0"
-                        step="50"
                         value={
                           row.monthlyContributions.every(
                             (amount) => amount === row.monthlyContributions[0],
@@ -880,51 +898,33 @@ function App() {
                             : ''
                         }
                         placeholder="Varies"
-                        onFocus={(event) => event.currentTarget.select()}
-                        onChange={(event) =>
-                          updateYearlyMonthlyPlan(
-                            yearIndex,
-                            Number(event.target.value) || 0,
-                          )
+                        onValueChange={(value) =>
+                          updateYearlyMonthlyPlan(yearIndex, value)
                         }
                       />
                     </td>
                     {row.monthlyContributions.map((value, monthIndex) => (
                       <td className="editable-cell" key={MONTHS[monthIndex]}>
                         <span>S$</span>
-                        <input
+                        <CurrencyInput
                           aria-label={`Year ${row.year}, ${MONTHS[monthIndex]} contribution`}
-                          type="number"
-                          inputMode="numeric"
-                          min="0"
-                          step="50"
                           value={value}
-                          onFocus={(event) => event.currentTarget.select()}
-                          onChange={(event) =>
-                            updateMonth(
-                              yearIndex,
-                              monthIndex,
-                              Number(event.target.value) || 0,
-                            )
+                          onValueChange={(amount) =>
+                            updateMonth(yearIndex, monthIndex, amount)
                           }
                         />
                       </td>
                     ))}
                     <td className="editable-cell annual-cell">
                       <span>S$</span>
-                      <input
+                      <CurrencyInput
                         aria-label={`Year ${row.year} annual top-up`}
-                        type="number"
-                        inputMode="numeric"
-                        min="0"
-                        step="500"
                         value={row.annualContribution}
-                        onFocus={(event) => event.currentTarget.select()}
-                        onChange={(event) =>
+                        onValueChange={(value) =>
                           updateYear(
                             yearIndex,
                             'annualContribution',
-                            Number(event.target.value) || 0,
+                            value,
                           )
                         }
                       />
@@ -1065,19 +1065,14 @@ function App() {
                           <td>
                             <label className="weighted-number-input">
                               <span>S$</span>
-                              <input
+                              <CurrencyInput
                                 aria-label={`${investment.name} invested amount`}
-                                type="number"
-                                inputMode="numeric"
-                                min="0"
-                                step="100"
                                 value={investment.amount}
-                                onFocus={(event) => event.currentTarget.select()}
-                                onChange={(event) =>
+                                onValueChange={(value) =>
                                   updateWeightedInvestment(
                                     investment.id,
                                     'amount',
-                                    event.target.value,
+                                    value,
                                   )
                                 }
                               />
