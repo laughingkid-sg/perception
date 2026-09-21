@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import {
   AlertTriangle,
   ArrowDownRight,
@@ -8,6 +8,7 @@ import {
   CalendarRange,
   ChartNoAxesCombined,
   Check,
+  ChevronDown,
   CircleDollarSign,
   Download,
   FolderOpen,
@@ -364,6 +365,83 @@ function ReactCheckbox({
   );
 }
 
+function YearMultiSelect({
+  years,
+  selected,
+  onToggle,
+  onSelectAll,
+  onClear,
+}: {
+  years: number[];
+  selected: Set<number>;
+  onToggle: (year: number) => void;
+  onSelectAll: () => void;
+  onClear: () => void;
+}) {
+  const [open, setOpen] = useState(false);
+  const container = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!open) return;
+    const closeOnOutsideClick = (event: PointerEvent) => {
+      if (!container.current?.contains(event.target as Node)) setOpen(false);
+    };
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setOpen(false);
+    };
+    document.addEventListener('pointerdown', closeOnOutsideClick);
+    window.addEventListener('keydown', closeOnEscape);
+    return () => {
+      document.removeEventListener('pointerdown', closeOnOutsideClick);
+      window.removeEventListener('keydown', closeOnEscape);
+    };
+  }, [open]);
+
+  return (
+    <div className="year-multiselect" ref={container}>
+      <button
+        className="year-multiselect-trigger"
+        type="button"
+        aria-haspopup="dialog"
+        aria-expanded={open}
+        onClick={() => setOpen((current) => !current)}
+      >
+        {selected.size === 0
+          ? 'Choose years'
+          : `${selected.size} ${selected.size === 1 ? 'year' : 'years'} selected`}
+        <ChevronDown size={15} aria-hidden="true" />
+      </button>
+      {open && (
+        <div className="year-multiselect-popover" role="dialog" aria-label="Choose target years">
+          <div className="year-multiselect-actions">
+            <button type="button" onClick={onSelectAll}>Select all</button>
+            <button type="button" onClick={onClear}>Clear</button>
+          </div>
+          <div className="year-option-list" role="listbox" aria-multiselectable="true">
+            {years.map((year) => (
+              <div
+                role="option"
+                aria-selected={selected.has(year)}
+                className={selected.has(year) ? 'selected' : ''}
+                key={year}
+              >
+                <ReactCheckbox
+                  checked={selected.has(year)}
+                  label={`Select year ${year}`}
+                  onChange={() => onToggle(year)}
+                />
+                <button type="button" onClick={() => onToggle(year)}>
+                  Year {year}
+                </button>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
 function App() {
   const [saved] = useState(readSavedState);
   const [settings, setSettings] = useState(saved.settings);
@@ -373,6 +451,9 @@ function App() {
   );
   const [activeTab, setActiveTab] = useState<'planner' | 'weighted'>('planner');
   const [selectedScheduleYears, setSelectedScheduleYears] = useState<Set<number>>(
+    () => new Set(),
+  );
+  const [selectedWeightedYears, setSelectedWeightedYears] = useState<Set<number>>(
     () => new Set(),
   );
   const [isSavedLocally, setIsSavedLocally] = useState(false);
@@ -540,6 +621,9 @@ function App() {
     setSelectedScheduleYears((current) =>
       new Set([...current].filter((year) => year <= years)),
     );
+    setSelectedWeightedYears((current) =>
+      new Set([...current].filter((year) => year <= years)),
+    );
   }
 
   function applyDefaults() {
@@ -602,6 +686,7 @@ function App() {
       DEFAULT_WEIGHTED_INVESTMENTS.map((investment) => ({ ...investment })),
     );
     setSelectedScheduleYears(new Set());
+    setSelectedWeightedYears(new Set());
   }
 
   function updateWeightedInvestment(
@@ -647,6 +732,25 @@ function App() {
   function applyWeightedReturn() {
     updateSetting('annualRate', Number(weightedAverageReturn.toFixed(4)));
     setActiveTab('planner');
+  }
+
+  function toggleWeightedYear(year: number) {
+    setSelectedWeightedYears((current) => {
+      const next = new Set(current);
+      if (next.has(year)) next.delete(year);
+      else next.add(year);
+      return next;
+    });
+  }
+
+  function applyWeightedReturnToYears() {
+    if (selectedWeightedYears.size === 0 || totalWeightedInvestment === 0) return;
+    const rate = Number(weightedAverageReturn.toFixed(4));
+    setSchedule((current) =>
+      current.map((row) =>
+        selectedWeightedYears.has(row.year) ? { ...row, annualRate: rate } : row,
+      ),
+    );
   }
 
   function updateMonth(yearIndex: number, monthIndex: number, value: number) {
@@ -1078,15 +1182,43 @@ function App() {
                 Combine investments with different sizes and returns into one portfolio-level rate.
               </p>
             </div>
-            <button
-              className="apply-weighted-button"
-              type="button"
-              disabled={totalWeightedInvestment === 0}
-              onClick={applyWeightedReturn}
-            >
-              Apply {weightedAverageReturn.toFixed(2)}% to default
-              <ArrowRight size={17} aria-hidden="true" />
-            </button>
+            <div className="weighted-apply-actions">
+              <button
+                className="apply-weighted-button"
+                type="button"
+                disabled={totalWeightedInvestment === 0}
+                onClick={applyWeightedReturn}
+              >
+                Apply {weightedAverageReturn.toFixed(2)}% to default
+                <ArrowRight size={17} aria-hidden="true" />
+              </button>
+              <div className="weighted-year-apply">
+                <YearMultiSelect
+                  years={schedule.map((row) => row.year)}
+                  selected={selectedWeightedYears}
+                  onToggle={toggleWeightedYear}
+                  onSelectAll={() =>
+                    setSelectedWeightedYears(
+                      new Set(schedule.map((row) => row.year)),
+                    )
+                  }
+                  onClear={() => setSelectedWeightedYears(new Set())}
+                />
+                <button
+                  className="apply-years-button"
+                  type="button"
+                  disabled={
+                    selectedWeightedYears.size === 0 ||
+                    totalWeightedInvestment === 0
+                  }
+                  onClick={applyWeightedReturnToYears}
+                >
+                  Apply to years
+                  {selectedWeightedYears.size > 0 &&
+                    ` (${selectedWeightedYears.size})`}
+                </button>
+              </div>
+            </div>
           </div>
 
           <div className="weighted-summary-grid">
