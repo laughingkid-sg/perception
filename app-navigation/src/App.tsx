@@ -18,10 +18,12 @@ function getViewport() {
 }
 
 function getSiteRoot() {
-  const configuredRoot = document.currentScript?.getAttribute('data-site-root');
+  const configuredRoot = document
+    .querySelector<HTMLScriptElement>('script[data-perception-navigation-script]')
+    ?.getAttribute('data-site-root');
   if (configuredRoot) return new URL(configuredRoot, window.location.href);
 
-  return new URL('../', import.meta.url);
+  return new URL(/* @vite-ignore */ '../', import.meta.url);
 }
 
 function getDefaultPosition(): LauncherPosition {
@@ -63,6 +65,7 @@ export function App({ host }: { host: HTMLElement }) {
     offsetY: number;
     pointerId: number;
   } | null>(null);
+  const suppressNextClick = useRef(false);
   const siteRoot = useMemo(getSiteRoot, []);
   const currentApplication = findCurrentApplication(window.location.pathname);
 
@@ -112,8 +115,17 @@ export function App({ host }: { host: HTMLElement }) {
   const handlePointerUp = (event: ReactPointerEvent<HTMLButtonElement>) => {
     if (!drag.current || drag.current.pointerId !== event.pointerId) return;
     const shouldExpand = !drag.current.moved;
+    suppressNextClick.current = drag.current.moved;
     drag.current = null;
     if (shouldExpand) setCollapsed(false);
+  };
+
+  const handleOrbClick = () => {
+    if (suppressNextClick.current) {
+      suppressNextClick.current = false;
+      return;
+    }
+    setCollapsed(false);
   };
 
   if (collapsed) {
@@ -121,6 +133,7 @@ export function App({ host }: { host: HTMLElement }) {
       <button
         aria-label="Open Perception application navigation. Drag to reposition."
         className="orb"
+        onClick={handleOrbClick}
         onPointerDown={handlePointerDown}
         onPointerMove={handlePointerMove}
         onPointerUp={handlePointerUp}
