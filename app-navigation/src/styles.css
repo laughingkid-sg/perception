@@ -1,0 +1,215 @@
+:host {
+  --launcher-accent: #7ce7c4;
+  --launcher-bg: rgba(8, 12, 22, 0.96);
+  --launcher-border: rgba(255, 255, 255, 0.11);
+  color: #f7fafc;
+  display: block;
+  font-family:
+    Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  height: 68px;
+  isolation: isolate;
+  position: sticky;
+  top: 0;
+  width: 100%;
+  z-index: 2147483000;
+}
+
+:host([data-collapsed="true"]) {
+  height: 0;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+button,
+a {
+  font: inherit;
+}
+
+.bar {
+  align-items: center;
+  backdrop-filter: blur(18px);
+  background: var(--launcher-bg);
+  border-bottom: 1px solid var(--launcher-border);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.16);
+  display: flex;
+  gap: 18px;
+  height: 68px;
+  padding: 10px clamp(14px, 3vw, 38px);
+  width: 100%;
+}
+
+.home-link {
+  align-items: center;
+  color: #fff;
+  display: inline-flex;
+  flex: 0 0 auto;
+  gap: 10px;
+  min-width: max-content;
+  text-decoration: none;
+}
+
+.brand-mark {
+  align-items: center;
+  background: var(--launcher-accent);
+  border-radius: 12px;
+  color: #07110e;
+  display: inline-flex;
+  height: 38px;
+  justify-content: center;
+  width: 38px;
+}
+
+.brand-copy {
+  display: grid;
+  gap: 1px;
+}
+
+.brand-name {
+  font-size: 14px;
+  font-weight: 760;
+  letter-spacing: -0.01em;
+}
+
+.brand-action {
+  color: #91a0b7;
+  font-size: 11px;
+}
+
+.divider {
+  background: var(--launcher-border);
+  flex: 0 0 1px;
+  height: 28px;
+}
+
+.app-list {
+  display: flex;
+  flex: 1 1 auto;
+  gap: 6px;
+  min-width: 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.app-list::-webkit-scrollbar {
+  display: none;
+}
+
+.app-link {
+  align-items: center;
+  border: 1px solid transparent;
+  border-radius: 12px;
+  color: #9facbf;
+  display: inline-flex;
+  flex: 0 0 auto;
+  gap: 8px;
+  min-height: 42px;
+  padding: 0 13px;
+  text-decoration: none;
+  transition: 150ms ease;
+}
+
+.app-link:hover {
+  background: rgba(255, 255, 255, 0.07);
+  color: #fff;
+}
+
+.app-link[aria-current="page"] {
+  background: rgba(124, 231, 196, 0.12);
+  border-color: rgba(124, 231, 196, 0.28);
+  color: var(--launcher-accent);
+}
+
+.app-link svg {
+  flex: 0 0 auto;
+}
+
+.collapse-button,
+.orb {
+  align-items: center;
+  border: 0;
+  cursor: pointer;
+  display: inline-flex;
+  justify-content: center;
+}
+
+.collapse-button {
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid var(--launcher-border);
+  border-radius: 12px;
+  color: #cbd5e1;
+  flex: 0 0 42px;
+  height: 42px;
+  transition: 150ms ease;
+}
+
+.collapse-button:hover {
+  background: rgba(255, 255, 255, 0.13);
+  color: #fff;
+}
+
+.orb {
+  background: #0a111e;
+  border: 1px solid rgba(124, 231, 196, 0.48);
+  border-radius: 50%;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.34), 0 0 0 4px rgba(124, 231, 196, 0.08);
+  color: var(--launcher-accent);
+  height: 56px;
+  left: var(--orb-x);
+  position: fixed;
+  top: var(--orb-y);
+  touch-action: none;
+  user-select: none;
+  width: 56px;
+}
+
+.orb:hover {
+  transform: scale(1.04);
+}
+
+.orb:focus-visible,
+.collapse-button:focus-visible,
+.app-link:focus-visible,
+.home-link:focus-visible {
+  outline: 3px solid rgba(124, 231, 196, 0.45);
+  outline-offset: 2px;
+}
+
+.orb-grip {
+  bottom: 5px;
+  color: rgba(255, 255, 255, 0.48);
+  position: absolute;
+  right: 5px;
+}
+
+@media (max-width: 760px) {
+  :host {
+    height: 62px;
+  }
+
+  .bar {
+    gap: 9px;
+    height: 62px;
+    padding: 8px 10px;
+  }
+
+  .brand-copy,
+  .divider,
+  .app-name {
+    display: none;
+  }
+
+  .app-link {
+    justify-content: center;
+    padding: 0 11px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .app-link,
+  .collapse-button,
+  .orb {
+    transition: none;
+  }
+}

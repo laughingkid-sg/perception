@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "workspaces": [
+    "app-navigation",
     "compound-interest-calculator",
     "housing-affordability-calculator",
     "krisflyer-spontaneous-escapes",
@@ -13,6 +14,7 @@
     "node": ">=26.0.0"
   },
   "scripts": {
+    "dev:navigation": "npm run dev --workspace=perception-app-navigation",
     "dev:compound": "npm run dev --workspace=compound-interest-calculator",
     "dev:housing": "npm run dev --workspace=sg-property-options",
     "dev:escapes": "npm run dev --workspace=krisflyer-spontaneous-escapes",
@@ -20,6 +22,7 @@
     "dev:compensation": "npm run dev --workspace=us-compensation-compare",
     "build": "npm run build:apps && npm run assemble",
     "build:apps": "npm run build --workspaces --if-present",
+    "build:navigation": "npm run build --workspace=perception-app-navigation",
     "build:compound": "npm run build --workspace=compound-interest-calculator",
     "build:housing": "npm run build --workspace=sg-property-options",
     "build:escapes": "npm run build --workspace=krisflyer-spontaneous-escapes",
