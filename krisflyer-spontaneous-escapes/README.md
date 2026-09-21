@@ -66,3 +66,25 @@ npm run build
 
 The app is also registered in the repository's root npm workspace, navigation,
 combined build, and deployment verification.
+
+## Manual data refresh pull request
+
+Run the **Refresh KrisFlyer Spontaneous Escapes** workflow from the repository's
+Actions page whenever the monthly offers are published. The workflow:
+
+1. tests the scraper and application;
+2. scrapes both airline sources into temporary storage;
+3. validates the schema, source counts, promotion windows, and offer data;
+4. stops without creating a pull request when only retrieval metadata changed;
+5. builds the application with materially changed candidate data; and
+6. commits the JSON to a `feature/krisflyer-escapes-YYYY-MM` branch and opens or
+   updates a pull request.
+
+The workflow never merges its pull request. Review and merge it manually to trigger
+the existing main-branch build and Cloudflare Pages deployment. The page derives its
+travel month, booking deadline, date limits, and offer list from the refreshed JSON,
+so they update together after deployment.
+
+The optional `allow_large_drop` input bypasses the safety check that normally blocks
+a source whose offer count falls by more than 50%. Use it only after confirming that
+the provider intentionally published a much smaller offer set.
