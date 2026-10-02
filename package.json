@@ -8,7 +8,8 @@
     "housing-affordability-calculator",
     "krisflyer-spontaneous-escapes",
     "trading-course",
-    "us-compensation-compare"
+    "us-compensation-compare",
+    "sg-electricity-savings-calculator"
   ],
   "engines": {
     "node": ">=26.0.0"
@@ -34,6 +35,8 @@
     "test": "npm run test --workspaces --if-present",
     "typecheck": "npm run typecheck --workspaces --if-present",
     "lint": "npm run lint --workspaces --if-present",
-    "format": "npm run format --workspaces --if-present"
+    "format": "npm run format --workspaces --if-present",
+    "dev:electricity": "npm run dev --workspace=sg-electricity-savings-calculator",
+    "build:electricity": "npm run build --workspace=sg-electricity-savings-calculator"
   }
 }

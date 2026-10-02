@@ -191,6 +191,10 @@ h1 {
   --accent: #73dec6;
 }
 
+.card-electricity {
+  --accent: #d5b8f2;
+}
+
 .card-number {
   position: relative;
   color: var(--accent);

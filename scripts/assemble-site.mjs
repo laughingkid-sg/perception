@@ -12,6 +12,7 @@ const applications = [
   'krisflyer-spontaneous-escapes',
   'trading-course',
   'us-compensation-compare',
+  'sg-electricity-savings-calculator',
 ];
 
 async function requireFile(filePath, description) {

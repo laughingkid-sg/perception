@@ -4,6 +4,7 @@ import {
   Calculator,
   CircleDollarSign,
   Plane,
+  Zap,
   type LucideIcon,
 } from 'lucide-react';
 
@@ -16,6 +17,13 @@ export interface PerceptionApplication {
 }
 
 export const applications: PerceptionApplication[] = [
+  {
+    description: 'Track electricity plan savings',
+    icon: Zap,
+    name: 'Electricity savings',
+    path: 'sg-electricity-savings-calculator/',
+    slug: 'sg-electricity-savings-calculator',
+  },
   {
     description: 'Singapore property planning',
     icon: Building2,
