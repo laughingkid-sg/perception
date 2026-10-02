@@ -1,0 +1,89 @@
+name: Refresh SP electricity tariffs
+
+on:
+  schedule:
+    # 11:15 Singapore time. Retry during the first week of each new quarter.
+    - cron: "15 3 1-7 1,4,7,10 *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  actions: write
+
+concurrency:
+  group: sp-electricity-tariff-refresh
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Require main
+        run: |
+          if [[ "$GITHUB_REF" != "refs/heads/main" ]]; then
+            echo "Run this workflow from main." >&2
+            exit 1
+          fi
+
+      - name: Check out main
+        uses: actions/checkout@v6
+        with:
+          ref: main
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: 26
+          cache: npm
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.13"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Test calculator and updater
+        run: npm test --workspace=sg-electricity-savings-calculator
+
+      - name: Fetch and validate SP history against latest tariff
+        run: npm run refresh:tariffs --workspace=sg-electricity-savings-calculator
+
+      - name: Detect changed history
+        id: data
+        run: |
+          if git diff --quiet -- sg-electricity-savings-calculator/data/sp-tariffs.json; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            echo "SP tariffs unchanged. No commit or deployment." >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Validate and build updated calculator
+        if: steps.data.outputs.changed == 'true'
+        run: |
+          npm test --workspace=sg-electricity-savings-calculator
+          npm run build:electricity
+
+      - name: Commit validated tariff data
+        if: steps.data.outputs.changed == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add sg-electricity-savings-calculator/data/sp-tariffs.json
+          git commit -m "chore(data): refresh SP electricity tariffs" \
+            -m "Co-authored-by: Codex <codex@openai.com>"
+          # A competing main update fails safely; retry rather than force-push.
+          git push origin HEAD:main
+          echo "Committed validated SP tariff history." >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Dispatch normal build and deployment
+        if: steps.data.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          # GITHUB_TOKEN pushes do not trigger push workflows. Dispatch explicitly.
+          gh workflow run ci.yml --repo "$GITHUB_REPOSITORY" --ref main
+          echo "Dispatched the main build and Cloudflare Pages deployment." >> "$GITHUB_STEP_SUMMARY"

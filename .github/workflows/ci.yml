@@ -9,6 +9,7 @@ on:
       - "krisflyer-spontaneous-escapes/**"
       - "trading-course/**"
       - "us-compensation-compare/**"
+      - "sg-electricity-savings-calculator/**"
       - "navigation/**"
       - "scripts/**"
       - "package.json"
@@ -22,6 +23,7 @@ on:
       - "krisflyer-spontaneous-escapes/**"
       - "trading-course/**"
       - "us-compensation-compare/**"
+      - "sg-electricity-savings-calculator/**"
       - "navigation/**"
       - "scripts/**"
       - "package.json"
@@ -94,6 +96,8 @@ jobs:
             workspace: trading-course
           - directory: us-compensation-compare
             workspace: us-compensation-compare
+          - directory: sg-electricity-savings-calculator
+            workspace: sg-electricity-savings-calculator
     steps:
       - name: Check out repository
         uses: actions/checkout@v6
@@ -186,6 +190,12 @@ jobs:
         with:
           name: application-us-compensation-compare
           path: us-compensation-compare/dist
+
+      - name: Download electricity application
+        uses: actions/download-artifact@v4
+        with:
+          name: application-sg-electricity-savings-calculator
+          path: sg-electricity-savings-calculator/dist
 
       - name: Assemble site
         run: node scripts/assemble-site.mjs
