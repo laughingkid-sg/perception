@@ -351,27 +351,6 @@ h1 {
   margin-top: 9px;
   line-height: 1.5;
 }
-.rebate-guide {
-  border-top: 1px solid #eeeaef;
-  padding-top: 22px;
-  display: flex;
-  gap: 10px;
-  color: #8f76a8;
-}
-.rebate-guide svg {
-  flex-shrink: 0;
-  margin-top: 1px;
-}
-.rebate-guide h3 {
-  color: #63566f;
-  font-size: 12px;
-  margin-bottom: 6px;
-}
-.rebate-guide p {
-  color: #a096a9;
-  font-size: 11px;
-  line-height: 1.8;
-}
 .tariff-card {
   background: #f0ede7;
   border: 1px solid #e7e0d7;
@@ -816,9 +795,6 @@ tbody td {
 .table-input:focus {
   background: white;
 }
-.rebate-input {
-  width: 63px;
-}
 .row-savings {
   display: inline-flex;
   align-items: center;
@@ -831,12 +807,6 @@ tbody td {
 .negative,
 .negative span {
   color: #b55760 !important;
-}
-.rebate-only > small {
-  display: block;
-  font-size: 8px;
-  color: #a393b0;
-  margin-top: 3px;
 }
 .cell-error {
   display: block;
@@ -1231,7 +1201,18 @@ tfoot td {
   .table-input {
     width: 82px;
   }
-  .rebate-input {
-    width: 74px;
-  }
+}
+
+.plan-rebate-field {
+  margin-bottom: 0;
+  border-top: 1px solid #eeeaef;
+  padding-top: 22px;
+}
+.plan-rebate-field .field-label {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.plan-rebate-field .field-label svg {
+  color: #8f76a8;
 }

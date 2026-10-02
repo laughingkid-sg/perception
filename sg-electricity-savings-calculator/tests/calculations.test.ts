@@ -29,6 +29,7 @@ const tariffs: Tariff[] = [
 ];
 const state = (overrides: Partial<CalculatorState> = {}): CalculatorState => ({
   retailer: "",
+  rebate: "",
   startMonth: "2026-03",
   rate: "20",
   rateIncludesGst: false,
@@ -41,9 +42,10 @@ const state = (overrides: Partial<CalculatorState> = {}): CalculatorState => ({
 test("uses each month’s historical quarter, not the latest tariff", () => {
   const result = calculate(
     state({
+      rebate: "50",
       entries: {
-        "2026-03": { usage: "100", rebate: "0" },
-        "2026-04": { usage: "100", rebate: "50" },
+        "2026-03": { usage: "100" },
+        "2026-04": { usage: "100" },
       },
     }),
     tariffs,
@@ -54,15 +56,16 @@ test("uses each month’s historical quarter, not the latest tariff", () => {
   assert.equal(result.energySavings, 25);
   assert.equal(result.rebates, 50);
   assert.equal(result.totalSavings, 75);
-  assert.equal(result.rows[1].cumulative, 75);
+  assert.equal(result.rows[1].cumulative, 25);
 });
 
 test("GST-inclusive fixed rate is normalized; rebates are never uplifted", () => {
   const settings = state({
+    rebate: "50",
     rate: "21.80",
     rateIncludesGst: true,
     showGst: true,
-    entries: { "2026-03": { usage: "100", rebate: "50" } },
+    entries: { "2026-03": { usage: "100" } },
   });
   const gross = calculate(settings, tariffs, "2026-03");
   const net = calculate({ ...settings, showGst: false }, tariffs, "2026-03");
@@ -72,10 +75,11 @@ test("GST-inclusive fixed rate is normalized; rebates are never uplifted", () =>
   assert.equal(gross.beforeGstRate, 20);
 });
 
-test("blank usage is missing, zero usage is recorded, rebates can arrive without a bill", () => {
+test("blank usage is missing, zero usage is recorded, one-time rebate counts without a bill", () => {
   const result = calculate(
     state({
-      entries: { "2026-03": { usage: "", rebate: "50" }, "2026-04": { usage: "0", rebate: "" } },
+      rebate: "50",
+      entries: { "2026-03": { usage: "" }, "2026-04": { usage: "0" } },
     }),
     tariffs,
     "2026-05",
@@ -87,13 +91,14 @@ test("blank usage is missing, zero usage is recorded, rebates can arrive without
   assert.equal(result.rows[1].savings, 0);
 });
 
-test("rebates before start and future records are not counted", () => {
+test("usage before start and future records are not counted; plan rebate counts once", () => {
   const result = calculate(
     state({
+      rebate: "10",
       entries: {
-        "2026-02": { usage: "100", rebate: "50" },
-        "2026-03": { usage: "100", rebate: "10" },
-        "2026-04": { usage: "100", rebate: "90" },
+        "2026-02": { usage: "100" },
+        "2026-03": { usage: "100" },
+        "2026-04": { usage: "100" },
       },
     }),
     tariffs,
@@ -105,7 +110,7 @@ test("rebates before start and future records are not counted", () => {
 
 test("retailer costs above SP produce negative savings", () => {
   const result = calculate(
-    state({ rate: "40", entries: { "2026-03": { usage: "100", rebate: "2" } } }),
+    state({ rate: "40", rebate: "2", entries: { "2026-03": { usage: "100" } } }),
     tariffs,
     "2026-03",
   );
@@ -115,7 +120,7 @@ test("retailer costs above SP produce negative savings", () => {
 
 test("missing published tariffs remain unavailable instead of using stale rates", () => {
   const result = calculate(
-    state({ startMonth: "2026-07", entries: { "2026-07": { usage: "100", rebate: "" } } }),
+    state({ startMonth: "2026-07", entries: { "2026-07": { usage: "100" } } }),
     tariffs,
     "2026-07",
   );
@@ -128,7 +133,8 @@ test("rounds monthly bills before adding the total and calculating differences",
   const result = calculate(
     state({
       rate: "20.015",
-      entries: { "2026-03": { usage: "1", rebate: "0.01" }, "2026-04": { usage: "1", rebate: "" } },
+      rebate: "0.01",
+      entries: { "2026-03": { usage: "1" }, "2026-04": { usage: "1" } },
     }),
     tariffs,
     "2026-04",
@@ -145,11 +151,7 @@ test("invalid values are exposed; zero and fractional usage are valid", () => {
   assert.equal(parseAmount(".5"), 0.5);
   assert.equal(parseAmount(" 30.25 "), 30.25);
   assert.equal(
-    calculate(
-      state({ entries: { "2026-03": { usage: "-1", rebate: "oops" } } }),
-      tariffs,
-      "2026-03",
-    ).invalidMonths,
+    calculate(state({ entries: { "2026-03": { usage: "-1" } } }), tariffs, "2026-03").invalidMonths,
     1,
   );
 });
@@ -159,4 +161,22 @@ test("months cross years and current month uses Singapore time", () => {
   assert.deepEqual(monthsBetween("2026-13", "2027-02"), []);
   assert.deepEqual(monthsBetween("2027-01", "2026-12"), []);
   assert.equal(currentMonth(new Date("2026-09-30T16:00:00Z")), "2026-10");
+});
+
+test("one-time rebate is not multiplied by usage months or affected by start-month changes", () => {
+  const settings = state({
+    rebate: "50",
+    entries: { "2026-03": { usage: "100" }, "2026-04": { usage: "100" } },
+  });
+  assert.equal(calculate(settings, tariffs, "2026-04").totalSavings, 75);
+  const changed = calculate({ ...settings, startMonth: "2026-04" }, tariffs, "2026-04");
+  assert.equal(changed.rebates, 50);
+  assert.equal(changed.totalSavings, 65);
+  assert.equal(changed.rows[0].savings, 15);
+});
+test("invalid one-time rebate is exposed, blank and zero rebates are valid", () => {
+  assert.equal(calculate(state({ rebate: "oops" }), tariffs, "2026-03").invalidRebate, true);
+  assert.equal(calculate(state({ rebate: "" }), tariffs, "2026-03").invalidRebate, false);
+  assert.equal(calculate(state({ rebate: "0" }), tariffs, "2026-03").rebates, 0);
+  assert.equal(calculate(state({ rebate: "50" }), tariffs, "2026-03").totalSavings, 50);
 });

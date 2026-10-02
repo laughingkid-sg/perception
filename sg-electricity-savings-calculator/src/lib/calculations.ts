@@ -9,10 +9,10 @@ export interface Tariff {
 
 export interface MonthEntry {
   usage: string;
-  rebate: string;
 }
 export interface CalculatorState {
   retailer: string;
+  rebate: string;
   startMonth: string;
   rate: string;
   rateIncludesGst: boolean;
@@ -62,9 +62,8 @@ export function calculate(state: CalculatorState, tariffs: Tariff[], throughMont
       : enteredRate / (state.rateIncludesGst ? 1 + state.inputGstRate : 1);
   let cumulative = 0;
   const rows = monthsBetween(state.startMonth, throughMonth).map((month) => {
-    const entry = state.entries[month] ?? { usage: "", rebate: "" };
+    const entry = state.entries[month] ?? { usage: "" };
     const usage = parseAmount(entry.usage);
-    const rebate = roundMoney(parseAmount(entry.rebate) ?? 0);
     const tariff = tariffForMonth(tariffs, month);
     const factor = state.showGst && tariff ? 1 + tariff.gstRate : 1;
     const spBill =
@@ -77,13 +76,12 @@ export function calculate(state: CalculatorState, tariffs: Tariff[], throughMont
         : null;
     const energySavings =
       spBill !== null && retailerBill !== null ? roundMoney(spBill - retailerBill) : null;
-    const savings = energySavings === null ? null : roundMoney(energySavings + rebate);
-    cumulative = roundMoney(cumulative + (energySavings ?? 0) + rebate);
+    const savings = energySavings;
+    cumulative = roundMoney(cumulative + (energySavings ?? 0));
     return {
       month,
       entry,
       usage,
-      rebate,
       tariff,
       spBill,
       retailerBill,
@@ -95,24 +93,21 @@ export function calculate(state: CalculatorState, tariffs: Tariff[], throughMont
   const comparable = rows.filter((row) => row.energySavings !== null);
   const sum = (values: number[]) => roundMoney(values.reduce((total, value) => total + value, 0));
   const energySavings = sum(comparable.map((row) => row.energySavings!));
-  const rebates = sum(rows.map((row) => row.rebate));
+  const rebates = state.startMonth <= throughMonth ? roundMoney(parseAmount(state.rebate) ?? 0) : 0;
   return {
     rows,
     beforeGstRate,
     energySavings,
     rebates,
     totalSavings: roundMoney(energySavings + rebates),
+    invalidRebate: state.rebate.trim() !== "" && parseAmount(state.rebate) === null,
     spTotal: sum(comparable.map((row) => row.spBill!)),
     retailerTotal: sum(comparable.map((row) => row.retailerBill!)),
     totalUsage: sum(comparable.map((row) => row.usage!)),
     recordedMonths: comparable.length,
     missingMonths: rows.filter((row) => row.usage === null).length,
     unavailableMonths: rows.filter((row) => row.usage !== null && !row.tariff).length,
-    invalidMonths: rows.filter(
-      (row) =>
-        (row.entry.usage.trim() !== "" && row.usage === null) ||
-        (row.entry.rebate.trim() !== "" && parseAmount(row.entry.rebate) === null),
-    ).length,
+    invalidMonths: rows.filter((row) => row.entry.usage.trim() !== "" && row.usage === null).length,
   };
 }
 

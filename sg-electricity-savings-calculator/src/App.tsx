@@ -40,6 +40,7 @@ function initialState(): CalculatorState {
   }
   return {
     retailer: "",
+    rebate: "",
     startMonth: "2026-01",
     rate: "",
     rateIncludesGst: true,
@@ -57,11 +58,12 @@ export default function App() {
   const gstLabel = state.showGst ? "incl. GST" : "before GST";
   const validRate = parseAmount(state.rate) !== null;
   const invalidRate = state.rate.trim() !== "" && !validRate;
-  const blocked = !validRate || result.invalidMonths > 0 || result.unavailableMonths > 0;
+  const blocked =
+    !validRate || result.invalidRebate || result.invalidMonths > 0 || result.unavailableMonths > 0;
   const currentTariff = tariffForMonth(tariffs, today);
   const visibleTariff = currentTariff ?? tariffs.at(-1)!;
   const hasActivity = result.recordedMonths > 0 || result.rebates > 0;
-  const chartRows = result.rows.filter((row) => row.energySavings !== null || row.rebate > 0);
+  const chartRows = result.rows.filter((row) => row.energySavings !== null);
   const chartMin = Math.min(0, ...chartRows.map((row) => row.cumulative));
   const chartMax = Math.max(1, ...chartRows.map((row) => row.cumulative));
   const x = (index: number) => 24 + (index / Math.max(1, chartRows.length - 1)) * 552;
@@ -77,12 +79,12 @@ export default function App() {
     }
   }, [state]);
 
-  const changeEntry = (month: string, field: "usage" | "rebate", value: string) => {
+  const changeEntry = (month: string, value: string) => {
     setState((previous) => ({
       ...previous,
       entries: {
         ...previous.entries,
-        [month]: { ...(previous.entries[month] ?? { usage: "", rebate: "" }), [field]: value },
+        [month]: { usage: value },
       },
     }));
   };
@@ -193,15 +195,27 @@ export default function App() {
                       : "Use the rate from your retailer contract."}
                 </p>
               </div>
-              <div className="rebate-guide">
-                <Gift size={19} />
-                <div>
-                  <h3>Vouchers count, too.</h3>
-                  <p>
-                    Add their dollar value under the month you received them. Each rebate counts
-                    once, in full.
-                  </p>
+              <div className="field plan-rebate-field">
+                <label htmlFor="plan-rebate" className="field-label">
+                  <Gift size={14} /> One-time rebate <span className="optional">optional</span>
+                </label>
+                <div className="input-with-unit">
+                  <input
+                    id="plan-rebate"
+                    inputMode="decimal"
+                    value={state.rebate}
+                    placeholder="0.00"
+                    aria-invalid={result.invalidRebate}
+                    aria-describedby="rebate-hint"
+                    onChange={(event) => setState({ ...state, rebate: event.target.value })}
+                  />
+                  <span>SGD</span>
                 </div>
+                <p id="rebate-hint" className={result.invalidRebate ? "error-text" : "field-hint"}>
+                  {result.invalidRebate
+                    ? "Enter a valid rebate of zero or more."
+                    : "Voucher or cash value already received. Added once to your total savings."}
+                </p>
               </div>
             </section>
 
@@ -268,7 +282,7 @@ export default function App() {
               <p className="summary-caption">
                 {!validRate
                   ? "Add your fixed rate, then enter usage below."
-                  : result.invalidMonths > 0
+                  : result.invalidRebate || result.invalidMonths > 0
                     ? "Correct the highlighted amounts to see your total."
                     : result.unavailableMonths > 0
                       ? "SP tariff data is missing for an entered month. Total unavailable."
@@ -286,8 +300,8 @@ export default function App() {
                 </div>
                 <span className="breakdown-plus">+</span>
                 <div>
-                  <span>Received rebates</span>
-                  <strong>{money(result.rebates)}</strong>
+                  <span>One-time rebate</span>
+                  <strong>{result.invalidRebate ? "—" : money(result.rebates)}</strong>
                 </div>
                 <span className="hero-caption">
                   <Leaf size={15} />
@@ -328,12 +342,12 @@ export default function App() {
             <section className="panel trend-panel" aria-labelledby="trend-title">
               <div className="panel-heading">
                 <div>
-                  <h2 id="trend-title">Savings over time</h2>
-                  <p>Cumulative savings, including received rebates</p>
+                  <h2 id="trend-title">Electricity savings over time</h2>
+                  <p>Cumulative bill savings, before the one-time rebate</p>
                 </div>
                 <span className="legend">
                   <i />
-                  Total savings
+                  Bill savings
                 </span>
               </div>
               {chartRows.length > 0 && !blocked ? (
@@ -342,7 +356,7 @@ export default function App() {
                   <svg
                     viewBox="0 0 600 150"
                     role="img"
-                    aria-label={`Cumulative savings from ${formatMonth(chartRows[0].month)} to ${formatMonth(chartRows.at(-1)!.month)}: ${money(result.totalSavings)}. See monthly breakdown for individual values.`}
+                    aria-label={`Cumulative savings from ${formatMonth(chartRows[0].month)} to ${formatMonth(chartRows.at(-1)!.month)}: ${money(result.energySavings)} before the one-time rebate. See monthly breakdown for individual values.`}
                   >
                     <defs>
                       <linearGradient id="savings-fill" x1="0" y1="0" x2="0" y2="1">
@@ -394,8 +408,7 @@ export default function App() {
                     )}
                   </div>
                   <p className="chart-note">
-                    Only entered usage and received rebates are included. Missing bills are not
-                    estimated.
+                    Only entered usage is included. Missing bills are not estimated.
                   </p>
                 </div>
               ) : (
@@ -427,10 +440,7 @@ export default function App() {
               </div>
               <div className="ledger-tip">
                 <CircleHelp size={14} />
-                <span>
-                  Blank months stay uncounted. Enter 0 for a month with no usage. Rebates are their
-                  received dollar value.
-                </span>
+                <span>Blank months stay uncounted. Enter 0 for a month with no usage.</span>
               </div>
               {result.unavailableMonths > 0 && (
                 <p className="ledger-warning" role="alert">
@@ -448,8 +458,8 @@ export default function App() {
               <div className="table-scroll">
                 <table>
                   <caption className="sr-only">
-                    Monthly electricity costs and savings in Singapore dollars, {gstLabel}. Rebates
-                    have no GST uplift.
+                    Monthly electricity costs and savings in Singapore dollars, {gstLabel}, before
+                    the one-time rebate.
                   </caption>
                   <thead>
                     <tr>
@@ -464,9 +474,6 @@ export default function App() {
                         Retailer <span>{gstLabel}</span>
                       </th>
                       <th scope="col">
-                        Rebate <span>received $</span>
-                      </th>
-                      <th scope="col">
                         Savings <span>{gstLabel}</span>
                       </th>
                     </tr>
@@ -474,8 +481,6 @@ export default function App() {
                   <tbody>
                     {result.rows.map((row) => {
                       const usageInvalid = row.entry.usage.trim() !== "" && row.usage === null;
-                      const rebateInvalid =
-                        row.entry.rebate.trim() !== "" && parseAmount(row.entry.rebate) === null;
                       return (
                         <tr key={row.month}>
                           <th scope="row">
@@ -493,42 +498,19 @@ export default function App() {
                               aria-invalid={usageInvalid}
                               placeholder="—"
                               value={row.entry.usage}
-                              onChange={(event) =>
-                                changeEntry(row.month, "usage", event.target.value)
-                              }
+                              onChange={(event) => changeEntry(row.month, event.target.value)}
                             />
                             {usageInvalid && <span className="cell-error">Invalid usage</span>}
                           </td>
                           <td>{row.spBill === null ? "—" : money(row.spBill)}</td>
                           <td>{row.retailerBill === null ? "—" : money(row.retailerBill)}</td>
-                          <td>
-                            <input
-                              className="table-input rebate-input"
-                              inputMode="decimal"
-                              aria-label={`Received rebate for ${formatMonth(row.month)}`}
-                              aria-invalid={rebateInvalid}
-                              placeholder="—"
-                              value={row.entry.rebate}
-                              onChange={(event) =>
-                                changeEntry(row.month, "rebate", event.target.value)
-                              }
-                            />
-                            {rebateInvalid && <span className="cell-error">Invalid rebate</span>}
-                          </td>
                           <td
                             className={
                               row.savings === null ? "" : row.savings >= 0 ? "positive" : "negative"
                             }
                           >
                             {row.savings === null ? (
-                              row.rebate > 0 && !rebateInvalid ? (
-                                <span className="rebate-only">
-                                  {money(row.rebate)}
-                                  <small>rebate only</small>
-                                </span>
-                              ) : (
-                                "—"
-                              )
+                              "—"
                             ) : (
                               <span className="row-savings">
                                 {row.savings >= 0 ? (
@@ -546,7 +528,7 @@ export default function App() {
                   </tbody>
                   <tfoot>
                     <tr>
-                      <th scope="row">Total tracked</th>
+                      <th scope="row">Total electricity</th>
                       <td>{number(result.totalUsage)}</td>
                       <td>
                         {validRate && result.recordedMonths > 0 ? money(result.spTotal) : "—"}
@@ -554,9 +536,13 @@ export default function App() {
                       <td>
                         {validRate && result.recordedMonths > 0 ? money(result.retailerTotal) : "—"}
                       </td>
-                      <td>{money(result.rebates)}</td>
-                      <td className={result.totalSavings >= 0 ? "positive" : "negative"}>
-                        {!blocked && hasActivity ? money(result.totalSavings) : "—"}
+                      <td className={result.energySavings >= 0 ? "positive" : "negative"}>
+                        {validRate &&
+                        result.invalidMonths === 0 &&
+                        result.unavailableMonths === 0 &&
+                        result.recordedMonths > 0
+                          ? money(result.energySavings)
+                          : "—"}
                       </td>
                     </tr>
                   </tfoot>
@@ -588,7 +574,8 @@ export default function App() {
             <div>
               <h3>The calculation</h3>
               <p>
-                For each month: SP cost − retailer cost + received rebates. Both costs use your
+                Total savings = monthly electricity savings + your one-time received rebate. For
+                each month, electricity savings = SP cost − retailer cost. Both costs use your
                 actual entered kWh. Monthly costs round to the nearest cent before totals are added.
               </p>
               <p>
@@ -597,11 +584,12 @@ export default function App() {
                 rebates keep their entered value in both views.
               </p>
               <p>
-                Enter only rebates already received. A voucher’s face value is a benefit, not a
-                reduction in your electricity bill. This comparison covers electricity usage
-                charges; other fees, deposits, termination charges and U-Save credits are excluded.
-                If your plan starts partway through a month, enter only usage under the retailer
-                plan.
+                Enter the one-time rebate only after it has been received. It is added once to the
+                summary and excluded from the monthly bill breakdown and trend. A voucher’s face
+                value is a benefit, not a reduction in your electricity bill. This comparison covers
+                electricity usage charges; other fees, deposits, termination charges and U-Save
+                credits are excluded. If your plan starts partway through a month, enter only usage
+                under the retailer plan.
               </p>
             </div>
             <div>
