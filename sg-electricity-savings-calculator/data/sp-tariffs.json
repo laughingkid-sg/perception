@@ -1,0 +1,39 @@
+{
+  "version": 1,
+  "updatedOn": "2026-10-02",
+  "sourceUrl": "https://www.spgroup.com.sg/our-services/utilities/tariff-information",
+  "tariffs": [
+    {
+      "quarter": "2026-Q1",
+      "startMonth": "2026-01",
+      "endMonth": "2026-03",
+      "centsPerKwhBeforeGst": 26.71,
+      "gstRate": 0.09,
+      "sourceUrl": "https://www.spgroup.com.sg/dam/spgroup/pdf/resources/billing/Historical-Electricity-Tariff.xlsx"
+    },
+    {
+      "quarter": "2026-Q2",
+      "startMonth": "2026-04",
+      "endMonth": "2026-06",
+      "centsPerKwhBeforeGst": 27.27,
+      "gstRate": 0.09,
+      "sourceUrl": "https://www.spgroup.com.sg/dam/spgroup/pdf/resources/billing/Historical-Electricity-Tariff.xlsx"
+    },
+    {
+      "quarter": "2026-Q3",
+      "startMonth": "2026-07",
+      "endMonth": "2026-09",
+      "centsPerKwhBeforeGst": 31.91,
+      "gstRate": 0.09,
+      "sourceUrl": "https://www.spgroup.com.sg/dam/spgroup/pdf/resources/billing/Historical-Electricity-Tariff.xlsx"
+    },
+    {
+      "quarter": "2026-Q4",
+      "startMonth": "2026-10",
+      "endMonth": "2026-12",
+      "centsPerKwhBeforeGst": 28.59,
+      "gstRate": 0.09,
+      "sourceUrl": "https://www.spgroup.com.sg/dam/spgroup/pdf/resources/billing/Historical-Electricity-Tariff.xlsx"
+    }
+  ]
+}
